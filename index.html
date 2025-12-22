@@ -31,6 +31,11 @@
                             art: '#FFCC80',
                             build: '#90A4AE',
                             whatsapp: '#25D366'
+                        },
+                        colombia: {
+                            yellow: '#FCD116',
+                            blue: '#003893',
+                            red: '#CE1126'
                         }
                     },
                     fontFamily: {
@@ -54,6 +59,14 @@
             text-shadow: 0 4px 10px rgba(0,0,0,0.1);
         }
 
+        /* Degradado Colombia Texto */
+        .text-colombia {
+            background: linear-gradient(90deg, #FCD116 33%, #003893 33%, #003893 66%, #CE1126 66%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: inline-block;
+        }
+
         #canvas-container {
             position: absolute;
             top: 0;
@@ -61,7 +74,7 @@
             width: 100%;
             height: 100%;
             z-index: 0;
-            opacity: 0.9;
+            opacity: 1; /* Logo visible */
         }
 
         /* Animaciones de entrada */
@@ -143,7 +156,7 @@
         <div id="canvas-container"></div>
         
         <!-- Overlay Gradient -->
-        <div class="absolute inset-0 bg-gradient-to-r from-brand-light/95 via-brand-light/70 to-transparent z-10 pointer-events-none"></div>
+        <div class="absolute inset-0 bg-gradient-to-r from-brand-light/95 via-brand-light/80 to-transparent z-10 pointer-events-none"></div>
 
         <!-- Content -->
         <div class="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full pt-20">
@@ -153,7 +166,8 @@
                 </span>
                 <h1 class="font-serif text-5xl md:text-7xl font-bold text-gray-900 leading-[1] mb-8 hero-text-shadow">
                     Arcillas y Gredas <br>
-                    <span class="text-brand-base italic font-serif">de Colombia</span>
+                    <!-- TEXTO CON COLORES DE COLOMBIA -->
+                    <span class="text-colombia italic font-serif pb-2">de Colombia</span>
                 </h1>
                 <p class="font-sans text-lg text-gray-700 leading-relaxed mb-10 max-w-lg border-l-4 border-brand-base pl-6">
                     Expertos en la transformación de la tierra. Proveemos las mejores arcillas y gredas para la industria cosmética, la creación artística y la construcción a escala.
@@ -493,113 +507,100 @@
         renderProducts('all');
 
 
-        // --- 3D ANIMATION: CLAY ON WHEEL (THREE.JS) ---
+        // --- 3D ANIMATION: LOGO FLOAT (THREE.JS) ---
         const init3D = () => {
             const container = document.getElementById('canvas-container');
             const scene = new THREE.Scene();
-            scene.fog = new THREE.FogExp2(0xf7f7f7, 0.05);
-
+            
+            // Camera setup
             const camera = new THREE.PerspectiveCamera(45, container.clientWidth / container.clientHeight, 0.1, 100);
-            camera.position.set(0, 3, 6);
+            camera.position.set(0, 0, 8); 
             camera.lookAt(0, 0, 0);
 
+            // Renderer
             const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
             renderer.setSize(container.clientWidth, container.clientHeight);
             renderer.setPixelRatio(window.devicePixelRatio);
-            renderer.shadowMap.enabled = true;
-            renderer.shadowMap.type = THREE.PCFSoftShadowMap; 
             container.appendChild(renderer.domElement);
 
-            const ambientLight = new THREE.AmbientLight(0xffffff, 0.6);
+            // Lighting
+            const ambientLight = new THREE.AmbientLight(0xffffff, 0.8);
             scene.add(ambientLight);
+            const dirLight = new THREE.DirectionalLight(0xffffff, 0.5);
+            dirLight.position.set(5, 5, 5);
+            scene.add(dirLight);
 
-            const spotLight = new THREE.SpotLight(0xffffff, 1.2);
-            spotLight.position.set(5, 10, 5);
-            spotLight.castShadow = true;
-            scene.add(spotLight);
-
-            const warmLight = new THREE.PointLight(0xA67B5B, 1.5, 15);
-            warmLight.position.set(-4, 3, 4);
-            scene.add(warmLight);
-
-            const wheelGroup = new THREE.Group();
-
-            const plateGeo = new THREE.CylinderGeometry(2.2, 2.2, 0.15, 64);
-            const plateMat = new THREE.MeshStandardMaterial({ color: 0x555555, roughness: 0.3, metalness: 0.7 });
-            const plate = new THREE.Mesh(plateGeo, plateMat);
-            plate.receiveShadow = true;
-            wheelGroup.add(plate);
-
-            const shaftGeo = new THREE.CylinderGeometry(0.4, 0.4, 3, 32);
-            const shaft = new THREE.Mesh(shaftGeo, plateMat);
-            shaft.position.y = -1.5;
-            wheelGroup.add(shaft);
-
-            const points = [];
-            for ( let i = 0; i < 30; i ++ ) {
-                const width = 0.7 + Math.sin(i * 0.4) * 0.4 + (i*0.02); 
-                points.push( new THREE.Vector2( width, i * 0.1 ) );
-            }
-            points.push(new THREE.Vector2(1.2, 3.0));
-            points.push(new THREE.Vector2(1.0, 2.9));
-
-            const clayGeo = new THREE.LatheGeometry( points, 128 );
-            const clayMat = new THREE.MeshStandardMaterial({ color: 0xA67B5B, roughness: 0.2, metalness: 0.05, flatShading: false });
-            const clay = new THREE.Mesh(clayGeo, clayMat);
-            clay.castShadow = true;
-            clay.position.y = 0.075; 
-            wheelGroup.add(clay);
-
-            const messGeo = new THREE.TorusGeometry(1.5, 0.2, 16, 100);
-            const mess = new THREE.Mesh(messGeo, clayMat);
-            mess.rotation.x = Math.PI / 2;
-            mess.position.y = 0.1;
-            mess.scale.z = 0.1;
-            wheelGroup.add(mess);
-
-            scene.add(wheelGroup);
+            // --- LOAD LOGO TEXTURE ---
+            const textureLoader = new THREE.TextureLoader();
+            const logoUrl = 'https://raw.githubusercontent.com/instructorandradedcc/arcillasygredasdecolombia/main/2oro-logo%20con%20trasparencia.png';
             
-            const adjustPosition = () => {
-                if(window.innerWidth < 768) {
-                    wheelGroup.position.set(0, -1.2, 0); 
-                    wheelGroup.scale.set(0.75, 0.75, 0.75);
-                    wheelGroup.rotation.x = 0.2; 
-                } else {
-                    wheelGroup.position.set(2.5, -1.5, 0); 
-                    wheelGroup.scale.set(1, 1, 1);
-                    wheelGroup.rotation.x = 0.1;
+            textureLoader.load(logoUrl, (texture) => {
+                // Plane aspect ratio based on texture
+                const aspect = texture.image.width / texture.image.height;
+                const planeHeight = 3.5; 
+                const planeWidth = planeHeight * aspect;
+
+                const geometry = new THREE.PlaneGeometry(planeWidth, planeHeight);
+                const material = new THREE.MeshBasicMaterial({ 
+                    map: texture, 
+                    transparent: true,
+                    side: THREE.DoubleSide
+                });
+                
+                const logoMesh = new THREE.Mesh(geometry, material);
+                scene.add(logoMesh);
+
+                // Add Gold Particles
+                const particlesCount = 150;
+                const posArray = new Float32Array(particlesCount * 3);
+                for(let i = 0; i < particlesCount * 3; i++) {
+                    posArray[i] = (Math.random() - 0.5) * 12; 
                 }
-            }
-            adjustPosition();
+                const particlesGeo = new THREE.BufferGeometry();
+                particlesGeo.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
+                // Gold color particle
+                const particlesMat = new THREE.PointsMaterial({ size: 0.04, color: 0xFFD700, transparent: true, opacity: 0.7 });
+                const particlesMesh = new THREE.Points(particlesGeo, particlesMat);
+                scene.add(particlesMesh);
 
-            const particlesCount = 150;
-            const posArray = new Float32Array(particlesCount * 3);
-            for(let i = 0; i < particlesCount * 3; i++) {
-                posArray[i] = (Math.random() - 0.5) * 8; 
-            }
-            const particlesGeo = new THREE.BufferGeometry();
-            particlesGeo.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
-            const particlesMat = new THREE.PointsMaterial({ size: 0.03, color: 0x8D6E63, transparent: true, opacity: 0.6 });
-            const particlesMesh = new THREE.Points(particlesGeo, particlesMat);
-            scene.add(particlesMesh);
-
-            let time = 0;
-            const animate = () => {
-                requestAnimationFrame(animate);
-                time += 0.08;
-                wheelGroup.rotation.y -= 0.08; 
-                const organicBreath = 1 + Math.sin(time * 0.5) * 0.005;
-                clay.scale.set(organicBreath, 1 + Math.cos(time * 0.5) * 0.005, organicBreath);
-                particlesMesh.rotation.y -= 0.002;
-                renderer.render(scene, camera);
-            };
-            animate();
-
-            window.addEventListener('resize', () => {
-                camera.aspect = container.clientWidth / container.clientHeight;
-                camera.updateProjectionMatrix();
-                renderer.setSize(container.clientWidth, container.clientHeight);
+                // Responsive Adjustment
+                const adjustPosition = () => {
+                    if(window.innerWidth < 768) {
+                        logoMesh.scale.set(0.6, 0.6, 0.6);
+                        logoMesh.position.set(0, -0.5, 0);
+                    } else {
+                        logoMesh.scale.set(1, 1, 1);
+                        logoMesh.position.set(2.5, 0, 0); // Offset right
+                    }
+                }
                 adjustPosition();
+
+                // Animation
+                let time = 0;
+                const animate = () => {
+                    requestAnimationFrame(animate);
+                    time += 0.01;
+
+                    // Float effect (Sine Wave)
+                    logoMesh.position.y = Math.sin(time) * 0.2 + (window.innerWidth < 768 ? -0.5 : 0);
+                    
+                    // Gentle Rotation
+                    logoMesh.rotation.y = Math.sin(time * 0.5) * 0.1;
+
+                    // Particle movement
+                    particlesMesh.rotation.y += 0.001;
+                    particlesMesh.rotation.x -= 0.0005;
+
+                    renderer.render(scene, camera);
+                };
+                animate();
+
+                window.addEventListener('resize', () => {
+                    camera.aspect = container.clientWidth / container.clientHeight;
+                    camera.updateProjectionMatrix();
+                    renderer.setSize(container.clientWidth, container.clientHeight);
+                    adjustPosition();
+                });
             });
         };
 
@@ -607,5 +608,3 @@
     </script>
 </body>
 </html>
-
-
