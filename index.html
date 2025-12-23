@@ -29,12 +29,11 @@
                             clay: '#A67B5B',
                             dark: '#050505',
                             whatsapp: '#25D366',
-                            // Paleta Específica Arcillas
-                            red: '#C98685',      // Roja
-                            green: '#8FA89B',    // Verde
-                            white: '#E0E0E0',    // Blanca
-                            gray: '#78909C',     // Gris
-                            black: '#424242'     // Negra
+                            red: '#C98685',
+                            green: '#8FA89B',
+                            white: '#E0E0E0',
+                            gray: '#78909C',
+                            black: '#424242'
                         }
                     },
                     fontFamily: {
@@ -86,9 +85,9 @@
 
         /* Navegación */
         .nav-glass {
-            background: rgba(5, 5, 5, 0.8);
+            background: rgba(5, 5, 5, 0.9); /* Más oscuro para legibilidad */
             backdrop-filter: blur(16px);
-            border-bottom: 1px solid rgba(212, 175, 55, 0.1);
+            border-bottom: 1px solid rgba(212, 175, 55, 0.2);
         }
 
         .nav-link {
@@ -125,15 +124,17 @@
         .page-section {
             display: none;
             min-height: 100vh;
-            padding-top: 100px;
+            /* Aumentamos el padding superior general para evitar solapamientos */
+            padding-top: 130px; 
             animation: fadeIn 0.5s cubic-bezier(0.4, 0, 0.2, 1);
         }
         .page-section.active { display: block; }
         
-        /* Home Flex Fix */
+        /* Home Flex Fix - Ajustado para bajar el contenido */
         #page-home.active { 
             display: flex !important; 
-            padding-top: 0; 
+            padding-top: 100px; /* Espacio de seguridad superior */
+            align-items: center; /* Centrado vertical pero respetando el padding */
         }
 
         @keyframes fadeIn {
@@ -141,7 +142,6 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* Cards Categoría */
         .category-card {
             transition: all 0.5s ease;
             cursor: pointer;
@@ -193,34 +193,70 @@
         </div>
     </nav>
 
-    <!-- SECCIÓN 1: HOME -->
+    <!-- SECCIÓN 1: HOME (AJUSTADA: TEXTO MÁS ABAJO) -->
     <section id="page-home" class="page-section active min-h-screen content-overlay">
-        <div class="max-w-7xl mx-auto px-6 w-full grid grid-cols-1 md:grid-cols-2 gap-12 items-center h-full">
-            <div class="text-left z-10 animate-float flex flex-col justify-center">
-                <div class="mb-6 flex items-center gap-3">
-                    <span class="h-px w-8 bg-brand-gold"></span>
-                    <span class="text-brand-gold text-xs font-mono tracking-widest uppercase">Ciencia & Naturaleza</span>
+        <div class="max-w-7xl mx-auto px-6 w-full grid grid-cols-1 md:grid-cols-2 gap-12 h-full">
+            
+            <!-- Columna Izquierda: Texto -->
+            <!-- Agregamos 'pt-10' o 'mt-10' extra para bajarlo visualmente -->
+            <div class="text-left z-10 animate-float flex flex-col justify-center pt-20 md:pt-0">
+                
+                <div class="mb-8 flex items-center gap-3">
+                    <span class="h-px w-12 bg-brand-gold"></span>
+                    <span class="text-brand-gold text-sm font-mono tracking-widest uppercase font-bold">Ciencia & Naturaleza</span>
                 </div>
                 
-                <h1 class="font-serif text-5xl md:text-7xl font-bold text-white mb-6 leading-[1.1] drop-shadow-2xl">
+                <h1 class="font-serif text-5xl md:text-7xl font-bold text-white mb-8 leading-[1.1] drop-shadow-2xl">
                     MINERALES<br>
                     ANCESTRALES<br>
                     <span class="text-3xl md:text-5xl mt-2 block font-normal">DE <span class="text-colombia-flag">COLOMBIA</span></span>
                 </h1>
                 
-                <p class="text-gray-400 text-sm md:text-base max-w-md mb-10 font-light leading-relaxed border-l-2 border-brand-gold/30 pl-6">
-                    Materia prima de calidad exportación. La esencia de nuestra tierra transformada para la dermocosmética avanzada y la expresión artística.
+                <p class="text-gray-300 text-base md:text-lg max-w-lg mb-12 font-light leading-relaxed border-l-4 border-brand-gold pl-6 bg-black/30 backdrop-blur-sm py-4 rounded-r-lg">
+                    Materia prima de calidad exportación. La esencia de nuestra tierra transformada para la <strong>dermocosmética avanzada</strong> y la expresión artística.
                 </p>
                 
-                <div class="flex flex-wrap gap-4">
-                    <button onclick="navigateTo('products')" class="px-8 py-3 border border-white/20 text-white hover:border-brand-gold hover:text-brand-gold transition-all uppercase tracking-widest text-xs font-bold bg-white/5 backdrop-blur-sm">
+                <div class="flex flex-wrap gap-6 mb-12">
+                    <button onclick="navigateTo('products')" class="px-10 py-4 border border-white/30 text-white hover:border-brand-gold hover:text-brand-gold transition-all uppercase tracking-widest text-xs font-bold bg-black/40 backdrop-blur-md">
                         Ver Categorías
                     </button>
-                    <a href="https://wa.me/573136139989" target="_blank" class="px-8 py-3 bg-brand-whatsapp text-white hover:bg-green-600 transition-all uppercase tracking-widest text-xs font-bold flex items-center gap-2 shadow-lg">
-                        <i data-lucide="message-circle" class="w-4 h-4"></i> Asesoría
+                    <a href="https://wa.me/573136139989" target="_blank" class="px-10 py-4 bg-brand-whatsapp text-white hover:bg-green-600 transition-all uppercase tracking-widest text-xs font-bold flex items-center gap-3 shadow-lg rounded-sm">
+                        <i data-lucide="message-circle" class="w-5 h-5"></i> Asesoría
                     </a>
                 </div>
+                
+                <!-- Trust Badges (Ahora más visibles y separados) -->
+                <div class="flex flex-wrap gap-8 opacity-80 border-t border-white/10 pt-8">
+                    <div class="flex items-center gap-3">
+                        <div class="p-2 bg-brand-gold/10 rounded-full text-brand-gold">
+                            <i data-lucide="flask-conical" class="w-6 h-6"></i>
+                        </div>
+                        <div class="flex flex-col">
+                            <span class="text-xs font-bold text-white uppercase tracking-wider">Formula USP</span>
+                            <span class="text-[10px] text-gray-400">Grado Farmacéutico</span>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-3">
+                        <div class="p-2 bg-brand-gold/10 rounded-full text-brand-gold">
+                            <i data-lucide="leaf" class="w-6 h-6"></i>
+                        </div>
+                        <div class="flex flex-col">
+                            <span class="text-xs font-bold text-white uppercase tracking-wider">100% Natural</span>
+                            <span class="text-[10px] text-gray-400">Sin Aditivos</span>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-3">
+                        <div class="p-2 bg-brand-gold/10 rounded-full text-brand-gold">
+                            <i data-lucide="shield-check" class="w-6 h-6"></i>
+                        </div>
+                        <div class="flex flex-col">
+                            <span class="text-xs font-bold text-white uppercase tracking-wider">NSO Compliant</span>
+                            <span class="text-[10px] text-gray-400">Normativa INVIMA</span>
+                        </div>
+                    </div>
+                </div>
             </div>
+
             <!-- Espacio para Logo 3D Derecha -->
             <div class="hidden md:block h-full w-full"></div>
         </div>
@@ -229,7 +265,7 @@
     <!-- SECCIÓN 2: CATÁLOGO PRINCIPAL (CATEGORÍAS) -->
     <section id="page-products" class="page-section content-overlay">
         <div class="max-w-7xl mx-auto px-6 pb-20">
-            <div class="text-center mb-16">
+            <div class="text-center mb-16 pt-10">
                 <h2 class="font-serif text-4xl text-white mb-4">Nuestras Líneas</h2>
                 <div class="w-24 h-1 bg-brand-gold mx-auto"></div>
                 <p class="text-gray-400 mt-4 text-sm max-w-2xl mx-auto">Selecciona una categoría para explorar la gama completa de productos especializados.</p>
@@ -239,35 +275,53 @@
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
                 
                 <!-- Card Belleza -->
-                <div onclick="showSubCategory('belleza')" class="category-card group relative h-[400px] overflow-hidden rounded-xl border border-gray-800 hover:border-brand-gold bg-black">
+                <div onclick="showSubCategory('belleza')" class="category-card group relative h-[450px] overflow-hidden rounded-xl border border-gray-800 hover:border-brand-gold bg-black">
                     <img src="https://arcillasygredasdecolombia.wordpress.com/wp-content/uploads/2024/01/img_8285-edited.jpg" class="absolute inset-0 w-full h-full object-cover opacity-60 group-hover:opacity-40 transition-opacity duration-700" alt="Belleza">
                     <div class="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent"></div>
-                    <div class="absolute bottom-0 left-0 p-8">
-                        <h3 class="text-3xl font-serif text-white mb-2">Dermocosmética</h3>
-                        <p class="text-gray-400 text-xs mb-4 max-w-xs">Arcillas puras micronizadas para skincare. Caolín, Illita y Bentonita certificadas.</p>
-                        <span class="text-brand-gold text-xs uppercase tracking-widest font-bold border-b border-brand-gold pb-1 group-hover:pl-2 transition-all">Ver Colores & Usos</span>
+                    <div class="absolute bottom-0 left-0 p-8 w-full">
+                        <div class="mb-4">
+                            <i data-lucide="sparkles" class="w-8 h-8 text-brand-gold mb-2"></i>
+                            <h3 class="text-3xl font-serif text-white mb-2">Dermocosmética</h3>
+                        </div>
+                        <p class="text-gray-400 text-sm mb-6 max-w-xs leading-relaxed">Arcillas puras micronizadas para skincare. Caolín, Illita y Bentonita certificadas.</p>
+                        <div class="w-full h-px bg-gray-800 group-hover:bg-brand-gold transition-colors mb-4"></div>
+                        <span class="text-brand-gold text-xs uppercase tracking-widest font-bold flex items-center gap-2 group-hover:gap-4 transition-all">
+                            Ver Colores & Usos <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                        </span>
                     </div>
                 </div>
 
                 <!-- Card Arte -->
-                <div onclick="showSubCategory('arte')" class="category-card group relative h-[400px] overflow-hidden rounded-xl border border-gray-800 hover:border-brand-gold bg-black">
+                <div onclick="showSubCategory('arte')" class="category-card group relative h-[450px] overflow-hidden rounded-xl border border-gray-800 hover:border-brand-gold bg-black">
                     <img src="https://arcillasygredasdecolombia.wordpress.com/wp-content/uploads/2024/01/picsart_07-06-06.04.17-edited.jpg" class="absolute inset-0 w-full h-full object-cover opacity-60 group-hover:opacity-40 transition-opacity duration-700" alt="Arte">
                     <div class="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent"></div>
-                    <div class="absolute bottom-0 left-0 p-8">
-                        <h3 class="text-3xl font-serif text-white mb-2">Arte & Escultura</h3>
-                        <p class="text-gray-400 text-xs mb-4 max-w-xs">Masas plásticas, pigmentos y herramientas para alfareros profesionales.</p>
-                        <span class="text-brand-gold text-xs uppercase tracking-widest font-bold border-b border-brand-gold pb-1 group-hover:pl-2 transition-all">Ver Materiales</span>
+                    <div class="absolute bottom-0 left-0 p-8 w-full">
+                        <div class="mb-4">
+                            <i data-lucide="palette" class="w-8 h-8 text-brand-gold mb-2"></i>
+                            <h3 class="text-3xl font-serif text-white mb-2">Arte & Escultura</h3>
+                        </div>
+                        <p class="text-gray-400 text-sm mb-6 max-w-xs leading-relaxed">Masas plásticas, pigmentos y herramientas para alfareros profesionales.</p>
+                        <div class="w-full h-px bg-gray-800 group-hover:bg-brand-gold transition-colors mb-4"></div>
+                        <span class="text-brand-gold text-xs uppercase tracking-widest font-bold flex items-center gap-2 group-hover:gap-4 transition-all">
+                            Ver Materiales <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                        </span>
                     </div>
                 </div>
 
                 <!-- Card Construcción -->
-                <div onclick="showSubCategory('construccion')" class="category-card group relative h-[400px] overflow-hidden rounded-xl border border-gray-800 hover:border-brand-gold bg-black">
+                <div onclick="showSubCategory('construccion')" class="category-card group relative h-[450px] overflow-hidden rounded-xl border border-gray-800 hover:border-brand-gold bg-black">
                     <img src="https://arcillasygredasdecolombia.wordpress.com/wp-content/uploads/2018/05/ladrillos-tejas-bloques-a-escala.jpg" class="absolute inset-0 w-full h-full object-cover opacity-60 group-hover:opacity-40 transition-opacity duration-700" alt="Construcción">
                     <div class="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent"></div>
-                    <div class="absolute bottom-0 left-0 p-8">
-                        <h3 class="text-3xl font-serif text-white mb-2">Técnico & Maquetas</h3>
-                        <p class="text-gray-400 text-xs mb-4 max-w-xs">Insumos para maquetas arquitectónicas realistas y odontología.</p>
-                        <span class="text-brand-gold text-xs uppercase tracking-widest font-bold border-b border-brand-gold pb-1 group-hover:pl-2 transition-all">Ver Insumos</span>
+                    <div class="absolute bottom-0 left-0 p-8 w-full">
+                        <div class="mb-4">
+                            <i data-lucide="hammer" class="w-8 h-8 text-brand-gold mb-2"></i>
+                            <h3 class="text-3xl font-serif text-white mb-2">Técnico & Maquetas</h3>
+                        </div>
+                        <p class="text-gray-400 text-sm mb-6 max-w-xs leading-relaxed">Insumos para maquetas arquitectónicas realistas y odontología.</p>
+                        <div class="w-full h-px bg-gray-800 group-hover:bg-brand-gold transition-colors mb-4"></div>
+                        <span class="text-brand-gold text-xs uppercase tracking-widest font-bold flex items-center gap-2 group-hover:gap-4 transition-all">
+                            Ver Insumos <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                        </span>
                     </div>
                 </div>
 
@@ -277,15 +331,15 @@
 
     <!-- SECCIÓN: VISTA DETALLE SUBCATEGORÍA -->
     <section id="page-detail" class="page-section content-overlay">
-        <div class="max-w-7xl mx-auto px-6 pb-20">
+        <div class="max-w-7xl mx-auto px-6 pb-20 pt-10">
             
             <!-- Header Navegación -->
-            <div class="flex items-center gap-4 mb-12">
-                <button onclick="navigateTo('products')" class="flex items-center gap-2 text-gray-400 hover:text-white transition-colors text-xs uppercase tracking-widest">
+            <div class="flex items-center gap-4 mb-12 bg-black/50 p-4 rounded-lg backdrop-blur-sm border border-white/5">
+                <button onclick="navigateTo('products')" class="flex items-center gap-2 text-white hover:text-brand-gold transition-colors text-xs uppercase tracking-widest font-bold">
                     <i data-lucide="arrow-left" class="w-4 h-4"></i> Volver a Categorías
                 </button>
                 <span class="h-4 w-px bg-gray-700"></span>
-                <span id="detail-title" class="text-brand-gold text-sm font-bold uppercase tracking-widest">Belleza</span>
+                <span id="detail-title" class="text-brand-gold text-lg font-serif font-bold uppercase tracking-widest">Belleza</span>
             </div>
 
             <!-- Grid de Productos Detallados -->
@@ -298,11 +352,11 @@
 
     <!-- SECCIÓN 3: NOSOTROS -->
     <section id="page-about" class="page-section content-overlay">
-        <div class="max-w-6xl mx-auto px-6">
+        <div class="max-w-6xl mx-auto px-6 pt-10">
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-                <div class="bg-black/60 p-10 border border-white/5 backdrop-blur-xl">
+                <div class="bg-black/60 p-10 border border-white/5 backdrop-blur-xl rounded-xl">
                     <h2 class="font-serif text-3xl mb-6 text-white">Filosofía <span class="text-brand-gold italic">Boticaria</span></h2>
-                    <p class="text-gray-400 text-sm leading-relaxed mb-6 text-justify">
+                    <p class="text-gray-400 text-sm leading-relaxed mb-6 text-justify font-light">
                         En un mercado saturado de sintéticos, <strong>Arcillas y Gredas de Colombia</strong> regresa al origen. Nuestra misión es cerrar la brecha entre la riqueza geológica de nuestro país y la necesidad de pureza en la cosmética moderna.
                     </p>
                     <div class="grid grid-cols-2 gap-4 mt-8 pt-8 border-t border-gray-800">
@@ -317,7 +371,7 @@
 
     <!-- SECCIÓN 4: CONTACTO -->
     <section id="page-contact" class="page-section content-overlay">
-        <div class="max-w-3xl mx-auto px-6 py-20 bg-black/80 border border-gray-800 text-center backdrop-blur-md">
+        <div class="max-w-3xl mx-auto px-6 py-20 bg-black/80 border border-gray-800 text-center backdrop-blur-md mt-10 rounded-xl">
             <h2 class="font-serif text-3xl text-white mb-8">Hablemos</h2>
             <div class="flex flex-col md:flex-row justify-center gap-8 mb-12">
                 <a href="https://wa.me/573136139989" target="_blank" class="group flex flex-col items-center gap-4">
@@ -349,7 +403,7 @@
     <script>
         lucide.createIcons();
 
-        // Menu Mobile
+        // Mobile Menu
         const btn = document.getElementById('mobile-menu-btn');
         const menu = document.getElementById('mobile-menu');
         btn.addEventListener('click', () => menu.classList.toggle('hidden'));
@@ -378,28 +432,28 @@
                 },
                 {
                     title: "Bentonita (Arcilla Gris)",
-                    img: "https://arcillasygredasdecolombia.wordpress.com/wp-content/uploads/2024/01/img_8285-edited.jpg", // Usando placeholder, ideal cambiar si hay foto específica gris
+                    img: "https://arcillasygredasdecolombia.wordpress.com/wp-content/uploads/2024/01/img_8285-edited.jpg",
                     desc: "Alta capacidad de absorción. Carga eléctrica negativa potente.",
                     benefits: ["Piel Grasa/Acnéica", "Detox Profundo", "Elimina Toxinas", "Antiinflamatorio"],
                     color: "text-brand-gray"
                 },
                 {
                     title: "Illita Roja (Arcilla Roja)",
-                    img: "https://arcillasygredasdecolombia.wordpress.com/wp-content/uploads/2024/01/img_8285-edited.jpg", // Usando placeholder
+                    img: "https://arcillasygredasdecolombia.wordpress.com/wp-content/uploads/2024/01/img_8285-edited.jpg", 
                     desc: "Rica en óxidos de hierro y cobre. Estimula el flujo sanguíneo.",
                     benefits: ["Piel Madura", "Revitalizante", "Estimula Colágeno", "Mejora Circulación"],
                     color: "text-brand-red"
                 },
                 {
                     title: "Illita Verde (Arcilla Verde)",
-                    img: "https://arcillasygredasdecolombia.wordpress.com/wp-content/uploads/2024/01/img_8285-edited.jpg", // Usando placeholder
+                    img: "https://arcillasygredasdecolombia.wordpress.com/wp-content/uploads/2024/01/img_8285-edited.jpg", 
                     desc: "La más activa y absorbente. Rica en magnesio y oligoelementos.",
                     benefits: ["Piel Mixta/Grasa", "Bactericida Natural", "Cierra Poros", "Regula Sebo"],
                     color: "text-brand-green"
                 },
                 {
                     title: "Arcilla Negra (Volcánica)",
-                    img: "https://arcillasygredasdecolombia.wordpress.com/wp-content/uploads/2024/01/img_8285-edited.jpg", // Usando placeholder
+                    img: "https://arcillasygredasdecolombia.wordpress.com/wp-content/uploads/2024/01/img_8285-edited.jpg", 
                     desc: "Origen volcánico. Alta concentración de minerales.",
                     benefits: ["Rejuvenecedora", "Exfoliación Física", "Luminosidad", "Renovación Celular"],
                     color: "text-gray-400"
