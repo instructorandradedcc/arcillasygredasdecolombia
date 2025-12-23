@@ -59,7 +59,7 @@
             overflow-x: hidden;
         }
 
-        /* El Canvas 3D ahora es el protagonista del fondo */
+        /* Fondo 3D fijo detrás de todo */
         #canvas-bg {
             position: fixed;
             top: 0;
@@ -210,31 +210,45 @@
 
     <!-- ================= SECCIONES (Overlay sobre el 3D) ================= -->
 
-    <!-- 1. INICIO -->
-    <section id="page-home" class="page-section active flex flex-col items-center justify-end md:justify-center min-h-screen pb-20 md:pb-0 content-overlay">
-        
-        <!-- El Logo ya no está aquí como imagen estática, está en el 3D -->
-        <!-- Espaciador para que el texto no tape el logo 3D -->
-        <div class="h-48 md:h-64 w-full"></div> 
-
-        <div class="text-center max-w-4xl px-4 mt-8">
-            <h1 class="font-serif text-4xl md:text-6xl font-bold text-white mb-6 leading-tight drop-shadow-2xl">
-                ARCILLAS Y GREDAS<br>
-                <span class="text-3xl md:text-5xl mt-2 block">DE <span class="text-colombia-flag">COLOMBIA</span></span>
-            </h1>
+    <!-- 1. INICIO - REORGANIZADO PARA BALANCE -->
+    <section id="page-home" class="page-section active flex items-center min-h-screen pt-0 content-overlay">
+        <div class="max-w-7xl mx-auto px-6 w-full grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
             
-            <p class="text-gray-300 text-lg max-w-xl mx-auto mb-10 font-light tracking-wide drop-shadow-md">
-                Materia prima de calidad exportación. La esencia de nuestra tierra transformada para el arte, la belleza y la construcción.
-            </p>
-            
-            <div class="flex flex-col md:flex-row gap-6 justify-center">
-                <button onclick="navigateTo('products')" class="px-8 py-3 border border-brand-gold text-brand-gold hover:bg-brand-gold hover:text-black transition-all uppercase tracking-widest text-sm font-bold backdrop-blur-sm">
-                    Ver Productos
-                </button>
-                <a href="https://wa.me/573136139989" target="_blank" class="px-8 py-3 bg-brand-whatsapp text-white hover:bg-green-600 transition-all uppercase tracking-widest text-sm font-bold flex items-center justify-center gap-2 backdrop-blur-sm shadow-lg">
-                    <i data-lucide="message-circle" class="w-4 h-4"></i> Cotizar Ahora
-                </a>
+            <!-- Columna Izquierda: Texto -->
+            <div class="text-left z-10 animate-float">
+                <span class="inline-block py-1 px-3 border border-brand-gold rounded-full text-brand-gold text-xs font-bold tracking-widest mb-6 uppercase bg-black/30 backdrop-blur-sm">
+                    Calidad Premium • 100% Natural
+                </span>
+                
+                <h1 class="font-serif text-5xl md:text-7xl font-bold text-white mb-6 leading-[1.1] drop-shadow-2xl">
+                    ARCILLAS Y GREDAS<br>
+                    <span class="text-4xl md:text-6xl mt-2 block">DE <span class="text-colombia-flag">COLOMBIA</span></span>
+                </h1>
+                
+                <p class="text-gray-300 text-lg md:text-xl max-w-lg mb-10 font-light tracking-wide drop-shadow-md border-l-2 border-brand-gold pl-6">
+                    Transformamos la esencia de nuestra tierra en materia prima de excelencia para la cosmética, el arte y la construcción.
+                </p>
+                
+                <div class="flex flex-col sm:flex-row gap-6">
+                    <button onclick="navigateTo('products')" class="px-8 py-4 border border-brand-gold text-brand-gold hover:bg-brand-gold hover:text-black transition-all uppercase tracking-widest text-sm font-bold backdrop-blur-sm">
+                        Ver Productos
+                    </button>
+                    <a href="https://wa.me/573136139989" target="_blank" class="px-8 py-4 bg-brand-whatsapp text-white hover:bg-green-600 transition-all uppercase tracking-widest text-sm font-bold flex items-center justify-center gap-2 backdrop-blur-sm shadow-lg">
+                        <i data-lucide="message-circle" class="w-4 h-4"></i> Cotizar Ahora
+                    </a>
+                </div>
             </div>
+
+            <!-- Columna Derecha: Espacio para el Logo 3D -->
+            <div class="hidden md:block h-full w-full">
+                <!-- Este espacio se deja vacío intencionalmente para que el logo 3D flote aquí -->
+            </div>
+
+        </div>
+        
+        <!-- Scroll indicator -->
+        <div class="absolute bottom-10 left-1/2 -translate-x-1/2 z-20 animate-bounce text-brand-gold opacity-70">
+            <i data-lucide="arrow-down" class="w-8 h-8"></i>
         </div>
     </section>
 
@@ -525,7 +539,6 @@
 
             // LOGO 3D
             const textureLoader = new THREE.TextureLoader();
-            // Aseguramos que la URL permita CORS o usamos una imagen base64 si falla
             const logoUrl = 'https://raw.githubusercontent.com/instructorandradedcc/arcillasygredasdecolombia/main/2oro-logo%20con%20trasparencia.png';
             
             let logoMesh;
@@ -533,7 +546,7 @@
             textureLoader.load(logoUrl, (texture) => {
                 // Crear plano con proporciones correctas
                 const aspect = texture.image.width / texture.image.height;
-                const height = 3.5; 
+                const height = 4.0; // Tamaño del logo
                 const width = height * aspect;
                 
                 const geometry = new THREE.PlaneGeometry(width, height);
@@ -545,8 +558,10 @@
                 });
                 
                 logoMesh = new THREE.Mesh(geometry, material);
-                logoMesh.position.y = 0.5; // Centrado visualmente
                 scene.add(logoMesh);
+                
+                // Ajuste de posición inicial
+                adjustPosition();
             });
 
             // PARTÍCULAS
@@ -588,7 +603,10 @@
                 if(logoMesh) {
                     // Flotación (Seno)
                     const time = Date.now() * 0.001;
-                    logoMesh.position.y = Math.sin(time) * 0.2 + 0.5;
+                    
+                    // Base position depends on screen size (set in adjustPosition)
+                    const baseY = logoMesh.userData.baseY || 0;
+                    logoMesh.position.y = baseY + Math.sin(time) * 0.1;
                     
                     // Rotación Mouse (Parallax)
                     logoMesh.rotation.y = mouseX * 0.5;
@@ -599,11 +617,28 @@
             };
             animate();
 
-            // Resize
+            // Resize Logic y Posicionamiento del Logo
+            function adjustPosition() {
+                if(!logoMesh) return;
+                
+                if(window.innerWidth < 768) {
+                    // Mobile: Logo arriba o al centro si se prefiere
+                    logoMesh.position.x = 0;
+                    logoMesh.userData.baseY = -1.5; // Un poco abajo para dar espacio al texto
+                    logoMesh.scale.set(0.6, 0.6, 0.6);
+                } else {
+                    // Desktop: Logo a la DERECHA
+                    logoMesh.position.x = 3.5; 
+                    logoMesh.userData.baseY = 0;
+                    logoMesh.scale.set(1, 1, 1);
+                }
+            }
+
             window.addEventListener('resize', () => {
                 camera.aspect = window.innerWidth/window.innerHeight;
                 camera.updateProjectionMatrix();
                 renderer.setSize(window.innerWidth, window.innerHeight);
+                adjustPosition();
             });
         };
         initThree();
