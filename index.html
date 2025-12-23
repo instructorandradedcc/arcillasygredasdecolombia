@@ -265,7 +265,7 @@
         </div>
     </section>
 
-    <!-- SECCIÓN 2: CATÁLOGO PRINCIPAL -->
+    <!-- SECCIÓN 2: CATÁLOGO PRINCIPAL (CORREGIDO LUMINOSIDAD) -->
     <section id="page-products" class="page-section content-overlay">
         <div class="max-w-7xl mx-auto px-6 pb-20">
             <div class="text-center mb-16 pt-10">
@@ -278,15 +278,17 @@
                 
                 <!-- Card Belleza -->
                 <div onclick="showSubCategory('belleza')" class="category-card group relative h-[450px] overflow-hidden rounded-xl border border-[#3e2723] hover:border-brand-gold bg-[#1a120b]">
-                    <img src="https://arcillasygredasdecolombia.wordpress.com/wp-content/uploads/2024/01/img_8285-edited.jpg" class="absolute inset-0 w-full h-full object-cover opacity-60 group-hover:opacity-40 transition-opacity duration-700 mix-blend-overlay" alt="Belleza">
-                    <div class="absolute inset-0 bg-gradient-to-t from-[#0a0604] via-[#1a120b]/50 to-transparent"></div>
+                    <!-- IMAGEN SIN OSCURECER (OPACITY 100) -->
+                    <img src="https://arcillasygredasdecolombia.wordpress.com/wp-content/uploads/2024/01/img_8285-edited.jpg" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="Belleza">
+                    <!-- DEGRADADO SOLO ABAJO PARA TEXTO -->
+                    <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-90"></div>
                     <div class="absolute bottom-0 left-0 p-8 w-full">
                         <div class="mb-4">
                             <i data-lucide="sparkles" class="w-8 h-8 text-brand-gold mb-2"></i>
-                            <h3 class="text-3xl font-serif text-white mb-2">Dermocosmética</h3>
+                            <h3 class="text-3xl font-serif text-white mb-2 drop-shadow-md">Dermocosmética</h3>
                         </div>
-                        <p class="text-gray-400 text-sm mb-6 max-w-xs leading-relaxed">Arcillas puras micronizadas. Caolín, Illita y Bentonita certificadas.</p>
-                        <div class="w-full h-px bg-brand-clay/30 group-hover:bg-brand-gold transition-colors mb-4"></div>
+                        <p class="text-gray-200 text-sm mb-6 max-w-xs leading-relaxed font-medium drop-shadow">Arcillas puras micronizadas. Caolín, Illita y Bentonita certificadas.</p>
+                        <div class="w-full h-px bg-brand-clay/50 group-hover:bg-brand-gold transition-colors mb-4"></div>
                         <span class="text-brand-gold text-xs uppercase tracking-widest font-bold flex items-center gap-2 group-hover:gap-4 transition-all">
                             Ver Colores & Usos <i data-lucide="arrow-right" class="w-4 h-4"></i>
                         </span>
@@ -295,15 +297,15 @@
 
                 <!-- Card Arte -->
                 <div onclick="showSubCategory('arte')" class="category-card group relative h-[450px] overflow-hidden rounded-xl border border-[#3e2723] hover:border-brand-gold bg-[#1a120b]">
-                    <img src="https://arcillasygredasdecolombia.wordpress.com/wp-content/uploads/2024/01/picsart_07-06-06.04.17-edited.jpg" class="absolute inset-0 w-full h-full object-cover opacity-60 group-hover:opacity-40 transition-opacity duration-700 mix-blend-overlay" alt="Arte">
-                    <div class="absolute inset-0 bg-gradient-to-t from-[#0a0604] via-[#1a120b]/50 to-transparent"></div>
+                    <img src="https://arcillasygredasdecolombia.wordpress.com/wp-content/uploads/2024/01/picsart_07-06-06.04.17-edited.jpg" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="Arte">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-90"></div>
                     <div class="absolute bottom-0 left-0 p-8 w-full">
                         <div class="mb-4">
                             <i data-lucide="palette" class="w-8 h-8 text-brand-gold mb-2"></i>
-                            <h3 class="text-3xl font-serif text-white mb-2">Arte & Escultura</h3>
+                            <h3 class="text-3xl font-serif text-white mb-2 drop-shadow-md">Arte & Escultura</h3>
                         </div>
-                        <p class="text-gray-400 text-sm mb-6 max-w-xs leading-relaxed">Masas plásticas, pigmentos y herramientas para alfareros.</p>
-                        <div class="w-full h-px bg-brand-clay/30 group-hover:bg-brand-gold transition-colors mb-4"></div>
+                        <p class="text-gray-200 text-sm mb-6 max-w-xs leading-relaxed font-medium drop-shadow">Masas plásticas, pigmentos y herramientas para alfareros.</p>
+                        <div class="w-full h-px bg-brand-clay/50 group-hover:bg-brand-gold transition-colors mb-4"></div>
                         <span class="text-brand-gold text-xs uppercase tracking-widest font-bold flex items-center gap-2 group-hover:gap-4 transition-all">
                             Ver Materiales <i data-lucide="arrow-right" class="w-4 h-4"></i>
                         </span>
@@ -312,15 +314,15 @@
 
                 <!-- Card Construcción -->
                 <div onclick="showSubCategory('construccion')" class="category-card group relative h-[450px] overflow-hidden rounded-xl border border-[#3e2723] hover:border-brand-gold bg-[#1a120b]">
-                    <img src="https://arcillasygredasdecolombia.wordpress.com/wp-content/uploads/2018/05/ladrillos-tejas-bloques-a-escala.jpg" class="absolute inset-0 w-full h-full object-cover opacity-60 group-hover:opacity-40 transition-opacity duration-700 mix-blend-overlay" alt="Construcción">
-                    <div class="absolute inset-0 bg-gradient-to-t from-[#0a0604] via-[#1a120b]/50 to-transparent"></div>
+                    <img src="https://arcillasygredasdecolombia.wordpress.com/wp-content/uploads/2018/05/ladrillos-tejas-bloques-a-escala.jpg" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="Construcción">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-90"></div>
                     <div class="absolute bottom-0 left-0 p-8 w-full">
                         <div class="mb-4">
                             <i data-lucide="hammer" class="w-8 h-8 text-brand-gold mb-2"></i>
-                            <h3 class="text-3xl font-serif text-white mb-2">Técnico & Maquetas</h3>
+                            <h3 class="text-3xl font-serif text-white mb-2 drop-shadow-md">Técnico & Maquetas</h3>
                         </div>
-                        <p class="text-gray-400 text-sm mb-6 max-w-xs leading-relaxed">Insumos para maquetas arquitectónicas y odontología.</p>
-                        <div class="w-full h-px bg-brand-clay/30 group-hover:bg-brand-gold transition-colors mb-4"></div>
+                        <p class="text-gray-200 text-sm mb-6 max-w-xs leading-relaxed font-medium drop-shadow">Insumos para maquetas arquitectónicas y odontología.</p>
+                        <div class="w-full h-px bg-brand-clay/50 group-hover:bg-brand-gold transition-colors mb-4"></div>
                         <span class="text-brand-gold text-xs uppercase tracking-widest font-bold flex items-center gap-2 group-hover:gap-4 transition-all">
                             Ver Insumos <i data-lucide="arrow-right" class="w-4 h-4"></i>
                         </span>
@@ -522,7 +524,7 @@
                     <div class="product-card bg-[#1a120b] border border-brand-clay/20 rounded-xl overflow-hidden animate-float" style="animation-delay: ${index*0.1}s; animation-duration: 8s;">
                         <div class="h-56 overflow-hidden relative">
                             <img src="${item.img}" class="w-full h-full object-cover transition-transform duration-700 hover:scale-110" alt="${item.title}">
-                            <div class="absolute inset-0 bg-gradient-to-t from-[#0a0604] via-transparent to-transparent"></div>
+                            <div class="absolute inset-0 bg-gradient-to-t from-[#0a0604] via-transparent to-transparent opacity-60"></div>
                         </div>
                         <div class="p-6">
                             <h3 class="text-2xl font-serif text-white mb-2 ${colorClass}">${item.title}</h3>
