@@ -33,7 +33,7 @@
                     },
                     fontFamily: {
                         sans: ['Montserrat', 'sans-serif'],
-                        serif: ['Playfair Display', 'serif'], // Fuente Cursiva Elegante
+                        serif: ['Playfair Display', 'serif'],
                         mono: ['Space Mono', 'monospace'],
                     },
                     animation: {
@@ -50,7 +50,7 @@
         }
     </script>
 
-    <!-- SHADERS GLSL: ARENA VIVA PASTEL -->
+    <!-- SHADER GLSL: DUNAS DE COLORES PASTEL -->
     <script id="vertexShader" type="x-shader/x-vertex">
         varying vec2 vUv;
         void main() {
@@ -65,10 +65,12 @@
         uniform vec2 uMouse;
         varying vec2 vUv;
 
+        // Función Random para el grano de arena
         float random (in vec2 st) {
             return fract(sin(dot(st.xy, vec2(12.9898,78.233))) * 43758.5453123);
         }
 
+        // Ruido Suave para las olas
         float noise (in vec2 st) {
             vec2 i = floor(st);
             vec2 f = fract(st);
@@ -84,34 +86,53 @@
             vec2 st = vUv;
             st.x *= uResolution.x / uResolution.y;
 
+            // --- INTERACCIÓN MOUSE (OLA) ---
             vec2 mousePos = uMouse;
             mousePos.x *= uResolution.x / uResolution.y;
             
             float dist = distance(st, mousePos);
-            float mouseInteraction = smoothstep(0.4, 0.0, dist); 
+            // Radio de la ola alrededor del mouse
+            float mouseWave = smoothstep(0.4, 0.0, dist); 
             
+            // Distorsión del espacio (Empuje)
             vec2 distortedSt = st;
-            distortedSt -= normalize(st - mousePos) * mouseInteraction * 0.1;
+            distortedSt -= normalize(st - mousePos) * mouseWave * 0.15;
 
-            float n1 = noise(distortedSt * 2.0 + uTime * 0.05);
-            float n2 = noise(distortedSt * 4.0 - uTime * 0.1 + n1);
-            float pattern = noise(distortedSt * 3.0 + n2 * 1.5);
-            float grain = random(st * 300.0 + uTime * 0.2) * 0.05; 
+            // --- GENERACIÓN DE PATRÓN DE DUNAS ---
+            // Movimiento lento y orgánico
+            float n = noise(distortedSt * 3.0 + uTime * 0.08);
+            float n2 = noise(distortedSt * 6.0 - uTime * 0.05 + n * 2.0);
             
-            // --- PALETA PASTEL SUAVE (ARENA CLARA) ---
-            vec3 cBase   = vec3(0.98, 0.96, 0.93); // Crema Base
-            vec3 cSand   = vec3(0.93, 0.88, 0.80); // Arena Dorada Suave
-            vec3 cPink   = vec3(0.92, 0.85, 0.85); // Rosa Arcilla Pálido
-            vec3 cGrey   = vec3(0.90, 0.91, 0.92); // Gris Perla
+            // Patrón final que mezcla los colores
+            float mixPattern = noise(distortedSt * 2.5 + n2);
 
-            vec3 finalColor = mix(cBase, cSand, smoothstep(0.2, 0.5, pattern));
-            finalColor = mix(finalColor, cPink, smoothstep(0.4, 0.7, pattern));
-            finalColor = mix(finalColor, cGrey, smoothstep(0.6, 0.9, pattern));
+            // --- PALETA DE COLORES PASTEL (ARCILLAS) ---
+            // Definimos los colores suaves solicitados
+            vec3 cWhite  = vec3(0.96, 0.95, 0.92); // Blanco Crema
+            vec3 cYellow = vec3(0.95, 0.90, 0.70); // Amarillo Pastel
+            vec3 cRed    = vec3(0.90, 0.75, 0.70); // Rosa Terracota
+            vec3 cPurple = vec3(0.85, 0.80, 0.90); // Lavanda Suave
+            vec3 cGreen  = vec3(0.80, 0.88, 0.82); // Verde Salvia
+            vec3 cSilver = vec3(0.88, 0.89, 0.90); // Plata Suave
 
-            finalColor -= grain * 0.1; // Textura sutil
-            finalColor += mouseInteraction * 0.05; // Brillo al tocar
+            // Mezcla progresiva de colores basada en el ruido
+            vec3 color = mix(cWhite, cYellow, smoothstep(0.0, 0.2, mixPattern));
+            color = mix(color, cRed, smoothstep(0.2, 0.4, mixPattern));
+            color = mix(color, cPurple, smoothstep(0.4, 0.6, mixPattern));
+            color = mix(color, cGreen, smoothstep(0.6, 0.8, mixPattern));
+            color = mix(color, cSilver, smoothstep(0.8, 1.0, mixPattern));
 
-            gl_FragColor = vec4(finalColor, 1.0);
+            // --- TEXTURA DE ARENA REAL ---
+            // Ruido de alta frecuencia para simular granos
+            float grain = random(st * 900.0 + uTime * 0.1); 
+            
+            // Añadir sombras a los granos para dar volumen
+            color -= grain * 0.12; 
+            
+            // Destellos de arena brillante donde pasa el mouse
+            color += mouseWave * grain * 0.2;
+
+            gl_FragColor = vec4(color, 1.0);
         }
     </script>
 
@@ -142,7 +163,7 @@
         }
 
         .nav-glass {
-            background: rgba(255, 255, 255, 0.6);
+            background: rgba(255, 255, 255, 0.5);
             backdrop-filter: blur(15px);
             border-bottom: 1px solid rgba(161, 110, 83, 0.1);
             box-shadow: 0 4px 20px rgba(0,0,0,0.02);
@@ -158,17 +179,7 @@
             transition: color 0.3s;
         }
         .nav-link:hover, .nav-link.active { color: #A16E53; }
-        
-        .nav-link::after {
-            content: '';
-            position: absolute;
-            width: 0;
-            height: 2px;
-            bottom: -4px;
-            left: 0;
-            background-color: #A16E53;
-            transition: width 0.3s;
-        }
+        .nav-link::after { content: ''; position: absolute; width: 0; height: 2px; bottom: -4px; left: 0; background-color: #A16E53; transition: width 0.3s; }
         .nav-link:hover::after { width: 100%; }
 
         .text-colombia-flag {
@@ -180,14 +191,14 @@
             filter: drop-shadow(0 1px 1px rgba(0,0,0,0.1));
         }
 
-        /* Canvas de Texto (Fondo semitransparente para leer) */
+        /* Canvas de Texto - Fondo Blanco Transparente para resaltar sobre arena */
         .text-canvas {
-            background: rgba(255, 255, 255, 0.5); 
-            backdrop-filter: blur(8px);
-            border: 1px solid rgba(255, 255, 255, 0.6);
+            background: rgba(255, 255, 255, 0.65); 
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.8);
             border-radius: 12px;
             padding: 2.5rem;
-            box-shadow: 0 10px 40px rgba(161, 110, 83, 0.05);
+            box-shadow: 0 10px 40px rgba(161, 110, 83, 0.08);
         }
 
         .category-card, .product-card {
@@ -200,9 +211,9 @@
         }
         .category-card:hover, .product-card:hover {
             transform: translateY(-5px);
-            background: rgba(255, 255, 255, 0.9);
+            background: rgba(255, 255, 255, 0.95);
             border-color: #A16E53;
-            box-shadow: 0 15px 40px -5px rgba(161, 110, 83, 0.15);
+            box-shadow: 0 15px 40px -5px rgba(161, 110, 83, 0.2);
         }
 
         .page-section {
@@ -213,37 +224,28 @@
         }
         .page-section.active { display: block; }
         
-        #page-home.active { 
-            display: flex !important; 
-            padding-top: 100px;
-            align-items: center;
-        }
+        #page-home.active { display: flex !important; padding-top: 100px; align-items: center; }
 
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* Tipografía Cursiva Elegante */
-        .font-cursive {
-            font-family: 'Playfair Display', serif;
-            font-style: italic;
-        }
+        .font-cursive { font-family: 'Playfair Display', serif; font-style: italic; }
     </style>
 </head>
 <body>
 
-    <!-- Fondo Interactivo (WebGL Shader) -->
+    <!-- Fondo Dinámico (Shader) -->
     <div id="canvas-bg"></div>
 
     <!-- Navegación -->
     <nav class="fixed w-full z-50 nav-glass transition-all duration-300">
         <div class="max-w-7xl mx-auto px-6">
-            <div class="flex justify-between items-center h-20"> <!-- Altura reducida -->
-                <!-- Logo Pequeño Nav -->
+            <div class="flex justify-between items-center h-20">
                 <div class="flex items-center gap-4 cursor-pointer group" onclick="navigateTo('home')">
                     <img src="https://raw.githubusercontent.com/instructorandradedcc/arcillasygredasdecolombia/main/2oro-logo%20con%20trasparencia.png" 
-                         alt="Logo" class="h-10 w-auto group-hover:scale-105 transition-transform"> <!-- Logo más pequeño -->
+                         alt="Logo" class="h-10 w-auto group-hover:scale-105 transition-transform">
                     <div class="hidden md:block">
                         <h1 class="font-serif text-xs tracking-widest text-brand-dark leading-none font-bold">ARCILLAS Y GREDAS</h1>
                         <span class="text-[8px] tracking-[0.3em] uppercase block mt-1 font-bold">
@@ -252,7 +254,6 @@
                     </div>
                 </div>
 
-                <!-- Menú -->
                 <div class="hidden md:flex space-x-8">
                     <button onclick="navigateTo('home')" class="nav-link active" id="btn-home">Inicio</button>
                     <button onclick="navigateTo('products')" class="nav-link" id="btn-products">Catálogo</button>
@@ -280,10 +281,9 @@
                 <div class="text-canvas">
                     <div class="mb-4 flex items-center gap-3">
                         <span class="h-px w-8 bg-brand-clay"></span>
-                        <span class="text-brand-clay text-xs font-mono tracking-widest uppercase font-bold">Experiencia Sensorial</span>
+                        <span class="text-brand-clay text-xs font-mono tracking-widest uppercase font-bold">Ciencia Natural</span>
                     </div>
                     
-                    <!-- TITULO CURSIVA ELEGANTE -->
                     <h1 class="font-cursive text-5xl md:text-7xl font-bold text-brand-dark mb-4 leading-none">
                         Minerales <br> Vivos
                     </h1>
@@ -322,7 +322,7 @@
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <!-- Cards (Igual que antes) -->
+                <!-- Cards -->
                 <div onclick="showSubCategory('belleza')" class="category-card group relative h-[400px] overflow-hidden rounded-xl">
                     <img src="https://arcillasygredasdecolombia.wordpress.com/wp-content/uploads/2024/01/img_8285-edited.jpg" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 opacity-90" alt="Belleza">
                     <div class="absolute inset-0 bg-gradient-to-t from-white via-white/20 to-transparent opacity-90"></div>
@@ -353,7 +353,7 @@
         </div>
     </section>
 
-    <!-- SECCIÓN DETALLE (Placeholder para la lógica JS) -->
+    <!-- SECCIÓN DETALLE (Dinámica) -->
     <section id="page-detail" class="page-section content-overlay">
         <div class="max-w-7xl mx-auto px-6 pb-20 pt-10">
             <div class="flex items-center gap-4 mb-8 bg-white/70 p-4 rounded-lg backdrop-blur-md w-fit shadow-sm">
@@ -382,7 +382,7 @@
         </div>
     </section>
 
-    <!-- SECCIÓN 4: CONTACTO (NUEVO FORMULARIO) -->
+    <!-- SECCIÓN 4: CONTACTO -->
     <section id="page-contact" class="page-section content-overlay">
         <div class="max-w-4xl mx-auto px-6 pb-20 pt-10">
             <div class="grid grid-cols-1 md:grid-cols-2 gap-12 bg-white/80 backdrop-blur-xl rounded-2xl shadow-2xl overflow-hidden border border-white">
@@ -412,22 +412,6 @@
                                     <p class="font-mono text-sm">Arcillasygredas@gmail.com</p>
                                 </div>
                             </div>
-                            <div class="flex items-center gap-4">
-                                <div class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center text-brand-gold">
-                                    <i data-lucide="map-pin" class="w-5 h-5"></i>
-                                </div>
-                                <div>
-                                    <p class="text-xs text-gray-400 uppercase tracking-widest">Ubicación</p>
-                                    <p class="text-sm">Colombia (Envíos Nacionales)</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="mt-12 pt-8 border-t border-white/10">
-                         <div class="flex gap-4">
-                            <a href="#" class="text-gray-400 hover:text-white transition-colors"><i data-lucide="instagram"></i></a>
-                            <a href="#" class="text-gray-400 hover:text-white transition-colors"><i data-lucide="facebook"></i></a>
                         </div>
                     </div>
                 </div>
@@ -438,22 +422,21 @@
                     <form action="mailto:Arcillasygredas@gmail.com" method="post" enctype="text/plain" class="space-y-4">
                         <div>
                             <label class="block text-xs uppercase tracking-widest text-brand-earth mb-2 font-bold">Nombre</label>
-                            <input type="text" class="w-full bg-brand-sand/50 border border-brand-clay/20 p-3 rounded text-sm focus:outline-none focus:border-brand-clay transition-colors" placeholder="Tu nombre">
+                            <input type="text" class="w-full bg-white border border-brand-clay/20 p-3 rounded text-sm focus:outline-none focus:border-brand-clay transition-colors" placeholder="Tu nombre">
                         </div>
                         <div>
                             <label class="block text-xs uppercase tracking-widest text-brand-earth mb-2 font-bold">Correo</label>
-                            <input type="email" class="w-full bg-brand-sand/50 border border-brand-clay/20 p-3 rounded text-sm focus:outline-none focus:border-brand-clay transition-colors" placeholder="tucorreo@ejemplo.com">
+                            <input type="email" class="w-full bg-white border border-brand-clay/20 p-3 rounded text-sm focus:outline-none focus:border-brand-clay transition-colors" placeholder="tucorreo@ejemplo.com">
                         </div>
                         <div>
                             <label class="block text-xs uppercase tracking-widest text-brand-earth mb-2 font-bold">Mensaje</label>
-                            <textarea rows="4" class="w-full bg-brand-sand/50 border border-brand-clay/20 p-3 rounded text-sm focus:outline-none focus:border-brand-clay transition-colors" placeholder="¿En qué podemos ayudarte?"></textarea>
+                            <textarea rows="4" class="w-full bg-white border border-brand-clay/20 p-3 rounded text-sm focus:outline-none focus:border-brand-clay transition-colors" placeholder="¿En qué podemos ayudarte?"></textarea>
                         </div>
                         <button type="submit" class="w-full bg-brand-dark text-white py-4 uppercase tracking-widest text-xs font-bold hover:bg-brand-clay transition-colors shadow-lg">
                             Enviar Correo
                         </button>
                     </form>
                 </div>
-
             </div>
         </div>
     </section>
@@ -496,7 +479,6 @@
     <!-- JAVASCRIPT -->
     <script>
         lucide.createIcons();
-
         const btn = document.getElementById('mobile-menu-btn');
         const menu = document.getElementById('mobile-menu');
         btn.addEventListener('click', () => menu.classList.toggle('hidden'));
@@ -506,13 +488,11 @@
             document.getElementById(`page-${pageId}`).classList.add('active');
             window.scrollTo(0,0);
             menu.classList.add('hidden');
-            
             document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
             const activeBtn = document.getElementById(`btn-${pageId}`);
             if(activeBtn) activeBtn.classList.add('active');
         }
 
-        // --- DATA CATALOGO ---
         const catalog = {
             belleza: [
                 { title: "Caolín (Arcilla Blanca)", img: "https://arcillasygredasdecolombia.wordpress.com/wp-content/uploads/2024/01/img_8302-edited.jpg", desc: "La más suave. Rica en silicio.", benefits: ["Piel Sensible", "Efecto Tensor"] },
@@ -537,17 +517,13 @@
             document.getElementById('page-products').classList.remove('active');
             document.getElementById('page-detail').classList.add('active');
             window.scrollTo(0,0);
-
             const container = document.getElementById('detail-grid');
             const titleEl = document.getElementById('detail-title');
-            
             const catNames = { belleza: "Dermocosmética", arte: "Arte & Escultura", construccion: "Técnico" };
             titleEl.textContent = catNames[category];
-
             container.innerHTML = '';
             catalog[category].forEach((item, index) => {
                 const benefitsHtml = item.benefits.map(b => `<li class="flex items-center gap-2"><i data-lucide="check" class="w-3 h-3 text-brand-clay"></i> ${b}</li>`).join('');
-
                 container.innerHTML += `
                     <div class="product-card bg-white rounded-xl overflow-hidden animate-float shadow-lg" style="animation-delay: ${index*0.1}s;">
                         <div class="h-56 overflow-hidden relative">
@@ -565,13 +541,11 @@
             lucide.createIcons();
         }
 
-        // --- THREE.JS ---
         const initThree = () => {
             const container = document.getElementById('canvas-bg');
             const scene = new THREE.Scene();
             const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000);
             camera.position.z = 2;
-            
             const renderer = new THREE.WebGLRenderer({alpha:true, antialias:true});
             renderer.setSize(window.innerWidth, window.innerHeight);
             container.appendChild(renderer.domElement);
@@ -591,22 +565,20 @@
 
             scene.add(new THREE.Mesh(geometry, material));
 
-            // LOGO 3D
             const textureLoader = new THREE.TextureLoader();
             const logoUrl = 'https://raw.githubusercontent.com/instructorandradedcc/arcillasygredasdecolombia/main/2oro-logo%20con%20trasparencia.png';
             let logoMesh;
 
             textureLoader.load(logoUrl, (texture) => {
                 const aspect = texture.image.width / texture.image.height;
-                // LOGO MÁS PEQUEÑO
-                const logoGeo = new THREE.PlaneGeometry(1.2 * aspect, 1.2); 
+                // LOGO MÁS PEQUEÑO Y CENTRADO A LA DERECHA
+                const logoGeo = new THREE.PlaneGeometry(0.8 * aspect, 0.8); 
                 const logoMat = new THREE.MeshBasicMaterial({ map: texture, transparent: true, side: THREE.DoubleSide, depthTest: false });
                 logoMesh = new THREE.Mesh(logoGeo, logoMat);
                 adjustPosition(logoMesh);
                 scene.add(logoMesh);
             });
 
-            // Animación
             let mouseX = 0, mouseY = 0;
             document.addEventListener('mousemove', (e) => {
                 uniforms.uMouse.value.x = e.clientX / window.innerWidth;
@@ -617,7 +589,7 @@
 
             const animate = () => {
                 requestAnimationFrame(animate);
-                uniforms.uTime.value += 0.005;
+                uniforms.uTime.value += 0.003; // Movimiento más lento y elegante
                 if(logoMesh) {
                     const time = Date.now() * 0.001;
                     const baseX = logoMesh.userData.baseX || 0;
@@ -636,7 +608,7 @@
                     mesh.visible = false; 
                 } else {
                     mesh.visible = true;
-                    // POSICIÓN PERFECTA A LA DERECHA
+                    // Posición Ajustada para flotar en el espacio vacío
                     mesh.userData.baseX = 0.9; 
                     mesh.userData.baseY = 0;
                 }
