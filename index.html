@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Arcillas y Gredas de Colombia | Dermocosmética & Arte</title>
-    <meta name="description" content="Arcillas de grado dermatológico y artístico. Caolín, Bentonita e Illitas certificadas.">
+    <title>Arcillas y Gredas de Colombia | Ciencia & Arte</title>
+    <meta name="description" content="Arcillas dermatológicas y artísticas de Colombia. Catálogo especializado por colores y usos.">
     
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -29,17 +29,18 @@
                             clay: '#A67B5B',
                             dark: '#050505',
                             whatsapp: '#25D366',
-                            // Paleta 2025 (Adaptada a Dark Mode)
-                            sage: '#8FA89B',      // Verde Illita
-                            terracotta: '#C98685', // Roja Illita
-                            alabaster: '#E0E0E0', // Blanca Caolín
-                            stone: '#78909C'      // Gris Bentonita
+                            // Paleta Específica Arcillas
+                            red: '#C98685',      // Roja
+                            green: '#8FA89B',    // Verde
+                            white: '#E0E0E0',    // Blanca
+                            gray: '#78909C',     // Gris
+                            black: '#424242'     // Negra
                         }
                     },
                     fontFamily: {
                         sans: ['Montserrat', 'sans-serif'],
                         serif: ['Cinzel', 'serif'],
-                        mono: ['Space Mono', 'monospace'], // Para datos técnicos
+                        mono: ['Space Mono', 'monospace'],
                     },
                     animation: {
                         'float': 'float 6s ease-in-out infinite',
@@ -62,7 +63,7 @@
             overflow-x: hidden;
         }
 
-        /* Fondo 3D fijo */
+        /* Fondo 3D */
         #canvas-bg {
             position: fixed;
             top: 0;
@@ -70,10 +71,10 @@
             width: 100%;
             height: 100%;
             z-index: 0;
-            opacity: 0.6;
+            opacity: 0.5;
         }
 
-        /* Contenido sobre el 3D */
+        /* Contenido interactivo */
         .content-overlay {
             position: relative;
             z-index: 10;
@@ -83,9 +84,9 @@
             pointer-events: auto;
         }
 
-        /* Navegación Glassmorphism */
+        /* Navegación */
         .nav-glass {
-            background: rgba(5, 5, 5, 0.7);
+            background: rgba(5, 5, 5, 0.8);
             backdrop-filter: blur(16px);
             border-bottom: 1px solid rgba(212, 175, 55, 0.1);
         }
@@ -99,7 +100,6 @@
             transition: color 0.3s;
         }
         .nav-link:hover, .nav-link.active { color: #D4AF37; }
-        
         .nav-link::after {
             content: '';
             position: absolute;
@@ -112,26 +112,7 @@
         }
         .nav-link:hover::after { width: 100%; }
 
-        /* Tarjetas Técnicas (Boticario Moderno) */
-        .product-card {
-            background: rgba(20, 20, 20, 0.6);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            backdrop-filter: blur(10px);
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        .product-card:hover {
-            transform: translateY(-5px);
-            border-color: #D4AF37;
-            box-shadow: 0 10px 40px -10px rgba(0,0,0,0.5);
-        }
-
-        .tech-spec {
-            font-family: 'Space Mono', monospace;
-            font-size: 0.65rem;
-            letter-spacing: 0.05em;
-        }
-
-        /* Bandera Colombia */
+        /* Estilo Bandera Colombia Texto */
         .text-colombia-flag {
             background: linear-gradient(90deg, #FCD116 0%, #FCD116 35%, #003893 35%, #003893 65%, #CE1126 65%, #CE1126 100%);
             -webkit-background-clip: text;
@@ -140,40 +121,50 @@
             display: inline-block;
         }
 
-        /* Animación de secciones */
+        /* Animaciones */
         .page-section {
             display: none;
             min-height: 100vh;
             padding-top: 100px;
-            animation: fadeIn 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+            animation: fadeIn 0.5s cubic-bezier(0.4, 0, 0.2, 1);
         }
         .page-section.active { display: block; }
         
-        /* Fix para Home vertical center */
+        /* Home Flex Fix */
         #page-home.active { 
             display: flex !important; 
             padding-top: 0; 
         }
 
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); filter: blur(4px); }
-            to { opacity: 1; transform: translateY(0); filter: blur(0); }
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Cards Categoría */
+        .category-card {
+            transition: all 0.5s ease;
+            cursor: pointer;
+        }
+        .category-card:hover {
+            transform: scale(1.02);
+            filter: brightness(1.2);
         }
     </style>
 </head>
 <body>
 
-    <!-- Canvas 3D -->
+    <!-- Fondo 3D -->
     <div id="canvas-bg"></div>
 
     <!-- Navegación -->
     <nav class="fixed w-full z-50 nav-glass transition-all duration-300">
         <div class="max-w-7xl mx-auto px-6">
             <div class="flex justify-between items-center h-24">
-                <!-- Logo Nav -->
+                <!-- Logo -->
                 <div class="flex items-center gap-4 cursor-pointer group" onclick="navigateTo('home')">
                     <img src="https://raw.githubusercontent.com/instructorandradedcc/arcillasygredasdecolombia/main/2oro-logo%20con%20trasparencia.png" 
-                         alt="Logo" class="h-12 w-auto opacity-90 group-hover:scale-105 transition-transform">
+                         alt="Logo" class="h-14 w-auto opacity-90 group-hover:scale-105 transition-transform">
                     <div class="hidden md:block">
                         <h1 class="font-serif text-sm tracking-widest text-white leading-none">ARCILLAS Y GREDAS</h1>
                         <span class="text-[9px] tracking-[0.3em] uppercase block mt-1 font-bold">
@@ -186,12 +177,10 @@
                 <div class="hidden md:flex space-x-8">
                     <button onclick="navigateTo('home')" class="nav-link active" id="btn-home">Inicio</button>
                     <button onclick="navigateTo('products')" class="nav-link" id="btn-products">Catálogo</button>
-                    <button onclick="navigateTo('about')" class="nav-link" id="btn-about">La Marca</button>
-                    <button onclick="navigateTo('instructions')" class="nav-link" id="btn-instructions">Laboratorio</button>
+                    <button onclick="navigateTo('about')" class="nav-link" id="btn-about">Nosotros</button>
                     <button onclick="navigateTo('contact')" class="nav-link" id="btn-contact">Contacto</button>
                 </div>
 
-                <!-- Móvil -->
                 <button id="mobile-menu-btn" class="md:hidden text-brand-gold"><i data-lucide="menu"></i></button>
             </div>
         </div>
@@ -204,15 +193,13 @@
         </div>
     </nav>
 
-    <!-- SECCIÓN 1: HOME (BALANCEADO) -->
+    <!-- SECCIÓN 1: HOME -->
     <section id="page-home" class="page-section active min-h-screen content-overlay">
         <div class="max-w-7xl mx-auto px-6 w-full grid grid-cols-1 md:grid-cols-2 gap-12 items-center h-full">
-            
-            <!-- Texto Izquierda -->
             <div class="text-left z-10 animate-float flex flex-col justify-center">
                 <div class="mb-6 flex items-center gap-3">
                     <span class="h-px w-8 bg-brand-gold"></span>
-                    <span class="text-brand-gold text-xs font-mono tracking-widest uppercase">Ciencia & Tradición</span>
+                    <span class="text-brand-gold text-xs font-mono tracking-widest uppercase">Ciencia & Naturaleza</span>
                 </div>
                 
                 <h1 class="font-serif text-5xl md:text-7xl font-bold text-white mb-6 leading-[1.1] drop-shadow-2xl">
@@ -222,175 +209,139 @@
                 </h1>
                 
                 <p class="text-gray-400 text-sm md:text-base max-w-md mb-10 font-light leading-relaxed border-l-2 border-brand-gold/30 pl-6">
-                    Redescubre la pureza. Arcillas de grado dermatológico y artístico con validación científica. Principios activos naturales para la piel y la creación.
+                    Materia prima de calidad exportación. La esencia de nuestra tierra transformada para la dermocosmética avanzada y la expresión artística.
                 </p>
                 
                 <div class="flex flex-wrap gap-4">
                     <button onclick="navigateTo('products')" class="px-8 py-3 border border-white/20 text-white hover:border-brand-gold hover:text-brand-gold transition-all uppercase tracking-widest text-xs font-bold bg-white/5 backdrop-blur-sm">
-                        Ver Colección
+                        Ver Categorías
                     </button>
                     <a href="https://wa.me/573136139989" target="_blank" class="px-8 py-3 bg-brand-whatsapp text-white hover:bg-green-600 transition-all uppercase tracking-widest text-xs font-bold flex items-center gap-2 shadow-lg">
-                        <i data-lucide="message-circle" class="w-4 h-4"></i> Asesoría Técnica
+                        <i data-lucide="message-circle" class="w-4 h-4"></i> Asesoría
                     </a>
                 </div>
-                
-                <!-- Trust Badges -->
-                <div class="mt-12 flex gap-6 opacity-60">
-                    <div class="flex flex-col items-center gap-1">
-                        <i data-lucide="flask-conical" class="w-5 h-5 text-brand-gold"></i>
-                        <span class="text-[10px] uppercase tracking-wider">Formula USP</span>
-                    </div>
-                    <div class="flex flex-col items-center gap-1">
-                        <i data-lucide="leaf" class="w-5 h-5 text-brand-gold"></i>
-                        <span class="text-[10px] uppercase tracking-wider">100% Natural</span>
-                    </div>
-                    <div class="flex flex-col items-center gap-1">
-                        <i data-lucide="shield-check" class="w-5 h-5 text-brand-gold"></i>
-                        <span class="text-[10px] uppercase tracking-wider">NSO Compliant</span>
-                    </div>
-                </div>
             </div>
-
-            <!-- Espacio Derecha (Para Logo 3D) -->
+            <!-- Espacio para Logo 3D Derecha -->
             <div class="hidden md:block h-full w-full"></div>
         </div>
-        
-        <div class="absolute bottom-8 left-1/2 -translate-x-1/2 z-20 animate-bounce text-brand-gold/50">
-            <i data-lucide="arrow-down" class="w-6 h-6"></i>
-        </div>
     </section>
 
-    <!-- SECCIÓN 2: PRODUCTOS (MODERN APOTHECARY) -->
+    <!-- SECCIÓN 2: CATÁLOGO PRINCIPAL (CATEGORÍAS) -->
     <section id="page-products" class="page-section content-overlay">
         <div class="max-w-7xl mx-auto px-6 pb-20">
-            
-            <!-- Header Sección -->
-            <div class="flex flex-col md:flex-row justify-between items-end mb-16 border-b border-gray-800 pb-6">
-                <div>
-                    <span class="text-brand-gold font-mono text-xs mb-2 block">CATÁLOGO 2025</span>
-                    <h2 class="font-serif text-4xl text-white">Nuestras Líneas</h2>
-                </div>
-                <div class="flex flex-wrap gap-2 mt-6 md:mt-0">
-                    <button onclick="filterProducts('all')" class="filter-btn active text-[10px] uppercase font-bold tracking-widest px-4 py-2 border border-brand-gold text-brand-gold bg-brand-gold/10 transition-colors">Todos</button>
-                    <button onclick="filterProducts('belleza')" class="filter-btn text-[10px] uppercase font-bold tracking-widest px-4 py-2 border border-gray-800 text-gray-500 hover:text-white hover:border-gray-500 transition-colors">Dermocosmética</button>
-                    <button onclick="filterProducts('arte')" class="filter-btn text-[10px] uppercase font-bold tracking-widest px-4 py-2 border border-gray-800 text-gray-500 hover:text-white hover:border-gray-500 transition-colors">Arte & Escultura</button>
-                    <button onclick="filterProducts('construccion')" class="filter-btn text-[10px] uppercase font-bold tracking-widest px-4 py-2 border border-gray-800 text-gray-500 hover:text-white hover:border-gray-500 transition-colors">Técnico</button>
-                </div>
+            <div class="text-center mb-16">
+                <h2 class="font-serif text-4xl text-white mb-4">Nuestras Líneas</h2>
+                <div class="w-24 h-1 bg-brand-gold mx-auto"></div>
+                <p class="text-gray-400 mt-4 text-sm max-w-2xl mx-auto">Selecciona una categoría para explorar la gama completa de productos especializados.</p>
             </div>
 
-            <!-- Grid de Productos -->
-            <div id="product-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-                <!-- Se llena dinámicamente con JS -->
+            <!-- Grid de Categorías Principales -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                
+                <!-- Card Belleza -->
+                <div onclick="showSubCategory('belleza')" class="category-card group relative h-[400px] overflow-hidden rounded-xl border border-gray-800 hover:border-brand-gold bg-black">
+                    <img src="https://arcillasygredasdecolombia.wordpress.com/wp-content/uploads/2024/01/img_8285-edited.jpg" class="absolute inset-0 w-full h-full object-cover opacity-60 group-hover:opacity-40 transition-opacity duration-700" alt="Belleza">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent"></div>
+                    <div class="absolute bottom-0 left-0 p-8">
+                        <h3 class="text-3xl font-serif text-white mb-2">Dermocosmética</h3>
+                        <p class="text-gray-400 text-xs mb-4 max-w-xs">Arcillas puras micronizadas para skincare. Caolín, Illita y Bentonita certificadas.</p>
+                        <span class="text-brand-gold text-xs uppercase tracking-widest font-bold border-b border-brand-gold pb-1 group-hover:pl-2 transition-all">Ver Colores & Usos</span>
+                    </div>
+                </div>
+
+                <!-- Card Arte -->
+                <div onclick="showSubCategory('arte')" class="category-card group relative h-[400px] overflow-hidden rounded-xl border border-gray-800 hover:border-brand-gold bg-black">
+                    <img src="https://arcillasygredasdecolombia.wordpress.com/wp-content/uploads/2024/01/picsart_07-06-06.04.17-edited.jpg" class="absolute inset-0 w-full h-full object-cover opacity-60 group-hover:opacity-40 transition-opacity duration-700" alt="Arte">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent"></div>
+                    <div class="absolute bottom-0 left-0 p-8">
+                        <h3 class="text-3xl font-serif text-white mb-2">Arte & Escultura</h3>
+                        <p class="text-gray-400 text-xs mb-4 max-w-xs">Masas plásticas, pigmentos y herramientas para alfareros profesionales.</p>
+                        <span class="text-brand-gold text-xs uppercase tracking-widest font-bold border-b border-brand-gold pb-1 group-hover:pl-2 transition-all">Ver Materiales</span>
+                    </div>
+                </div>
+
+                <!-- Card Construcción -->
+                <div onclick="showSubCategory('construccion')" class="category-card group relative h-[400px] overflow-hidden rounded-xl border border-gray-800 hover:border-brand-gold bg-black">
+                    <img src="https://arcillasygredasdecolombia.wordpress.com/wp-content/uploads/2018/05/ladrillos-tejas-bloques-a-escala.jpg" class="absolute inset-0 w-full h-full object-cover opacity-60 group-hover:opacity-40 transition-opacity duration-700" alt="Construcción">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent"></div>
+                    <div class="absolute bottom-0 left-0 p-8">
+                        <h3 class="text-3xl font-serif text-white mb-2">Técnico & Maquetas</h3>
+                        <p class="text-gray-400 text-xs mb-4 max-w-xs">Insumos para maquetas arquitectónicas realistas y odontología.</p>
+                        <span class="text-brand-gold text-xs uppercase tracking-widest font-bold border-b border-brand-gold pb-1 group-hover:pl-2 transition-all">Ver Insumos</span>
+                    </div>
+                </div>
+
             </div>
         </div>
     </section>
 
-    <!-- SECCIÓN 3: LA MARCA (ABOUT) -->
+    <!-- SECCIÓN: VISTA DETALLE SUBCATEGORÍA -->
+    <section id="page-detail" class="page-section content-overlay">
+        <div class="max-w-7xl mx-auto px-6 pb-20">
+            
+            <!-- Header Navegación -->
+            <div class="flex items-center gap-4 mb-12">
+                <button onclick="navigateTo('products')" class="flex items-center gap-2 text-gray-400 hover:text-white transition-colors text-xs uppercase tracking-widest">
+                    <i data-lucide="arrow-left" class="w-4 h-4"></i> Volver a Categorías
+                </button>
+                <span class="h-4 w-px bg-gray-700"></span>
+                <span id="detail-title" class="text-brand-gold text-sm font-bold uppercase tracking-widest">Belleza</span>
+            </div>
+
+            <!-- Grid de Productos Detallados -->
+            <div id="detail-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Se llena con JS -->
+            </div>
+
+        </div>
+    </section>
+
+    <!-- SECCIÓN 3: NOSOTROS -->
     <section id="page-about" class="page-section content-overlay">
         <div class="max-w-6xl mx-auto px-6">
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-                <div class="bg-black/60 p-10 rounded-sm border border-white/5 backdrop-blur-xl">
+                <div class="bg-black/60 p-10 border border-white/5 backdrop-blur-xl">
                     <h2 class="font-serif text-3xl mb-6 text-white">Filosofía <span class="text-brand-gold italic">Boticaria</span></h2>
-                    <p class="text-gray-400 text-sm leading-relaxed mb-6 text-justify font-light">
+                    <p class="text-gray-400 text-sm leading-relaxed mb-6 text-justify">
                         En un mercado saturado de sintéticos, <strong>Arcillas y Gredas de Colombia</strong> regresa al origen. Nuestra misión es cerrar la brecha entre la riqueza geológica de nuestro país y la necesidad de pureza en la cosmética moderna.
                     </p>
-                    <p class="text-gray-400 text-sm leading-relaxed mb-8 text-justify font-light">
-                        Cada lote de nuestras arcillas (Caolín, Illita, Bentonita) pasa por un riguroso proceso de selección y molienda para garantizar una textura micronizada y segura, cumpliendo con los estándares de la "Belleza Limpia".
-                    </p>
-                    
                     <div class="grid grid-cols-2 gap-4 mt-8 pt-8 border-t border-gray-800">
-                        <div>
-                            <h4 class="text-white font-serif mb-2">Trazabilidad</h4>
-                            <p class="text-xs text-gray-500">Control desde la mina hasta el empaque final.</p>
-                        </div>
-                        <div>
-                            <h4 class="text-white font-serif mb-2">Sostenibilidad</h4>
-                            <p class="text-xs text-gray-500">Extracción responsable y empaques conscientes.</p>
-                        </div>
+                        <div><h4 class="text-white font-serif mb-1">Trazabilidad</h4><p class="text-xs text-gray-500">Control desde la mina hasta el empaque.</p></div>
+                        <div><h4 class="text-white font-serif mb-1">Sostenibilidad</h4><p class="text-xs text-gray-500">Extracción responsable.</p></div>
                     </div>
                 </div>
-                <div class="relative group">
-                    <div class="absolute inset-0 border border-brand-gold/30 translate-x-4 translate-y-4 transition-transform group-hover:translate-x-2 group-hover:translate-y-2"></div>
-                    <img src="https://arcillasygredasdecolombia.wordpress.com/wp-content/uploads/2017/07/img_9537.jpg" class="w-full h-auto grayscale group-hover:grayscale-0 transition-all duration-700 relative z-10 shadow-2xl" alt="Proceso Artesanal">
-                </div>
+                <img src="https://arcillasygredasdecolombia.wordpress.com/wp-content/uploads/2017/07/img_9537.jpg" class="w-full h-auto rounded shadow-2xl opacity-80" alt="Nosotros">
             </div>
         </div>
     </section>
 
-    <!-- SECCIÓN 4: LABORATORIO (INSTRUCCIONES) -->
-    <section id="page-instructions" class="page-section content-overlay">
-        <div class="max-w-5xl mx-auto px-6">
-            <div class="text-center mb-16">
-                <i data-lucide="microscope" class="w-12 h-12 text-brand-gold mx-auto mb-4"></i>
-                <h2 class="font-serif text-4xl text-white">Laboratorio & Uso</h2>
-                <p class="text-gray-400 mt-2 text-sm font-mono">Protocolos de aplicación validados</p>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <!-- Tarjeta Guía 1 -->
-                <a href="https://arcillasygredasdecolombia.wordpress.com/instrucciones/" target="_blank" class="group relative overflow-hidden bg-gray-900 border border-gray-800 hover:border-brand-sage transition-all p-8">
-                    <div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
-                        <i data-lucide="droplet" class="w-24 h-24 text-brand-sage"></i>
-                    </div>
-                    <h3 class="text-xl text-white font-serif mb-2">Protocolo Facial</h3>
-                    <p class="text-gray-400 text-xs mb-4 max-w-xs">Guía para la activación correcta de arcillas secas. Ratios de hidratación y tiempos de pose según tipo de piel.</p>
-                    <span class="text-brand-sage text-xs uppercase tracking-widest font-bold border-b border-brand-sage pb-1">Ver Protocolo</span>
-                </a>
-
-                <!-- Tarjeta Guía 2 -->
-                <a href="https://arcillasygredasdecolombia.wordpress.com/instrucciones/" target="_blank" class="group relative overflow-hidden bg-gray-900 border border-gray-800 hover:border-brand-terracotta transition-all p-8">
-                    <div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
-                        <i data-lucide="hammer" class="w-24 h-24 text-brand-terracotta"></i>
-                    </div>
-                    <h3 class="text-xl text-white font-serif mb-2">Técnicas de Torneado</h3>
-                    <p class="text-gray-400 text-xs mb-4 max-w-xs">Manual para el manejo de la plasticidad en el torno alfarero. Centrado, levantado y secado.</p>
-                    <span class="text-brand-terracotta text-xs uppercase tracking-widest font-bold border-b border-brand-terracotta pb-1">Ver Manual</span>
-                </a>
-            </div>
-        </div>
-    </section>
-
-    <!-- SECCIÓN 5: CONTACTO -->
+    <!-- SECCIÓN 4: CONTACTO -->
     <section id="page-contact" class="page-section content-overlay">
-        <div class="max-w-4xl mx-auto px-6 py-20">
-            <div class="bg-black/80 border border-gray-800 p-12 text-center backdrop-blur-xl relative overflow-hidden">
-                <!-- Decoración -->
-                <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-brand-gold via-transparent to-brand-gold"></div>
-                
-                <h2 class="font-serif text-3xl text-white mb-8">Canales Oficiales</h2>
-                
-                <div class="flex flex-col md:flex-row justify-center gap-8 mb-12">
-                    <a href="https://wa.me/573136139989" target="_blank" class="flex flex-col items-center gap-4 group">
-                        <div class="w-16 h-16 rounded-full border border-gray-700 flex items-center justify-center group-hover:border-brand-whatsapp group-hover:text-brand-whatsapp transition-all">
-                            <i data-lucide="message-circle" class="w-6 h-6"></i>
-                        </div>
-                        <div>
-                            <span class="block text-white font-bold text-sm">WhatsApp Comercial</span>
-                            <span class="block text-gray-500 text-xs font-mono mt-1">+57 313 613 9989</span>
-                        </div>
-                    </a>
-                    
-                    <a href="mailto:Arcillasygredas@gmail.com" class="flex flex-col items-center gap-4 group">
-                        <div class="w-16 h-16 rounded-full border border-gray-700 flex items-center justify-center group-hover:border-blue-400 group-hover:text-blue-400 transition-all">
-                            <i data-lucide="mail" class="w-6 h-6"></i>
-                        </div>
-                        <div>
-                            <span class="block text-white font-bold text-sm">Atención al Cliente</span>
-                            <span class="block text-gray-500 text-xs font-mono mt-1">Arcillasygredas@gmail.com</span>
-                        </div>
-                    </a>
-                </div>
-
-                <div class="pt-8 border-t border-gray-800">
-                    <img src="https://raw.githubusercontent.com/instructorandradedcc/arcillasygredasdecolombia/main/2oro-logo%20con%20trasparencia.png" alt="Logo" class="h-10 mx-auto opacity-30 grayscale mb-4">
-                    <p class="text-gray-600 text-[10px] uppercase tracking-widest">&copy; 2025 Arcillas y Gredas de Colombia</p>
-                </div>
+        <div class="max-w-3xl mx-auto px-6 py-20 bg-black/80 border border-gray-800 text-center backdrop-blur-md">
+            <h2 class="font-serif text-3xl text-white mb-8">Hablemos</h2>
+            <div class="flex flex-col md:flex-row justify-center gap-8 mb-12">
+                <a href="https://wa.me/573136139989" target="_blank" class="group flex flex-col items-center gap-4">
+                    <div class="w-16 h-16 rounded-full border border-gray-700 flex items-center justify-center group-hover:border-brand-whatsapp group-hover:text-brand-whatsapp transition-all">
+                        <i data-lucide="message-circle" class="w-6 h-6"></i>
+                    </div>
+                    <span class="text-gray-400 text-sm group-hover:text-white transition-colors">+57 313 613 9989</span>
+                </a>
+                <a href="mailto:Arcillasygredas@gmail.com" class="group flex flex-col items-center gap-4">
+                    <div class="w-16 h-16 rounded-full border border-gray-700 flex items-center justify-center group-hover:border-blue-400 group-hover:text-blue-400 transition-all">
+                        <i data-lucide="mail" class="w-6 h-6"></i>
+                    </div>
+                    <span class="text-gray-400 text-sm group-hover:text-white transition-colors">Arcillasygredas@gmail.com</span>
+                </a>
+            </div>
+            <div class="pt-8 border-t border-gray-800">
+                <img src="https://raw.githubusercontent.com/instructorandradedcc/arcillasygredasdecolombia/main/2oro-logo%20con%20trasparencia.png" alt="Logo" class="h-10 mx-auto opacity-30 grayscale mb-4">
+                <p class="text-gray-600 text-[10px] uppercase tracking-widest">&copy; 2025 Arcillas y Gredas de Colombia</p>
             </div>
         </div>
     </section>
 
     <!-- Botón Flotante -->
-    <a href="https://wa.me/573136139989?text=Hola,%20deseo%20asesoría%20sobre%20sus%20productos." target="_blank" class="fixed bottom-8 right-8 z-50 bg-brand-whatsapp hover:bg-green-500 text-white p-4 rounded-full shadow-[0_0_20px_rgba(37,211,102,0.4)] transition-all hover:scale-110 content-overlay">
+    <a href="https://wa.me/573136139989?text=Hola,%20deseo%20asesoría." target="_blank" class="fixed bottom-8 right-8 z-50 bg-brand-whatsapp hover:bg-green-500 text-white p-4 rounded-full shadow-[0_0_20px_rgba(37,211,102,0.4)] transition-all hover:scale-110 content-overlay animate-bounce">
         <i data-lucide="message-circle" class="w-6 h-6"></i>
     </a>
 
@@ -398,7 +349,7 @@
     <script>
         lucide.createIcons();
 
-        // Mobile Menu
+        // Menu Mobile
         const btn = document.getElementById('mobile-menu-btn');
         const menu = document.getElementById('mobile-menu');
         btn.addEventListener('click', () => menu.classList.toggle('hidden'));
@@ -415,203 +366,151 @@
             if(activeBtn) activeBtn.classList.add('active');
         }
 
-        // --- DATA PRODUCTOS (CON INFO CIENTÍFICA DEL REPORTE) ---
-        const products = [
-            // LÍNEA BELLEZA (DERMOCOSMÉTICA)
-            {
-                title: "Caolín Premium (Arcilla Blanca)",
-                category: "belleza",
-                image: "https://arcillasygredasdecolombia.wordpress.com/wp-content/uploads/2024/01/img_8302-edited.jpg",
-                desc: "Silicato de aluminio hidratado (1:1). Mecanismo de adsorción selectiva suave.",
-                benefit: "Seborregulación & Barrera",
-                color: "text-brand-alabaster",
-                border: "border-brand-alabaster",
-                tags: ["Piel Sensible", "pH Neutro", "Hidratante"]
-            },
-            {
-                title: "Bentonita Detox (Arcilla Gris)",
-                category: "belleza",
-                image: "https://arcillasygredasdecolombia.wordpress.com/wp-content/uploads/2024/01/img_8285-edited.jpg",
-                desc: "Montmorillonita con alta capacidad de intercambio catiónico (CIC). Inhibición de COX-2.",
-                benefit: "Antiinflamatorio & Detox",
-                color: "text-brand-stone",
-                border: "border-brand-stone",
-                tags: ["Acné", "Limpieza Profunda", "Antipolución"]
-            },
-            {
-                title: "Illita Roja (Pro-Age)",
-                category: "belleza",
-                image: "https://arcillasygredasdecolombia.wordpress.com/wp-content/uploads/2024/01/img_8285-edited.jpg", // Reutilizada por falta de imagen específica
-                desc: "Rica en óxidos de hierro. Estimula la actividad de los fibroblastos y la neocolagénesis.",
-                benefit: "Bioestimulación Colágeno",
-                color: "text-brand-terracotta",
-                border: "border-brand-terracotta",
-                tags: ["Firmeza", "Cicatrización", "Madurez"]
-            },
-            {
-                title: "Illita Verde (Purificante)",
-                category: "belleza",
-                image: "https://arcillasygredasdecolombia.wordpress.com/wp-content/uploads/2024/01/img_8285-edited.jpg", // Reutilizada
-                desc: "Alta pureza mineral. Acción bactericida de amplio espectro por desestabilización de membrana.",
-                benefit: "Acción Antimicrobiana",
-                color: "text-brand-sage",
-                border: "border-brand-sage",
-                tags: ["Piel Grasa", "Astringente", "Mate"]
-            },
+        // --- DATA CATALOGO DETALLADA ---
+        const catalog = {
+            belleza: [
+                {
+                    title: "Caolín (Arcilla Blanca)",
+                    img: "https://arcillasygredasdecolombia.wordpress.com/wp-content/uploads/2024/01/img_8302-edited.jpg",
+                    desc: "La más suave de todas. Rica en silicio. No reseca la piel.",
+                    benefits: ["Piel Sensible y Seca", "Efecto Tensor Suave", "pH Neutro", "Cicatrizante"],
+                    color: "text-brand-white"
+                },
+                {
+                    title: "Bentonita (Arcilla Gris)",
+                    img: "https://arcillasygredasdecolombia.wordpress.com/wp-content/uploads/2024/01/img_8285-edited.jpg", // Usando placeholder, ideal cambiar si hay foto específica gris
+                    desc: "Alta capacidad de absorción. Carga eléctrica negativa potente.",
+                    benefits: ["Piel Grasa/Acnéica", "Detox Profundo", "Elimina Toxinas", "Antiinflamatorio"],
+                    color: "text-brand-gray"
+                },
+                {
+                    title: "Illita Roja (Arcilla Roja)",
+                    img: "https://arcillasygredasdecolombia.wordpress.com/wp-content/uploads/2024/01/img_8285-edited.jpg", // Usando placeholder
+                    desc: "Rica en óxidos de hierro y cobre. Estimula el flujo sanguíneo.",
+                    benefits: ["Piel Madura", "Revitalizante", "Estimula Colágeno", "Mejora Circulación"],
+                    color: "text-brand-red"
+                },
+                {
+                    title: "Illita Verde (Arcilla Verde)",
+                    img: "https://arcillasygredasdecolombia.wordpress.com/wp-content/uploads/2024/01/img_8285-edited.jpg", // Usando placeholder
+                    desc: "La más activa y absorbente. Rica en magnesio y oligoelementos.",
+                    benefits: ["Piel Mixta/Grasa", "Bactericida Natural", "Cierra Poros", "Regula Sebo"],
+                    color: "text-brand-green"
+                },
+                {
+                    title: "Arcilla Negra (Volcánica)",
+                    img: "https://arcillasygredasdecolombia.wordpress.com/wp-content/uploads/2024/01/img_8285-edited.jpg", // Usando placeholder
+                    desc: "Origen volcánico. Alta concentración de minerales.",
+                    benefits: ["Rejuvenecedora", "Exfoliación Física", "Luminosidad", "Renovación Celular"],
+                    color: "text-gray-400"
+                }
+            ],
+            arte: [
+                {
+                    title: "Arcilla Moldeable",
+                    img: "https://arcillasygredasdecolombia.wordpress.com/wp-content/uploads/2024/01/picsart_07-06-06.04.17-edited.jpg",
+                    desc: "Masa lista para usar. Alta plasticidad.",
+                    benefits: ["Escultura Manual", "No requiere horno (seca al aire)", "Textura suave", "Fácil alisado"]
+                },
+                {
+                    title: "Torno Alfarero",
+                    img: "https://arcillasygredasdecolombia.wordpress.com/wp-content/uploads/2024/01/picsart_07-09-10.11.20-edited.jpg",
+                    desc: "Equipo profesional eléctrico.",
+                    benefits: ["Motor Silencioso", "Pedal Ajustable", "Plato de Aluminio", "Uso Continuo"]
+                },
+                {
+                    title: "Arenas de Colores",
+                    img: "https://arcillasygredasdecolombia.wordpress.com/wp-content/uploads/2024/01/img_20200705_122734_374-edited.jpg",
+                    desc: "Pigmentación resistente UV.",
+                    benefits: ["Manualidades", "Arte Efímero", "Decoración", "No tóxico"]
+                },
+                {
+                    title: "Esmaltes Decorativos",
+                    img: "https://arcillasygredasdecolombia.wordpress.com/wp-content/uploads/2020/07/20200628_104940.jpg",
+                    desc: "Acabados brillantes y mate.",
+                    benefits: ["Alto Cubrimiento", "Secado Rápido", "Base Agua", "Colores Vivos"]
+                }
+            ],
+            construccion: [
+                {
+                    title: "Ladrillos a Escala",
+                    img: "https://arcillasygredasdecolombia.wordpress.com/wp-content/uploads/2018/05/ladrillos-tejas-bloques-a-escala.jpg",
+                    desc: "Arcilla real cocida.",
+                    benefits: ["Escala 1:10 / 1:20", "Textura Real", "Alta Resistencia", "Dioramas"]
+                },
+                {
+                    title: "Yeso Dental",
+                    img: "https://arcillasygredasdecolombia.wordpress.com/wp-content/uploads/2024/01/20200705_123706-edited-4.jpg",
+                    desc: "Tipo III y IV de alta dureza.",
+                    benefits: ["Copia Fiel", "Alta Blancura", "Fraguado Controlado", "Sin Burbujas"]
+                },
+                {
+                    title: "Aserrín Industrial",
+                    img: "https://arcillasygredasdecolombia.wordpress.com/wp-content/uploads/2024/01/img-20200706-wa0003_1594050654061-edited.jpg",
+                    desc: "Seco y tamizado.",
+                    benefits: ["Absorbente", "Carga Ligera", "Compostaje", "Limpieza"]
+                }
+            ]
+        };
 
-            // LÍNEA ARTE
-            {
-                title: "Arcilla Moldeable Pro",
-                category: "arte",
-                image: "https://arcillasygredasdecolombia.wordpress.com/wp-content/uploads/2024/01/picsart_07-06-06.04.17-edited.jpg",
-                desc: "Masa plástica lista para uso. Granulometría controlada para evitar grietas.",
-                benefit: "Alta Plasticidad",
-                color: "text-brand-gold",
-                border: "border-brand-gold",
-                tags: ["Escultura", "Torno", "Modelado"]
-            },
-            {
-                title: "Torno Alfarero",
-                category: "arte",
-                image: "https://arcillasygredasdecolombia.wordpress.com/wp-content/uploads/2024/01/picsart_07-09-10.11.20-edited.jpg",
-                desc: "Equipo de precisión para el conformado de piezas cerámicas.",
-                benefit: "Herramienta Pro",
-                color: "text-brand-gold",
-                border: "border-brand-gold",
-                tags: ["Cerámica", "Taller"]
-            },
-            {
-                title: "Arcilla Polvo Artística",
-                category: "arte",
-                image: "https://arcillasygredasdecolombia.wordpress.com/wp-content/uploads/2017/07/img_9537.jpg",
-                desc: "Materia prima base para formulación de pastas cerámicas personalizadas.",
-                benefit: "Base Cerámica",
-                color: "text-brand-gold",
-                border: "border-brand-gold",
-                tags: ["DIY", "Formulación"]
-            },
-            {
-                title: "Pigmentos & Esmaltes",
-                category: "arte",
-                image: "https://arcillasygredasdecolombia.wordpress.com/wp-content/uploads/2020/07/20200628_104940.jpg",
-                desc: "Acabados vitrificables y acrílicos de alta intensidad cromática.",
-                benefit: "Acabado Final",
-                color: "text-brand-gold",
-                border: "border-brand-gold",
-                tags: ["Decoración", "Color"]
-            },
-            {
-                title: "Arenas Cromáticas",
-                category: "arte",
-                image: "https://arcillasygredasdecolombia.wordpress.com/wp-content/uploads/2024/01/img_20200705_122734_374-edited.jpg",
-                desc: "Arenas tinturadas para texturizado y arte efímero.",
-                benefit: "Textura",
-                color: "text-brand-gold",
-                border: "border-brand-gold",
-                tags: ["Manualidades", "Paisajismo"]
-            },
-            {
-                title: "Gravas Decorativas",
-                category: "arte",
-                image: "https://arcillasygredasdecolombia.wordpress.com/wp-content/uploads/2017/07/img_9535.jpg",
-                desc: "Piedras seleccionadas por calibre y color para paisajismo.",
-                benefit: "Decoración",
-                color: "text-brand-gold",
-                border: "border-brand-gold",
-                tags: ["Jardín", "Acuario"]
-            },
-
-            // LÍNEA TÉCNICA/CONSTRUCCIÓN
-            {
-                title: "Yeso Dental Blanco",
-                category: "construccion",
-                image: "https://arcillasygredasdecolombia.wordpress.com/wp-content/uploads/2024/01/20200705_123706-edited-4.jpg",
-                desc: "Sulfato de calcio hemihidratado. Fraguado controlado y alta dureza.",
-                benefit: "Alta Precisión",
-                color: "text-gray-400",
-                border: "border-gray-500",
-                tags: ["Odontología", "Moldes"]
-            },
-            {
-                title: "Ladrillos a Escala",
-                category: "construccion",
-                image: "https://arcillasygredasdecolombia.wordpress.com/wp-content/uploads/2018/05/ladrillos-tejas-bloques-a-escala.jpg",
-                desc: "Material didáctico y profesional para maquetas arquitectónicas.",
-                benefit: "Realismo",
-                color: "text-gray-400",
-                border: "border-gray-500",
-                tags: ["Maquetas", "Arquitectura"]
-            },
-            {
-                title: "Aserrín Seco",
-                category: "construccion",
-                image: "https://arcillasygredasdecolombia.wordpress.com/wp-content/uploads/2024/01/img-20200706-wa0003_1594050654061-edited.jpg",
-                desc: "Subproducto orgánico tratado para absorción y carga.",
-                benefit: "Absorbente",
-                color: "text-gray-400",
-                border: "border-gray-500",
-                tags: ["Industrial", "Limpieza"]
-            }
-        ];
-
-        // Renderizado Avanzado
-        const grid = document.getElementById('product-grid');
-        function renderProducts(filter) {
-            grid.innerHTML = '';
-            const filtered = filter === 'all' ? products : products.filter(p => p.category === filter);
+        // Función para mostrar subcategoría
+        function showSubCategory(category) {
+            // 1. Ocultar catálogo principal
+            document.getElementById('page-products').classList.remove('active');
             
-            filtered.forEach((p, i) => {
-                // Generar Tags HTML
-                const tagsHtml = p.tags.map(tag => 
-                    `<span class="text-[9px] uppercase border ${p.border} ${p.color} px-2 py-0.5 rounded-full opacity-70">${tag}</span>`
-                ).join('');
+            // 2. Mostrar detalle
+            const detailSection = document.getElementById('page-detail');
+            detailSection.classList.add('active');
+            window.scrollTo(0,0);
 
-                grid.innerHTML += `
-                    <div class="product-card rounded-lg overflow-hidden relative group flex flex-col" style="animation: fadeIn 0.5s ease forwards ${i*0.05}s">
-                        <div class="h-48 overflow-hidden relative bg-gray-900">
-                            <img src="${p.image}" class="w-full h-full object-cover transform group-hover:scale-110 transition duration-700 opacity-90 group-hover:opacity-100" alt="${p.title}">
-                            <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div>
-                            <div class="absolute bottom-2 left-3 right-3">
-                                <span class="text-[10px] font-mono text-white/60 mb-1 block">${p.benefit}</span>
-                                <h3 class="text-white font-serif text-lg leading-tight">${p.title}</h3>
-                            </div>
+            // 3. Renderizar Contenido
+            const container = document.getElementById('detail-grid');
+            const titleEl = document.getElementById('detail-title');
+            
+            // Título
+            const catNames = { belleza: "Dermocosmética", arte: "Arte & Escultura", construccion: "Técnico" };
+            titleEl.textContent = catNames[category];
+
+            // Items
+            container.innerHTML = '';
+            catalog[category].forEach((item, index) => {
+                const benefitsHtml = item.benefits.map(b => `<li class="flex items-center gap-2"><i data-lucide="check" class="w-3 h-3 text-brand-gold"></i> ${b}</li>`).join('');
+                const colorClass = item.color || 'text-brand-gold';
+
+                container.innerHTML += `
+                    <div class="product-card bg-gray-900 border border-gray-800 rounded-xl overflow-hidden animate-float" style="animation-delay: ${index*0.1}s; animation-duration: 8s;">
+                        <div class="h-56 overflow-hidden relative">
+                            <img src="${item.img}" class="w-full h-full object-cover transition-transform duration-700 hover:scale-110" alt="${item.title}">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent"></div>
                         </div>
-                        <div class="p-4 flex-1 flex flex-col justify-between">
-                            <div>
-                                <p class="text-gray-400 text-xs mb-4 leading-relaxed font-light">${p.desc}</p>
-                                <div class="flex flex-wrap gap-2 mb-4">
-                                    ${tagsHtml}
-                                </div>
+                        <div class="p-6">
+                            <h3 class="text-2xl font-serif text-white mb-2 ${colorClass}">${item.title}</h3>
+                            <p class="text-gray-400 text-sm mb-4 italic">${item.desc}</p>
+                            
+                            <div class="bg-black/40 p-4 rounded-lg border border-white/5 mb-6">
+                                <h4 class="text-[10px] uppercase tracking-widest text-brand-gold mb-3">Beneficios & Usos</h4>
+                                <ul class="text-gray-300 text-xs space-y-2">
+                                    ${benefitsHtml}
+                                </ul>
                             </div>
-                            <a href="https://wa.me/573136139989?text=Hola,%20quisiera%20más%20información%20técnica%20sobre:%20${encodeURIComponent(p.title)}" target="_blank" 
-                               class="block w-full text-center py-3 border border-white/10 bg-white/5 text-white text-[10px] uppercase tracking-widest hover:bg-brand-gold hover:text-black hover:border-brand-gold transition-all font-bold">
-                               Cotizar / Ficha Técnica
+
+                            <a href="https://wa.me/573136139989?text=Hola,%20quisiera%20cotizar%20${encodeURIComponent(item.title)}" target="_blank" 
+                               class="block w-full py-3 text-center bg-white/5 hover:bg-brand-gold hover:text-black border border-brand-gold/30 text-white transition-all uppercase text-xs font-bold tracking-widest rounded">
+                               Cotizar
                             </a>
                         </div>
                     </div>
                 `;
             });
+            lucide.createIcons();
         }
 
-        function filterProducts(cat) {
-            document.querySelectorAll('.filter-btn').forEach(b => {
-                b.classList.remove('border-brand-gold', 'text-brand-gold', 'bg-brand-gold/10');
-                b.classList.add('border-gray-800', 'text-gray-500');
-            });
-            event.target.classList.remove('border-gray-800', 'text-gray-500');
-            event.target.classList.add('border-brand-gold', 'text-brand-gold', 'bg-brand-gold/10');
-            renderProducts(cat);
-        }
-
-        renderProducts('all');
-
-        // --- THREE.JS (LOGO DERECHA + ESTRELLAS) ---
+        // Three.js (Logo y Fondo)
         const initThree = () => {
             const container = document.getElementById('canvas-bg');
             const scene = new THREE.Scene();
             const camera = new THREE.PerspectiveCamera(45, window.innerWidth/window.innerHeight, 0.1, 1000);
             camera.position.z = 8;
-            
             const renderer = new THREE.WebGLRenderer({alpha:true, antialias:true});
             renderer.setSize(window.innerWidth, window.innerHeight);
             container.appendChild(renderer.domElement);
@@ -622,37 +521,31 @@
             dirLight.position.set(2, 5, 5);
             scene.add(dirLight);
 
-            // LOGO
+            // Logo
             const textureLoader = new THREE.TextureLoader();
             const logoUrl = 'https://raw.githubusercontent.com/instructorandradedcc/arcillasygredasdecolombia/main/2oro-logo%20con%20trasparencia.png';
             let logoMesh;
 
             textureLoader.load(logoUrl, (texture) => {
                 const aspect = texture.image.width / texture.image.height;
-                const height = 4.0; 
-                const width = height * aspect;
-                const geometry = new THREE.PlaneGeometry(width, height);
+                const geometry = new THREE.PlaneGeometry(4.0 * aspect, 4.0);
                 const material = new THREE.MeshBasicMaterial({ map: texture, transparent: true, side: THREE.DoubleSide, depthWrite: false });
                 logoMesh = new THREE.Mesh(geometry, material);
                 scene.add(logoMesh);
                 adjustPosition();
             });
 
-            // PARTÍCULAS
+            // Estrellas
             const geom = new THREE.BufferGeometry();
             const count = 600;
             const pos = new Float32Array(count*3);
-            const col = new Float32Array(count*3);
             for(let i=0; i<count*3; i+=3) {
                 pos[i] = (Math.random()-0.5)*20;
                 pos[i+1] = (Math.random()-0.5)*20;
                 pos[i+2] = (Math.random()-0.5)*15 - 5;
-                if(Math.random()>0.5) { col[i]=0.83; col[i+1]=0.68; col[i+2]=0.21; } 
-                else { col[i]=0.65; col[i+1]=0.48; col[i+2]=0.35; }
             }
             geom.setAttribute('position', new THREE.BufferAttribute(pos,3));
-            geom.setAttribute('color', new THREE.BufferAttribute(col,3));
-            const mat = new THREE.PointsMaterial({size:0.05, vertexColors:true, transparent:true, opacity:0.6});
+            const mat = new THREE.PointsMaterial({size:0.05, color: 0xD4AF37, transparent:true, opacity:0.6});
             const stars = new THREE.Points(geom, mat);
             scene.add(stars);
 
@@ -668,8 +561,7 @@
                 if(logoMesh) {
                     const time = Date.now() * 0.001;
                     const baseX = logoMesh.userData.baseX || 0;
-                    const baseY = logoMesh.userData.baseY || 0;
-                    logoMesh.position.y = baseY + Math.sin(time) * 0.1;
+                    logoMesh.position.y = (logoMesh.userData.baseY || 0) + Math.sin(time) * 0.1;
                     logoMesh.position.x = baseX;
                     logoMesh.rotation.y = mouseX * 0.5;
                     logoMesh.rotation.x = mouseY * 0.5;
@@ -682,10 +574,10 @@
                 if(!logoMesh) return;
                 if(window.innerWidth < 768) {
                     logoMesh.userData.baseX = 0;
-                    logoMesh.userData.baseY = 1.5; // Arriba en móvil
+                    logoMesh.userData.baseY = 1.5;
                     logoMesh.scale.set(0.6, 0.6, 0.6);
                 } else {
-                    logoMesh.userData.baseX = 3.5; // Derecha en escritorio
+                    logoMesh.userData.baseX = 3.5;
                     logoMesh.userData.baseY = 0;
                     logoMesh.scale.set(1, 1, 1);
                 }
