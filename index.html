@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Arcillas y Gredas de Colombia | Ciencia & Arte</title>
+    <title>Arcillas y Gredas de Colombia | Experiencia Sensorial</title>
     <meta name="description" content="Arcillas dermatológicas y artísticas de Colombia. Catálogo especializado por colores y usos.">
     
     <!-- Tailwind CSS -->
@@ -24,15 +24,11 @@
                 extend: {
                     colors: {
                         brand: {
-                            gold: '#B8860B', // Dark Goldenrod (más visible en claro)
-                            clay: '#A16E53', // Terracota suave
-                            dark: '#3E2723', // Marrón oscuro para textos
-                            earth: '#5D4037', // Marrón medio
-                            sand: '#F5F5F0', // Arena muy clara
+                            gold: '#B8860B', 
+                            clay: '#A16E53', 
+                            dark: '#3E2723', 
+                            earth: '#5D4037', 
                             whatsapp: '#25D366',
-                            // Palette Pastel
-                            beige: '#E6D5C3',
-                            cream: '#FDFBF7',
                         }
                     },
                     fontFamily: {
@@ -54,38 +50,108 @@
         }
     </script>
 
+    <!-- SHADERS GLSL (La magia del fondo) -->
+    <script id="vertexShader" type="x-shader/x-vertex">
+        varying vec2 vUv;
+        void main() {
+            vUv = uv;
+            gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+        }
+    </script>
+
+    <script id="fragmentShader" type="x-shader/x-fragment">
+        uniform float uTime;
+        uniform vec2 uResolution;
+        uniform vec2 uMouse;
+        varying vec2 vUv;
+
+        // Función de Ruido para textura de arena
+        float random (in vec2 st) {
+            return fract(sin(dot(st.xy, vec2(12.9898,78.233))) * 43758.5453123);
+        }
+
+        // Ruido Perlin suave
+        float noise (in vec2 st) {
+            vec2 i = floor(st);
+            vec2 f = fract(st);
+            float a = random(i);
+            float b = random(i + vec2(1.0, 0.0));
+            float c = random(i + vec2(0.0, 1.0));
+            float d = random(i + vec2(1.0, 1.0));
+            vec2 u = f * f * (3.0 - 2.0 * f);
+            return mix(a, b, u.x) + (c - a)* u.y * (1.0 - u.x) + (d - b) * u.x * u.y;
+        }
+
+        void main() {
+            vec2 st = vUv;
+            // Ajustar aspecto para que no se estire
+            st.x *= uResolution.x / uResolution.y;
+
+            // --- 1. INTERACCIÓN MOUSE (LA BOLA/OLA) ---
+            // Calculamos distancia del pixel actual al mouse
+            vec2 mousePos = uMouse;
+            mousePos.x *= uResolution.x / uResolution.y;
+            float dist = distance(st, mousePos);
+            
+            // Efecto de empuje/onda alrededor del mouse
+            float mouseEffect = smoothstep(0.4, 0.0, dist); // Radio de influencia
+            
+            // Distorsión de coordenadas basada en el mouse y el tiempo
+            vec2 distortedSt = st;
+            distortedSt.x += mouseEffect * 0.1 * sin(uTime * 2.0);
+            distortedSt.y += mouseEffect * 0.1 * cos(uTime * 2.0);
+
+            // --- 2. OLAS DE ARCILLA (FONDOS) ---
+            // Creamos capas de ondas sinusoidales moviéndose
+            float wave1 = sin(distortedSt.x * 3.0 + uTime * 0.5) * 0.5 + 0.5;
+            float wave2 = cos(distortedSt.y * 5.0 - uTime * 0.3) * 0.5 + 0.5;
+            float wave3 = sin((distortedSt.x + distortedSt.y) * 4.0 + uTime * 0.2) * 0.5 + 0.5;
+
+            // Mezcla compleja para formas orgánicas
+            float pattern = (wave1 + wave2 + wave3) / 3.0;
+            
+            // Añadir textura de "grano de arena"
+            float grain = noise(st * 200.0) * 0.08; 
+            pattern += grain;
+
+            // --- 3. PALETA DE COLORES (ARCILLAS) ---
+            // Definimos los colores de la marca
+            vec3 colorTerracotta = vec3(0.74, 0.45, 0.35); // Roja
+            vec3 colorSand = vec3(0.96, 0.93, 0.86);       // Arena Base (Fondo)
+            vec3 colorOchre = vec3(0.85, 0.70, 0.45);      // Amarilla/Dorado
+            vec3 colorGrey = vec3(0.60, 0.65, 0.68);       // Gris/Bentonita
+
+            // Mezclamos los colores basados en el patrón de ondas
+            vec3 finalColor = colorSand; // Base
+            
+            // Capas de color
+            finalColor = mix(finalColor, colorOchre, smoothstep(0.3, 0.6, wave1));
+            finalColor = mix(finalColor, colorTerracotta, smoothstep(0.4, 0.7, wave2 * pattern));
+            finalColor = mix(finalColor, colorGrey, smoothstep(0.6, 0.9, wave3));
+
+            // Acentuar donde está el mouse (Brillo)
+            finalColor += vec3(0.1) * mouseEffect;
+
+            gl_FragColor = vec4(finalColor, 1.0);
+        }
+    </script>
+
     <style>
         body {
-            /* Degradado "Desert Sand" */
-            background: linear-gradient(135deg, #FDFBF7 0%, #E8DCC8 100%);
-            color: #3E2723; /* Texto Marrón Oscuro */
+            background-color: #F5F5F0;
+            color: #3E2723;
             overflow-x: hidden;
+            margin: 0;
         }
 
-        /* Textura de Papel/Arena Sutil */
-        body::before {
-            content: "";
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            opacity: 0.4;
-            pointer-events: none;
-            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='1'/%3E%3C/svg%3E");
-            z-index: -1;
-            mix-blend-mode: multiply;
-        }
-
-        /* Fondo 3D */
+        /* Canvas ocupa todo el fondo */
         #canvas-bg {
             position: fixed;
             top: 0;
             left: 0;
-            width: 100%;
-            height: 100%;
+            width: 100vw;
+            height: 100vh;
             z-index: 0;
-            opacity: 1; 
         }
 
         .content-overlay {
@@ -97,13 +163,12 @@
             pointer-events: auto;
         }
 
-        /* Navegación "Vidrio Esmerilado Claro" */
+        /* Navegación Glass suave */
         .nav-glass {
-            background: rgba(255, 255, 255, 0.7);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border-bottom: 1px solid rgba(161, 110, 83, 0.1);
-            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.03);
+            background: rgba(255, 255, 255, 0.4); /* Más transparencia para ver las olas */
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.5);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.05);
         }
 
         .nav-link {
@@ -111,11 +176,13 @@
             text-transform: uppercase;
             letter-spacing: 0.15em;
             font-size: 0.75rem;
-            font-weight: 600;
-            color: #5D4037;
+            font-weight: 700;
+            color: #3E2723;
             transition: color 0.3s;
+            text-shadow: 0 1px 2px rgba(255,255,255,0.8);
         }
         .nav-link:hover, .nav-link.active { color: #A16E53; }
+        
         .nav-link::after {
             content: '';
             position: absolute;
@@ -128,17 +195,17 @@
         }
         .nav-link:hover::after { width: 100%; }
 
-        /* Estilo Bandera Colombia Texto (Ajustado para fondo claro) */
+        /* Estilo Bandera Colombia Texto */
         .text-colombia-flag {
             background: linear-gradient(90deg, #F5C618 0%, #F5C618 35%, #003893 35%, #003893 65%, #C8102E 65%, #C8102E 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             font-weight: 800;
             display: inline-block;
-            filter: drop-shadow(0 1px 1px rgba(0,0,0,0.1));
+            filter: drop-shadow(0 2px 2px rgba(255,255,255,0.8));
         }
 
-        /* Animaciones */
+        /* Animaciones Secciones */
         .page-section {
             display: none;
             min-height: 100vh;
@@ -158,28 +225,26 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* Cards Estilo "Papel Premium" */
-        .category-card {
-            background: #FFFFFF;
-            border: 1px solid rgba(161, 110, 83, 0.1);
-            transition: all 0.5s ease;
+        /* Tarjetas Estilo Vidrio/Cristal para dejar ver el fondo */
+        .category-card, .product-card {
+            background: rgba(255, 255, 255, 0.6); /* Semitransparente */
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            transition: all 0.4s ease;
             cursor: pointer;
-            box-shadow: 0 10px 40px -10px rgba(93, 64, 55, 0.1);
+            box-shadow: 0 8px 32px 0 rgba(161, 110, 83, 0.15);
         }
-        .category-card:hover {
-            transform: translateY(-5px) scale(1.01);
-            box-shadow: 0 20px 50px -10px rgba(161, 110, 83, 0.2);
+        .category-card:hover, .product-card:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.85);
             border-color: #A16E53;
+            box-shadow: 0 15px 40px -10px rgba(161, 110, 83, 0.3);
         }
-
-        /* Textos Elegantes */
-        h1, h2, h3 { color: #3E2723; }
-        p { color: #5D4037; }
     </style>
 </head>
 <body>
 
-    <!-- Fondo 3D -->
+    <!-- Fondo Interactivo (WebGL Shader) -->
     <div id="canvas-bg"></div>
 
     <!-- Navegación -->
@@ -189,7 +254,7 @@
                 <!-- Logo -->
                 <div class="flex items-center gap-4 cursor-pointer group" onclick="navigateTo('home')">
                     <img src="https://raw.githubusercontent.com/instructorandradedcc/arcillasygredasdecolombia/main/2oro-logo%20con%20trasparencia.png" 
-                         alt="Logo" class="h-14 w-auto group-hover:scale-105 transition-transform drop-shadow-sm filter brightness-90 contrast-125">
+                         alt="Logo" class="h-16 w-auto group-hover:scale-105 transition-transform drop-shadow-md">
                     <div class="hidden md:block">
                         <h1 class="font-serif text-sm tracking-widest text-brand-dark leading-none font-bold">ARCILLAS Y GREDAS</h1>
                         <span class="text-[9px] tracking-[0.3em] uppercase block mt-1 font-bold">
@@ -209,7 +274,7 @@
                 <button id="mobile-menu-btn" class="md:hidden text-brand-dark"><i data-lucide="menu"></i></button>
             </div>
         </div>
-        <div id="mobile-menu" class="hidden md:hidden bg-[#FDFBF7] border-b border-brand-clay/20 absolute w-full left-0 top-24 z-40 shadow-xl">
+        <div id="mobile-menu" class="hidden md:hidden bg-white/90 backdrop-blur-md border-b border-brand-clay/20 absolute w-full left-0 top-24 z-40 shadow-xl">
             <div class="flex flex-col p-6 space-y-4 text-center">
                 <button onclick="navigateTo('home')" class="text-brand-dark font-bold py-2 uppercase tracking-widest text-xs">Inicio</button>
                 <button onclick="navigateTo('products')" class="text-brand-dark font-bold py-2 uppercase tracking-widest text-xs">Catálogo</button>
@@ -225,17 +290,17 @@
             <div class="text-left z-10 animate-float flex flex-col justify-center pt-20 md:pt-0">
                 <div class="mb-8 flex items-center gap-3">
                     <span class="h-px w-12 bg-brand-clay"></span>
-                    <span class="text-brand-clay text-sm font-mono tracking-widest uppercase font-bold">Tierra & Origen</span>
+                    <span class="text-brand-clay text-sm font-mono tracking-widest uppercase font-bold">Pura Tierra Viva</span>
                 </div>
                 
-                <h1 class="font-serif text-5xl md:text-7xl font-bold text-brand-dark mb-8 leading-[1.1]">
+                <h1 class="font-serif text-5xl md:text-7xl font-bold text-brand-dark mb-8 leading-[1.1] drop-shadow-sm">
                     MINERALES<br>
                     ANCESTRALES<br>
                     <span class="text-3xl md:text-5xl mt-2 block font-normal text-brand-earth">DE <span class="text-colombia-flag">COLOMBIA</span></span>
                 </h1>
                 
-                <p class="text-brand-earth/80 text-base md:text-lg max-w-lg mb-12 font-medium leading-relaxed border-l-4 border-brand-clay pl-6 bg-white/40 backdrop-blur-sm py-4 rounded-r-lg shadow-sm">
-                    La riqueza geológica de nuestros suelos, transformada en materia prima pura para la <strong>alta cosmética</strong> y la creación artística.
+                <p class="text-brand-earth/90 text-base md:text-lg max-w-lg mb-12 font-medium leading-relaxed border-l-4 border-brand-clay pl-6 bg-white/60 backdrop-blur-md py-4 rounded-r-lg shadow-sm">
+                    Mueve el cursor y siente la textura. La riqueza geológica de nuestros suelos, transformada en materia prima pura para la <strong>alta cosmética</strong> y la creación artística.
                 </p>
                 
                 <div class="flex flex-wrap gap-6 mb-12">
@@ -271,7 +336,9 @@
             </div>
 
             <!-- Espacio Derecha (Logo 3D) -->
-            <div class="hidden md:block h-full w-full"></div>
+            <div class="hidden md:block h-full w-full relative">
+               <!-- El logo 3D está en el canvas, este div solo reserva espacio -->
+            </div>
         </div>
     </section>
 
@@ -279,17 +346,18 @@
     <section id="page-products" class="page-section content-overlay">
         <div class="max-w-7xl mx-auto px-6 pb-20">
             <div class="text-center mb-16 pt-10">
-                <h2 class="font-serif text-4xl text-brand-dark mb-4">Nuestras Líneas</h2>
+                <h2 class="font-serif text-4xl text-brand-dark mb-4 drop-shadow-sm">Nuestras Líneas</h2>
                 <div class="w-24 h-1 bg-brand-clay mx-auto rounded-full opacity-50"></div>
-                <p class="text-brand-earth mt-4 text-sm max-w-2xl mx-auto font-medium">Selecciona una categoría para explorar la gama completa.</p>
+                <p class="text-brand-earth mt-4 text-sm max-w-2xl mx-auto font-medium bg-white/50 backdrop-blur-sm inline-block px-4 py-1 rounded-full">Selecciona una categoría para explorar la gama completa.</p>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
                 
                 <!-- Card Belleza -->
-                <div onclick="showSubCategory('belleza')" class="category-card group relative h-[450px] overflow-hidden rounded-xl bg-white shadow-xl">
+                <div onclick="showSubCategory('belleza')" class="category-card group relative h-[450px] overflow-hidden rounded-xl">
                     <img src="https://arcillasygredasdecolombia.wordpress.com/wp-content/uploads/2024/01/img_8285-edited.jpg" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="Belleza">
-                    <div class="absolute inset-0 bg-gradient-to-t from-[#3E2723]/90 via-transparent to-transparent"></div>
+                    <!-- Degradado sutil solo abajo para texto -->
+                    <div class="absolute inset-0 bg-gradient-to-t from-[#3E2723] via-transparent to-transparent opacity-90"></div>
                     <div class="absolute bottom-0 left-0 p-8 w-full">
                         <div class="mb-4">
                             <i data-lucide="sparkles" class="w-8 h-8 text-white mb-2 drop-shadow-md"></i>
@@ -304,9 +372,9 @@
                 </div>
 
                 <!-- Card Arte -->
-                <div onclick="showSubCategory('arte')" class="category-card group relative h-[450px] overflow-hidden rounded-xl bg-white shadow-xl">
+                <div onclick="showSubCategory('arte')" class="category-card group relative h-[450px] overflow-hidden rounded-xl">
                     <img src="https://arcillasygredasdecolombia.wordpress.com/wp-content/uploads/2024/01/picsart_07-06-06.04.17-edited.jpg" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="Arte">
-                    <div class="absolute inset-0 bg-gradient-to-t from-[#3E2723]/90 via-transparent to-transparent"></div>
+                    <div class="absolute inset-0 bg-gradient-to-t from-[#3E2723] via-transparent to-transparent opacity-90"></div>
                     <div class="absolute bottom-0 left-0 p-8 w-full">
                         <div class="mb-4">
                             <i data-lucide="palette" class="w-8 h-8 text-white mb-2 drop-shadow-md"></i>
@@ -321,9 +389,9 @@
                 </div>
 
                 <!-- Card Construcción -->
-                <div onclick="showSubCategory('construccion')" class="category-card group relative h-[450px] overflow-hidden rounded-xl bg-white shadow-xl">
+                <div onclick="showSubCategory('construccion')" class="category-card group relative h-[450px] overflow-hidden rounded-xl">
                     <img src="https://arcillasygredasdecolombia.wordpress.com/wp-content/uploads/2018/05/ladrillos-tejas-bloques-a-escala.jpg" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="Construcción">
-                    <div class="absolute inset-0 bg-gradient-to-t from-[#3E2723]/90 via-transparent to-transparent"></div>
+                    <div class="absolute inset-0 bg-gradient-to-t from-[#3E2723] via-transparent to-transparent opacity-90"></div>
                     <div class="absolute bottom-0 left-0 p-8 w-full">
                         <div class="mb-4">
                             <i data-lucide="hammer" class="w-8 h-8 text-white mb-2 drop-shadow-md"></i>
@@ -344,7 +412,7 @@
     <!-- SECCIÓN: VISTA DETALLE SUBCATEGORÍA -->
     <section id="page-detail" class="page-section content-overlay">
         <div class="max-w-7xl mx-auto px-6 pb-20 pt-10">
-            <div class="flex items-center gap-4 mb-12 bg-white/70 p-4 rounded-lg backdrop-blur-md border border-brand-clay/20 shadow-sm">
+            <div class="flex items-center gap-4 mb-12 bg-white/80 p-4 rounded-lg backdrop-blur-md border border-brand-clay/20 shadow-md">
                 <button onclick="navigateTo('products')" class="flex items-center gap-2 text-brand-earth hover:text-brand-clay transition-colors text-xs uppercase tracking-widest font-bold">
                     <i data-lucide="arrow-left" class="w-4 h-4"></i> Volver
                 </button>
@@ -359,7 +427,7 @@
     <section id="page-about" class="page-section content-overlay">
         <div class="max-w-6xl mx-auto px-6 pt-10">
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-                <div class="bg-white/70 p-10 border border-brand-clay/20 backdrop-blur-xl rounded-xl shadow-xl">
+                <div class="bg-white/80 p-10 border border-brand-clay/20 backdrop-blur-xl rounded-xl shadow-xl">
                     <h2 class="font-serif text-3xl mb-6 text-brand-dark">Filosofía <span class="text-brand-clay italic">Boticaria</span></h2>
                     <p class="text-brand-earth text-sm leading-relaxed mb-6 text-justify font-medium">
                         En un mercado saturado de sintéticos, <strong>Arcillas y Gredas de Colombia</strong> regresa al origen. Nuestra misión es cerrar la brecha entre la riqueza geológica de nuestro país y la necesidad de pureza en la cosmética moderna.
@@ -376,7 +444,7 @@
 
     <!-- SECCIÓN 4: CONTACTO -->
     <section id="page-contact" class="page-section content-overlay">
-        <div class="max-w-3xl mx-auto px-6 py-20 bg-white/80 border border-brand-clay/20 text-center backdrop-blur-xl mt-10 rounded-xl shadow-2xl">
+        <div class="max-w-3xl mx-auto px-6 py-20 bg-white/90 border border-brand-clay/20 text-center backdrop-blur-xl mt-10 rounded-xl shadow-2xl">
             <h2 class="font-serif text-3xl text-brand-dark mb-8">Hablemos</h2>
             <div class="flex flex-col md:flex-row justify-center gap-8 mb-12">
                 <a href="https://wa.me/573136139989" target="_blank" class="group flex flex-col items-center gap-4">
@@ -425,7 +493,7 @@
             if(activeBtn) activeBtn.classList.add('active');
         }
 
-        // --- DATA CATALOGO DETALLADA (MODO CLARO) ---
+        // --- DATA CATALOGO DETALLADA ---
         const catalog = {
             belleza: [
                 {
@@ -555,69 +623,66 @@
             lucide.createIcons();
         }
 
-        // Three.js (Ajustado para Fondo Claro)
+        // --- THREE.JS SHADER & LOGO ---
         const initThree = () => {
             const container = document.getElementById('canvas-bg');
             const scene = new THREE.Scene();
-            // No FOG negro, usamos transparencia
             
-            const camera = new THREE.PerspectiveCamera(45, window.innerWidth/window.innerHeight, 0.1, 1000);
-            camera.position.z = 8;
-            
+            // Cámara
+            const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000);
+            camera.position.z = 2; // Más cerca para llenar pantalla con shader
+
             const renderer = new THREE.WebGLRenderer({alpha:true, antialias:true});
             renderer.setSize(window.innerWidth, window.innerHeight);
             container.appendChild(renderer.domElement);
 
-            // Luces Más Brillantes
-            const ambientLight = new THREE.AmbientLight(0xffffff, 1.0);
-            scene.add(ambientLight);
-            const dirLight = new THREE.DirectionalLight(0xffecd2, 1.2); // Luz solar cálida
-            dirLight.position.set(2, 5, 5);
-            scene.add(dirLight);
+            // --- FONDO SHADER ---
+            const geometry = new THREE.PlaneGeometry(5, 5); // Cubre todo
+            const uniforms = {
+                uTime: { value: 0.0 },
+                uResolution: { value: new THREE.Vector2(window.innerWidth, window.innerHeight) },
+                uMouse: { value: new THREE.Vector2(0.5, 0.5) }
+            };
 
-            // LOGO
+            const material = new THREE.ShaderMaterial({
+                uniforms: uniforms,
+                vertexShader: document.getElementById('vertexShader').textContent,
+                fragmentShader: document.getElementById('fragmentShader').textContent,
+                transparent: true
+            });
+
+            const plane = new THREE.Mesh(geometry, material);
+            scene.add(plane);
+
+            // --- LOGO 3D (Sobre el fondo) ---
             const textureLoader = new THREE.TextureLoader();
             const logoUrl = 'https://raw.githubusercontent.com/instructorandradedcc/arcillasygredasdecolombia/main/2oro-logo%20con%20trasparencia.png';
             let logoMesh;
 
             textureLoader.load(logoUrl, (texture) => {
                 const aspect = texture.image.width / texture.image.height;
-                const geometry = new THREE.PlaneGeometry(4.0 * aspect, 4.0);
-                const material = new THREE.MeshBasicMaterial({ map: texture, transparent: true, side: THREE.DoubleSide, depthWrite: false });
-                logoMesh = new THREE.Mesh(geometry, material);
+                // Logo más pequeño en la escena 3D y desplazado
+                const logoGeo = new THREE.PlaneGeometry(1.5 * aspect, 1.5); 
+                const logoMat = new THREE.MeshBasicMaterial({ 
+                    map: texture, 
+                    transparent: true, 
+                    side: THREE.DoubleSide,
+                    depthTest: false // Renderizar siempre encima del fondo
+                });
+                logoMesh = new THREE.Mesh(logoGeo, logoMat);
+                // Ajustar posición
+                adjustPosition(logoMesh);
                 scene.add(logoMesh);
-                adjustPosition();
             });
 
-            // PARTÍCULAS (POLVO VISIBLE EN FONDO CLARO)
-            const geom = new THREE.BufferGeometry();
-            const count = 400; 
-            const pos = new Float32Array(count*3);
-            const col = new Float32Array(count*3);
-
-            for(let i=0; i<count*3; i+=3) {
-                pos[i] = (Math.random()-0.5)*20;
-                pos[i+1] = (Math.random()-0.5)*20;
-                pos[i+2] = (Math.random()-0.5)*15 - 5;
-                
-                // Colores Tierra Oscura para contrastar con fondo claro
-                if(Math.random()>0.6) { // Café Oscuro
-                    col[i]=0.36; col[i+1]=0.25; col[i+2]=0.21; 
-                } else if (Math.random()>0.3) { // Terracota
-                    col[i]=0.63; col[i+1]=0.43; col[i+2]=0.32; 
-                } else { // Ocre
-                    col[i]=0.72; col[i+1]=0.52; col[i+2]=0.04; 
-                }
-            }
-            geom.setAttribute('position', new THREE.BufferAttribute(pos,3));
-            geom.setAttribute('color', new THREE.BufferAttribute(col,3));
-
-            const mat = new THREE.PointsMaterial({size:0.07, vertexColors:true, transparent:true, opacity:0.8});
-            const dust = new THREE.Points(geom, mat);
-            scene.add(dust);
-
+            // Animación
             let mouseX = 0, mouseY = 0;
             document.addEventListener('mousemove', (e) => {
+                // Actualizar Uniform Mouse para el Shader
+                uniforms.uMouse.value.x = e.clientX / window.innerWidth;
+                uniforms.uMouse.value.y = 1.0 - (e.clientY / window.innerHeight); // Invertir Y para GLSL
+
+                // Parallax para el logo
                 mouseX = (e.clientX - window.innerWidth/2) * 0.0005;
                 mouseY = (e.clientY - window.innerHeight/2) * 0.0005;
             });
@@ -625,32 +690,31 @@
             const animate = () => {
                 requestAnimationFrame(animate);
                 
-                dust.rotation.y += 0.0002;
-                dust.position.y += Math.sin(Date.now() * 0.0005) * 0.001;
+                // Tiempo para olas
+                uniforms.uTime.value += 0.005;
 
+                // Animación Logo
                 if(logoMesh) {
                     const time = Date.now() * 0.001;
                     const baseX = logoMesh.userData.baseX || 0;
-                    const baseY = logoMesh.userData.baseY || 0;
-                    logoMesh.position.y = baseY + Math.sin(time) * 0.1;
+                    logoMesh.position.y = (logoMesh.userData.baseY || 0) + Math.sin(time) * 0.05;
                     logoMesh.position.x = baseX;
-                    logoMesh.rotation.y = mouseX * 0.5;
-                    logoMesh.rotation.x = mouseY * 0.5;
+                    logoMesh.rotation.y = mouseX * 0.2;
+                    logoMesh.rotation.x = mouseY * 0.2;
                 }
+
                 renderer.render(scene, camera);
             };
             animate();
 
-            function adjustPosition() {
-                if(!logoMesh) return;
+            function adjustPosition(mesh) {
+                if(!mesh) return;
                 if(window.innerWidth < 768) {
-                    logoMesh.userData.baseX = 0;
-                    logoMesh.userData.baseY = 1.5; 
-                    logoMesh.scale.set(0.6, 0.6, 0.6);
+                    mesh.visible = false; // Ocultar logo 3D en móvil para no tapar texto (o mover arriba)
                 } else {
-                    logoMesh.userData.baseX = 3.5;
-                    logoMesh.userData.baseY = 0;
-                    logoMesh.scale.set(1, 1, 1);
+                    mesh.visible = true;
+                    mesh.userData.baseX = 0.8; // A la derecha
+                    mesh.userData.baseY = 0;
                 }
             }
 
@@ -658,9 +722,12 @@
                 camera.aspect = window.innerWidth/window.innerHeight;
                 camera.updateProjectionMatrix();
                 renderer.setSize(window.innerWidth, window.innerHeight);
-                adjustPosition();
+                uniforms.uResolution.value.x = window.innerWidth;
+                uniforms.uResolution.value.y = window.innerHeight;
+                if(logoMesh) adjustPosition(logoMesh);
             });
         };
+        
         initThree();
     </script>
 </body>
