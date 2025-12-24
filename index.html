@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Arcillas y Gredas de Colombia | Pasión por la Tierra</title>
-    <meta name="description" content="Arcillas y Gredas de Colombia - Calidad Premium para Belleza, Arte y Construcción.">
+    <title>Arcillas y Gredas de Colombia | Tienda Oficial</title>
+    <meta name="description" content="Venta de arcillas naturales y mascarillas listas. Guías de horneado y uso.">
     
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -16,7 +16,7 @@
     <script src="https://unpkg.com/lucide@latest"></script>
 
     <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=Montserrat:wght@300;400;500;600&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Montserrat:wght@300;400;500;600;700&family=Space+Mono:ital,wght@0,400;0,700&display=swap" rel="stylesheet">
 
     <script>
         tailwind.config = {
@@ -26,9 +26,10 @@
                         brand: {
                             gold: '#B8860B', 
                             clay: '#A16E53', 
-                            dark: '#3E2723', 
+                            dark: '#2D2420', // Texto casi negro
                             earth: '#5D4037', 
                             whatsapp: '#25D366',
+                            light: '#F9F9F9'
                         }
                     },
                     fontFamily: {
@@ -37,12 +38,12 @@
                         mono: ['Space Mono', 'monospace'],
                     },
                     animation: {
-                        'float': 'float 6s ease-in-out infinite',
+                        'fade-in': 'fadeIn 0.5s ease-out forwards',
                     },
                     keyframes: {
-                        float: {
-                            '0%, 100%': { transform: 'translateY(0)' },
-                            '50%': { transform: 'translateY(-15px)' },
+                        fadeIn: {
+                            '0%': { opacity: '0', transform: 'translateY(10px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
                         }
                     }
                 }
@@ -50,186 +51,120 @@
         }
     </script>
 
-    <!-- SHADERS GLSL: ARENA VIVA PASTEL -->
-    <script id="vertexShader" type="x-shader/x-vertex">
-        varying vec2 vUv;
-        void main() {
-            vUv = uv;
-            gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
-        }
-    </script>
-
-    <script id="fragmentShader" type="x-shader/x-fragment">
-        uniform float uTime;
-        uniform vec2 uResolution;
-        uniform vec2 uMouse;
-        varying vec2 vUv;
-
-        float random (in vec2 st) {
-            return fract(sin(dot(st.xy, vec2(12.9898,78.233))) * 43758.5453123);
-        }
-
-        float noise (in vec2 st) {
-            vec2 i = floor(st);
-            vec2 f = fract(st);
-            float a = random(i);
-            float b = random(i + vec2(1.0, 0.0));
-            float c = random(i + vec2(0.0, 1.0));
-            float d = random(i + vec2(1.0, 1.0));
-            vec2 u = f * f * (3.0 - 2.0 * f);
-            return mix(a, b, u.x) + (c - a)* u.y * (1.0 - u.x) + (d - b) * u.x * u.y;
-        }
-
-        void main() {
-            vec2 st = vUv;
-            st.x *= uResolution.x / uResolution.y;
-
-            vec2 mousePos = uMouse;
-            mousePos.x *= uResolution.x / uResolution.y;
-            
-            float dist = distance(st, mousePos);
-            float mouseInteraction = smoothstep(0.4, 0.0, dist); 
-            
-            vec2 distortedSt = st;
-            distortedSt -= normalize(st - mousePos) * mouseInteraction * 0.1;
-
-            float n1 = noise(distortedSt * 2.0 + uTime * 0.05);
-            float n2 = noise(distortedSt * 4.0 - uTime * 0.1 + n1);
-            float pattern = noise(distortedSt * 3.0 + n2 * 1.5);
-            float grain = random(st * 300.0 + uTime * 0.2) * 0.05; 
-            
-            // Paleta Pastel Suave
-            vec3 cBase   = vec3(0.98, 0.96, 0.93); 
-            vec3 cSand   = vec3(0.93, 0.88, 0.80); 
-            vec3 cPink   = vec3(0.92, 0.85, 0.85); 
-            vec3 cGrey   = vec3(0.90, 0.91, 0.92); 
-
-            vec3 finalColor = mix(cBase, cSand, smoothstep(0.2, 0.5, pattern));
-            finalColor = mix(finalColor, cPink, smoothstep(0.4, 0.7, pattern));
-            finalColor = mix(finalColor, cGrey, smoothstep(0.6, 0.9, pattern));
-
-            finalColor -= grain * 0.1; 
-            finalColor += mouseInteraction * 0.05; 
-
-            gl_FragColor = vec4(finalColor, 1.0);
-        }
-    </script>
-
     <style>
         body {
-            background-color: #FDFBF7;
-            color: #3E2723;
+            background-color: #ffffff; /* Fondo Blanco Puro */
+            color: #2D2420;
             overflow-x: hidden;
-            margin: 0;
         }
 
-        #canvas-bg {
+        /* Canvas 3D (Logo Flotante) */
+        #canvas-container {
             position: fixed;
             top: 0;
             left: 0;
-            width: 100vw;
-            height: 100vh;
+            width: 100%;
+            height: 100%;
             z-index: 0;
-        }
-
-        .content-overlay {
-            position: relative;
-            z-index: 10;
             pointer-events: none;
         }
-        .content-overlay * {
-            pointer-events: auto;
+
+        /* Capa de contenido */
+        .content-layer {
+            position: relative;
+            z-index: 10;
+            background: transparent;
         }
 
+        /* Navegación Blanca */
         .nav-glass {
-            background: rgba(255, 255, 255, 0.6);
-            backdrop-filter: blur(15px);
-            border-bottom: 1px solid rgba(161, 110, 83, 0.1);
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid #f0f0f0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.02);
         }
 
         .nav-link {
-            position: relative;
             text-transform: uppercase;
-            letter-spacing: 0.15em;
+            letter-spacing: 0.1em;
             font-size: 0.75rem;
             font-weight: 700;
             color: #5D4037;
             transition: color 0.3s;
+            cursor: pointer;
         }
         .nav-link:hover, .nav-link.active { color: #A16E53; }
-        .nav-link::after { content: ''; position: absolute; width: 0; height: 2px; bottom: -4px; left: 0; background-color: #A16E53; transition: width 0.3s; }
-        .nav-link:hover::after { width: 100%; }
 
+        /* Estilo Bandera */
         .text-colombia-flag {
-            background: linear-gradient(90deg, #F5C618 0%, #F5C618 35%, #003893 35%, #003893 65%, #C8102E 65%, #C8102E 100%);
+            background: linear-gradient(90deg, #FCD116 0%, #FCD116 33%, #003893 33%, #003893 66%, #CE1126 66%, #CE1126 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             font-weight: 800;
             display: inline-block;
-            filter: drop-shadow(0 1px 1px rgba(0,0,0,0.1));
         }
 
-        .text-canvas {
-            background: rgba(255, 255, 255, 0.5); 
-            backdrop-filter: blur(8px);
-            border: 1px solid rgba(255, 255, 255, 0.6);
-            border-radius: 12px;
-            padding: 2.5rem;
-            box-shadow: 0 10px 40px rgba(161, 110, 83, 0.05);
-        }
-
-        .category-card, .product-card {
-            background: rgba(255, 255, 255, 0.7); 
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.8);
-            transition: all 0.4s ease;
-            cursor: pointer;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
-        }
-        .category-card:hover, .product-card:hover {
-            transform: translateY(-5px);
-            background: rgba(255, 255, 255, 0.9);
-            border-color: #A16E53;
-            box-shadow: 0 15px 40px -5px rgba(161, 110, 83, 0.15);
-        }
-
+        /* Secciones */
         .page-section {
             display: none;
             min-height: 100vh;
-            padding-top: 120px; 
-            animation: fadeIn 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+            padding-top: 100px;
         }
         .page-section.active { display: block; }
         
         #page-home.active { 
             display: flex !important; 
-            padding-top: 100px;
+            padding-top: 80px;
             align-items: center;
         }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
+        /* Tarjetas de Producto */
+        .product-card {
+            background: #ffffff;
+            border: 1px solid #eeeeee;
+            border-radius: 12px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+        }
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+            border-color: #A16E53;
         }
 
-        .font-cursive {
-            font-family: 'Playfair Display', serif;
-            font-style: italic;
+        /* Botones */
+        .btn-buy {
+            background-color: #25D366;
+            color: white;
+            font-weight: bold;
+            text-transform: uppercase;
+            font-size: 0.7rem;
+            letter-spacing: 0.05em;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            transition: background 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
         }
+        .btn-buy:hover { background-color: #128C7E; }
     </style>
 </head>
-<body>
+<body class="antialiased">
 
-    <!-- Fondo Interactivo -->
-    <div id="canvas-bg"></div>
+    <!-- Fondo 3D (Solo Logo y Partículas) -->
+    <div id="canvas-container"></div>
 
     <!-- Navegación -->
     <nav class="fixed w-full z-50 nav-glass transition-all duration-300">
         <div class="max-w-7xl mx-auto px-6">
             <div class="flex justify-between items-center h-20">
-                <div class="flex items-center gap-4 cursor-pointer group" onclick="navigateTo('home')">
+                <!-- Logo -->
+                <div class="flex items-center gap-4 cursor-pointer" onclick="navigateTo('home')">
                     <img src="https://raw.githubusercontent.com/instructorandradedcc/arcillasygredasdecolombia/main/2oro-logo%20con%20trasparencia.png" 
-                         alt="Logo" class="h-10 w-auto group-hover:scale-105 transition-transform">
+                         alt="Logo" class="h-12 w-auto hover:scale-105 transition-transform">
                     <div class="hidden md:block">
                         <h1 class="font-serif text-xs tracking-widest text-brand-dark leading-none font-bold">ARCILLAS Y GREDAS</h1>
                         <span class="text-[8px] tracking-[0.3em] uppercase block mt-1 font-bold">
@@ -238,166 +173,187 @@
                     </div>
                 </div>
 
+                <!-- Menú Desktop -->
                 <div class="hidden md:flex space-x-8">
-                    <button onclick="navigateTo('home')" class="nav-link active" id="btn-home">Inicio</button>
-                    <button onclick="navigateTo('products')" class="nav-link" id="btn-products">Catálogo</button>
-                    <button onclick="navigateTo('about')" class="nav-link" id="btn-about">Nosotros</button>
-                    <button onclick="navigateTo('contact')" class="nav-link" id="btn-contact">Contacto</button>
+                    <span onclick="navigateTo('home')" class="nav-link active" id="btn-home">Inicio</span>
+                    <span onclick="navigateTo('products')" class="nav-link" id="btn-products">Catálogo</span>
+                    <span onclick="navigateTo('instructions')" class="nav-link" id="btn-instructions">Instrucciones</span>
+                    <span onclick="navigateTo('contact')" class="nav-link" id="btn-contact">Contacto</span>
                 </div>
 
+                <!-- Menú Móvil -->
                 <button id="mobile-menu-btn" class="md:hidden text-brand-dark"><i data-lucide="menu"></i></button>
             </div>
         </div>
-        <div id="mobile-menu" class="hidden md:hidden bg-white/95 backdrop-blur-md border-b border-brand-clay/20 absolute w-full left-0 top-20 z-40 shadow-xl">
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-b border-gray-100 absolute w-full left-0 top-20 z-40 shadow-lg">
             <div class="flex flex-col p-6 space-y-4 text-center">
-                <button onclick="navigateTo('home')" class="text-brand-dark font-bold py-2 uppercase tracking-widest text-xs">Inicio</button>
-                <button onclick="navigateTo('products')" class="text-brand-dark font-bold py-2 uppercase tracking-widest text-xs">Catálogo</button>
-                <button onclick="navigateTo('contact')" class="text-brand-dark font-bold py-2 uppercase tracking-widest text-xs">Contacto</button>
+                <span onclick="navigateTo('home')" class="text-brand-dark font-bold py-2 uppercase text-xs">Inicio</span>
+                <span onclick="navigateTo('products')" class="text-brand-dark font-bold py-2 uppercase text-xs">Catálogo</span>
+                <span onclick="navigateTo('instructions')" class="text-brand-dark font-bold py-2 uppercase text-xs">Instrucciones</span>
+                <span onclick="navigateTo('contact')" class="text-brand-dark font-bold py-2 uppercase text-xs">Contacto</span>
             </div>
         </div>
     </nav>
 
-    <!-- SECCIÓN 1: HOME -->
-    <section id="page-home" class="page-section active min-h-screen content-overlay">
-        <div class="max-w-7xl mx-auto px-6 w-full grid grid-cols-1 md:grid-cols-2 gap-8 h-full items-center">
-            
-            <div class="text-left z-10 animate-float flex flex-col justify-center pt-10 md:pt-0">
-                <div class="text-canvas">
-                    <div class="mb-4 flex items-center gap-3">
-                        <span class="h-px w-8 bg-brand-clay"></span>
-                        <span class="text-brand-clay text-xs font-mono tracking-widest uppercase font-bold">Experiencia Sensorial</span>
-                    </div>
-                    
-                    <h1 class="font-cursive text-5xl md:text-7xl font-bold text-brand-dark mb-4 leading-none">
-                        Minerales <br> Vivos
-                    </h1>
-                    <span class="text-xl md:text-3xl mt-2 block font-normal text-brand-earth tracking-widest uppercase mb-8">
-                        DE <span class="text-colombia-flag">COLOMBIA</span>
-                    </span>
-                    
-                    <p class="text-brand-earth/80 text-sm md:text-base mb-8 font-medium leading-relaxed max-w-md">
-                        Sumérgete en la textura de nuestra tierra. Arcillas puras transformadas en materia prima de lujo para tu piel y tu arte.
-                    </p>
-                    
-                    <div class="flex flex-wrap gap-4 mb-6">
-                        <button onclick="navigateTo('products')" class="px-8 py-3 border border-brand-clay text-brand-clay hover:bg-brand-clay hover:text-white transition-all uppercase tracking-widest text-xs font-bold bg-white/50 backdrop-blur-sm rounded-sm">
-                            Ver Catálogo
-                        </button>
-                        <a href="https://wa.me/573136139989" target="_blank" class="px-8 py-3 bg-brand-whatsapp text-white hover:bg-green-600 transition-all uppercase tracking-widest text-xs font-bold flex items-center gap-2 shadow-lg rounded-sm hover:-translate-y-1">
-                            <i data-lucide="message-circle" class="w-4 h-4"></i> Asesoría
-                        </a>
-                    </div>
+    <!-- ==================== SECCIONES ==================== -->
+
+    <!-- 1. INICIO -->
+    <section id="page-home" class="page-section active min-h-screen content-layer">
+        <div class="max-w-7xl mx-auto px-6 w-full grid grid-cols-1 md:grid-cols-2 gap-12 h-full items-center">
+            <div class="text-left animate-fade-in flex flex-col justify-center pt-10 md:pt-0">
+                <div class="mb-6 flex items-center gap-3">
+                    <span class="h-px w-8 bg-brand-clay"></span>
+                    <span class="text-brand-clay text-xs font-mono tracking-widest uppercase font-bold">Tienda Oficial</span>
+                </div>
+                
+                <h1 class="font-serif italic text-5xl md:text-7xl font-bold text-brand-dark mb-6 leading-none">
+                    Minerales <br> Vivos
+                </h1>
+                <span class="text-xl md:text-2xl mt-2 block font-normal text-brand-earth tracking-widest uppercase mb-8">
+                    DE <span class="text-colombia-flag">COLOMBIA</span>
+                </span>
+                
+                <p class="text-gray-600 text-sm md:text-base mb-10 font-medium leading-relaxed max-w-md border-l-4 border-brand-clay pl-4">
+                    Descubre nuestra línea de arcillas puras y mascarillas preparadas. Calidad exportación para el cuidado de tu piel y tus creaciones artísticas.
+                </p>
+                
+                <div class="flex flex-wrap gap-4">
+                    <button onclick="navigateTo('products')" class="px-8 py-3 border-2 border-brand-clay text-brand-clay hover:bg-brand-clay hover:text-white transition-all uppercase tracking-widest text-xs font-bold rounded-sm">
+                        Ver Productos
+                    </button>
+                    <a href="https://wa.me/573136139989" target="_blank" class="px-8 py-3 bg-brand-whatsapp text-white hover:bg-green-700 transition-all uppercase tracking-widest text-xs font-bold flex items-center gap-2 shadow-lg rounded-sm hover:-translate-y-1">
+                        <i data-lucide="message-circle" class="w-4 h-4"></i> Asesoría
+                    </a>
                 </div>
             </div>
-
-            <div class="hidden md:block h-full w-full relative"></div>
+            <!-- Espacio para logo 3D -->
+            <div class="hidden md:block h-full w-full"></div>
         </div>
     </section>
 
-    <!-- SECCIÓN 2: CATÁLOGO PRINCIPAL -->
-    <section id="page-products" class="page-section content-overlay">
+    <!-- 2. CATÁLOGO PRINCIPAL -->
+    <section id="page-products" class="page-section content-layer">
         <div class="max-w-7xl mx-auto px-6 pb-20">
-            <div class="text-center mb-12 pt-4">
-                <div class="text-canvas inline-block px-12 py-8">
-                    <h2 class="font-cursive text-4xl text-brand-dark mb-2">Nuestras Líneas</h2>
-                    <div class="w-16 h-px bg-brand-clay mx-auto opacity-50"></div>
-                </div>
+            <div class="text-center mb-16 pt-10">
+                <h2 class="font-serif text-4xl text-brand-dark mb-2">Nuestras Categorías</h2>
+                <div class="w-16 h-px bg-brand-clay mx-auto mb-4"></div>
+                <p class="text-gray-500 text-sm">Selecciona una línea para ver los productos detallados.</p>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
                 <!-- Card Belleza -->
-                <div onclick="showSubCategory('belleza')" class="category-card group relative h-[400px] overflow-hidden rounded-xl">
-                    <img src="https://arcillasygredasdecolombia.wordpress.com/wp-content/uploads/2024/01/img_8285-edited.jpg" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 opacity-90" alt="Belleza">
-                    <div class="absolute inset-0 bg-gradient-to-t from-white via-white/40 to-transparent opacity-90"></div>
+                <div onclick="showSubCategory('belleza')" class="product-card group relative h-[450px] cursor-pointer">
+                    <img src="https://arcillasygredasdecolombia.wordpress.com/wp-content/uploads/2024/01/img_8285-edited.jpg" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="Belleza">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
                     <div class="absolute bottom-0 left-0 p-8 w-full text-center">
-                        <h3 class="text-3xl font-cursive text-brand-dark mb-2">Dermocosmética</h3>
-                        <p class="text-xs text-brand-earth mb-4 uppercase tracking-widest">Caolín • Bentonita • Illita</p>
-                        <span class="text-brand-clay text-xs uppercase tracking-widest font-bold border-b border-brand-clay pb-1">Ver Variedades</span>
+                        <h3 class="text-3xl font-serif text-white mb-2">Belleza & Salud</h3>
+                        <p class="text-gray-300 text-xs mb-4">Mascarillas listas (130g) y Arcillas Puras.</p>
+                        <span class="text-brand-gold text-xs uppercase font-bold border-b border-brand-gold pb-1">Ver Variedades</span>
                     </div>
                 </div>
 
                 <!-- Card Arte -->
-                <div onclick="showSubCategory('arte')" class="category-card group relative h-[400px] overflow-hidden rounded-xl">
-                    <img src="https://arcillasygredasdecolombia.wordpress.com/wp-content/uploads/2024/01/picsart_07-06-06.04.17-edited.jpg" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 opacity-90" alt="Arte">
-                    <div class="absolute inset-0 bg-gradient-to-t from-white via-white/40 to-transparent opacity-90"></div>
+                <div onclick="showSubCategory('arte')" class="product-card group relative h-[450px] cursor-pointer">
+                    <img src="https://arcillasygredasdecolombia.wordpress.com/wp-content/uploads/2024/01/picsart_07-06-06.04.17-edited.jpg" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="Arte">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
                     <div class="absolute bottom-0 left-0 p-8 w-full text-center">
-                        <h3 class="text-3xl font-cursive text-brand-dark mb-2">Arte & Escultura</h3>
-                        <p class="text-xs text-brand-earth mb-4 uppercase tracking-widest">Torno • Modelado • Pigmentos</p>
-                        <span class="text-brand-clay text-xs uppercase tracking-widest font-bold border-b border-brand-clay pb-1">Ver Materiales</span>
+                        <h3 class="text-3xl font-serif text-white mb-2">Arte & Escultura</h3>
+                        <p class="text-gray-300 text-xs mb-4">Masas, Tornos y Herramientas.</p>
+                        <span class="text-brand-gold text-xs uppercase font-bold border-b border-brand-gold pb-1">Ver Materiales</span>
                     </div>
                 </div>
 
                 <!-- Card Construcción -->
-                <div onclick="showSubCategory('construccion')" class="category-card group relative h-[400px] overflow-hidden rounded-xl">
-                    <img src="https://arcillasygredasdecolombia.wordpress.com/wp-content/uploads/2018/05/ladrillos-tejas-bloques-a-escala.jpg" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 opacity-90" alt="Construcción">
-                    <div class="absolute inset-0 bg-gradient-to-t from-white via-white/40 to-transparent opacity-90"></div>
+                <div onclick="showSubCategory('construccion')" class="product-card group relative h-[450px] cursor-pointer">
+                    <img src="https://arcillasygredasdecolombia.wordpress.com/wp-content/uploads/2018/05/ladrillos-tejas-bloques-a-escala.jpg" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="Construcción">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
                     <div class="absolute bottom-0 left-0 p-8 w-full text-center">
-                        <h3 class="text-3xl font-cursive text-brand-dark mb-2">Técnico</h3>
-                        <p class="text-xs text-brand-earth mb-4 uppercase tracking-widest">Yesos • Maquetas • Insumos</p>
-                        <span class="text-brand-clay text-xs uppercase tracking-widest font-bold border-b border-brand-clay pb-1">Ver Insumos</span>
+                        <h3 class="text-3xl font-serif text-white mb-2">Técnico</h3>
+                        <p class="text-gray-300 text-xs mb-4">Insumos para maquetas y odontología.</p>
+                        <span class="text-brand-gold text-xs uppercase font-bold border-b border-brand-gold pb-1">Ver Insumos</span>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- SECCIÓN DETALLE (Dinámica) -->
-    <section id="page-detail" class="page-section content-overlay">
+    <!-- SECCIÓN DETALLE (PRODUCTOS ESPECÍFICOS) -->
+    <section id="page-detail" class="page-section content-layer">
         <div class="max-w-7xl mx-auto px-6 pb-20 pt-10">
-            <div class="flex items-center gap-4 mb-8 bg-white/70 p-4 rounded-lg backdrop-blur-md w-fit shadow-sm">
-                <button onclick="navigateTo('products')" class="flex items-center gap-2 text-brand-earth hover:text-brand-clay transition-colors text-xs uppercase tracking-widest font-bold">
+            <div class="flex items-center gap-4 mb-8">
+                <button onclick="navigateTo('products')" class="flex items-center gap-2 text-gray-500 hover:text-brand-clay transition-colors text-xs uppercase font-bold">
                     <i data-lucide="arrow-left" class="w-4 h-4"></i> Volver
                 </button>
-                <span class="h-4 w-px bg-brand-clay/50"></span>
-                <span id="detail-title" class="text-brand-dark text-lg font-cursive font-bold">Belleza</span>
+                <span class="h-4 w-px bg-gray-300"></span>
+                <span id="detail-title" class="text-brand-dark text-lg font-serif font-bold">Belleza</span>
             </div>
-            <div id="detail-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"></div>
+            
+            <!-- Aquí se inyectan las tarjetas -->
+            <div id="detail-grid" class="grid grid-cols-1 gap-8"></div>
         </div>
     </section>
 
-    <!-- SECCIÓN 3: NOSOTROS -->
-    <section id="page-about" class="page-section content-overlay">
-        <div class="max-w-6xl mx-auto px-6 pt-10">
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-                <div class="text-canvas">
-                    <h2 class="font-cursive text-3xl mb-4 text-brand-dark">Filosofía <span class="text-brand-clay">Natural</span></h2>
-                    <p class="text-brand-earth text-sm leading-relaxed mb-6 text-justify">
-                        Regresamos al origen. Nuestra misión es cerrar la brecha entre la riqueza geológica de nuestro país y la necesidad de pureza en la cosmética moderna.
+    <!-- 3. INSTRUCCIONES (HORNEADO) -->
+    <section id="page-instructions" class="page-section content-layer">
+        <div class="max-w-4xl mx-auto px-6 pt-10 pb-20">
+            <div class="text-center mb-12">
+                <i data-lucide="flame" class="w-12 h-12 text-brand-clay mx-auto mb-4"></i>
+                <h2 class="font-serif text-4xl text-brand-dark mb-4">Guía de Horneado</h2>
+                <p class="text-gray-600 max-w-2xl mx-auto">Para garantizar la durabilidad de tus piezas de arcilla natural, sigue este proceso riguroso de secado y cocción.</p>
+            </div>
+
+            <div class="bg-white border border-gray-200 rounded-xl p-8 shadow-xl">
+                <div class="prose max-w-none text-gray-700">
+                    <h3 class="text-xl font-bold text-brand-clay mb-4">Proceso General</h3>
+                    <p class="mb-8 font-serif italic text-lg text-gray-500">
+                        "Para hornear nuestra arcilla natural primero sécala al aire por días, luego precalienta un horno a baja temperatura (ej. 180°C/350°F), introduce la pieza en una bandeja, y cocina lentamente según el grosor (ej. 30-45 min por cada 0.6 cm), dejando enfriar dentro del horno para evitar grietas."
                     </p>
-                </div>
-                <img src="https://arcillasygredasdecolombia.wordpress.com/wp-content/uploads/2017/07/img_9537.jpg" class="w-full h-auto rounded-lg shadow-xl border-4 border-white" alt="Nosotros">
-            </div>
-        </div>
-    </section>
 
-    <!-- SECCIÓN 4: CONTACTO -->
-    <section id="page-contact" class="page-section content-overlay">
-        <div class="max-w-4xl mx-auto px-6 pb-20 pt-10">
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 bg-white/80 backdrop-blur-xl rounded-2xl shadow-2xl overflow-hidden border border-white">
-                <!-- Info -->
-                <div class="p-10 bg-brand-dark text-white flex flex-col justify-between">
-                    <div>
-                        <h2 class="font-cursive text-3xl mb-6 text-brand-gold">Encuéntranos</h2>
-                        <div class="space-y-6">
-                            <div class="flex items-center gap-4">
-                                <div class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center text-brand-gold"><i data-lucide="phone" class="w-5 h-5"></i></div>
-                                <div><p class="text-xs text-gray-400 uppercase">Llámanos</p><p class="font-mono text-sm">+57 313 613 9989</p></div>
-                            </div>
-                            <div class="flex items-center gap-4">
-                                <div class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center text-brand-gold"><i data-lucide="mail" class="w-5 h-5"></i></div>
-                                <div><p class="text-xs text-gray-400 uppercase">Escríbenos</p><p class="font-mono text-sm">Arcillasygredas@gmail.com</p></div>
-                            </div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <div class="bg-brand-light p-6 rounded-lg border-l-4 border-brand-clay">
+                            <h4 class="font-bold text-brand-dark mb-2 flex items-center"><span class="bg-brand-clay text-white w-6 h-6 rounded-full flex items-center justify-center text-xs mr-2">1</span> Preparación</h4>
+                            <p class="text-sm"><strong>Secado al aire:</strong> Deja que la pieza se seque al aire libre por uno o varios días hasta que esté completamente seca y pálida al tacto. No hornear si está húmeda.</p>
+                        </div>
+
+                        <div class="bg-brand-light p-6 rounded-lg border-l-4 border-brand-gold">
+                            <h4 class="font-bold text-brand-dark mb-2 flex items-center"><span class="bg-brand-gold text-white w-6 h-6 rounded-full flex items-center justify-center text-xs mr-2">2</span> Horneado</h4>
+                            <ul class="text-sm space-y-2 list-disc list-inside">
+                                <li><strong>Precalienta:</strong> Pon el horno a 180°C (350°F).</li>
+                                <li><strong>Coloca la pieza:</strong> Usa una bandeja a temperatura ambiente, a media altura.</li>
+                                <li><strong>Tiempo:</strong> 30-45 min por cada 0.6 cm de grosor.</li>
+                                <li><strong>Enfriamiento:</strong> Apaga el horno y deja enfriar dentro. <span class="text-red-500 font-bold">¡No sacar caliente!</span> El cambio brusco la rompe.</li>
+                            </ul>
                         </div>
                     </div>
                 </div>
-                <!-- Formulario -->
-                <div class="p-10">
-                    <h3 class="font-serif text-2xl text-brand-dark mb-6">Envíanos un mensaje</h3>
+            </div>
+        </div>
+    </section>
+
+    <!-- 4. CONTACTO -->
+    <section id="page-contact" class="page-section content-layer">
+        <div class="max-w-4xl mx-auto px-6 pt-10 pb-20">
+            <div class="bg-white border border-gray-200 rounded-xl shadow-2xl overflow-hidden flex flex-col md:flex-row">
+                <div class="p-10 bg-brand-dark text-white md:w-1/2 flex flex-col justify-center">
+                    <h2 class="font-serif text-3xl mb-6 text-brand-gold">Contáctanos</h2>
+                    <div class="space-y-6">
+                        <div class="flex items-center gap-4">
+                            <i data-lucide="phone" class="w-6 h-6 text-brand-gold"></i>
+                            <div><p class="text-xs text-gray-400 uppercase">Llámanos</p><p class="font-mono text-sm">+57 313 613 9989</p></div>
+                        </div>
+                        <div class="flex items-center gap-4">
+                            <i data-lucide="mail" class="w-6 h-6 text-brand-gold"></i>
+                            <div><p class="text-xs text-gray-400 uppercase">Correo</p><p class="font-mono text-sm">Arcillasygredas@gmail.com</p></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="p-10 md:w-1/2">
+                    <h3 class="font-serif text-xl text-brand-dark mb-4">Envíanos un mensaje</h3>
                     <form action="mailto:Arcillasygredas@gmail.com" method="post" enctype="text/plain" class="space-y-4">
-                        <input type="text" class="w-full bg-brand-sand/50 border border-brand-clay/20 p-3 rounded text-sm focus:border-brand-clay outline-none" placeholder="Tu nombre">
-                        <input type="email" class="w-full bg-brand-sand/50 border border-brand-clay/20 p-3 rounded text-sm focus:border-brand-clay outline-none" placeholder="tucorreo@ejemplo.com">
-                        <textarea rows="4" class="w-full bg-brand-sand/50 border border-brand-clay/20 p-3 rounded text-sm focus:border-brand-clay outline-none" placeholder="¿Cómo podemos ayudarte?"></textarea>
-                        <button type="submit" class="w-full bg-brand-dark text-white py-4 uppercase tracking-widest text-xs font-bold hover:bg-brand-clay transition-colors shadow-lg">Enviar Correo</button>
+                        <input type="text" class="w-full bg-gray-50 border p-3 rounded text-sm outline-none focus:border-brand-clay" placeholder="Nombre">
+                        <input type="email" class="w-full bg-gray-50 border p-3 rounded text-sm outline-none focus:border-brand-clay" placeholder="Correo">
+                        <textarea rows="3" class="w-full bg-gray-50 border p-3 rounded text-sm outline-none focus:border-brand-clay" placeholder="Mensaje"></textarea>
+                        <button class="w-full bg-brand-clay text-white py-3 font-bold text-xs uppercase tracking-widest hover:bg-brand-dark transition-colors">Enviar</button>
                     </form>
                 </div>
             </div>
@@ -405,39 +361,17 @@
     </section>
 
     <!-- Footer -->
-    <footer class="bg-[#1a120b] text-white pt-16 pb-8 content-overlay mt-20 border-t border-brand-gold/20">
-        <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-12 mb-12 text-center md:text-left">
-            <div>
-                <img src="https://raw.githubusercontent.com/instructorandradedcc/arcillasygredasdecolombia/main/2oro-logo%20con%20trasparencia.png" alt="Logo Footer" class="h-12 w-auto mb-6 opacity-80 mx-auto md:mx-0 grayscale hover:grayscale-0 transition-all">
-                <p class="text-gray-500 text-sm leading-relaxed max-w-xs mx-auto md:mx-0">Comprometidos con la excelencia y la tradición alfarera.</p>
-            </div>
-            <div>
-                <h4 class="text-brand-gold uppercase tracking-widest text-xs font-bold mb-6">Contacto Directo</h4>
-                <ul class="space-y-3 text-sm text-gray-400">
-                    <li><a href="mailto:Arcillasygredas@gmail.com" class="hover:text-white">Arcillasygredas@gmail.com</a></li>
-                    <li><a href="https://wa.me/573136139989" class="hover:text-white">+57 313 613 9989</a></li>
-                </ul>
-            </div>
-             <div>
-                <h4 class="text-brand-gold uppercase tracking-widest text-xs font-bold mb-6">Síguenos</h4>
-                <div class="flex space-x-4 justify-center md:justify-start">
-                    <a href="https://www.instagram.com/arcillacolombia/" class="text-gray-400 hover:text-white"><i data-lucide="instagram"></i></a>
-                    <a href="#" class="text-gray-400 hover:text-white"><i data-lucide="facebook"></i></a>
-                </div>
-            </div>
-        </div>
-        <div class="border-t border-white/5 pt-8 text-center text-xs text-gray-600 uppercase tracking-widest">
-            <p>&copy; 2025 Arcillas y Gredas de Colombia. Todos los derechos reservados.</p>
+    <footer class="bg-brand-dark text-white py-8 border-t border-gray-800 content-layer">
+        <div class="max-w-7xl mx-auto px-6 text-center">
+            <p class="text-xs text-gray-500 uppercase tracking-widest">&copy; 2025 Arcillas y Gredas de Colombia. Todos los derechos reservados.</p>
         </div>
     </footer>
 
-    <a href="https://wa.me/573136139989?text=Hola,%20deseo%20asesoría." target="_blank" class="fixed bottom-8 right-8 z-50 bg-brand-whatsapp hover:bg-green-600 text-white p-4 rounded-full shadow-[0_10px_30px_rgba(37,211,102,0.4)] transition-all hover:scale-110 content-overlay animate-bounce border-2 border-white">
-        <i data-lucide="message-circle" class="w-6 h-6"></i>
-    </a>
-
-    <!-- JAVASCRIPT -->
+    <!-- JS Logic -->
     <script>
         lucide.createIcons();
+        
+        // Navigation Logic
         const btn = document.getElementById('mobile-menu-btn');
         const menu = document.getElementById('mobile-menu');
         btn.addEventListener('click', () => menu.classList.toggle('hidden'));
@@ -447,31 +381,60 @@
             document.getElementById(`page-${pageId}`).classList.add('active');
             window.scrollTo(0,0);
             menu.classList.add('hidden');
+            
             document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
             const activeBtn = document.getElementById(`btn-${pageId}`);
             if(activeBtn) activeBtn.classList.add('active');
         }
 
-        // --- DATA CATALOGO DETALLADO (LISTA DE IMAGENES INTEGRADA) ---
+        // --- CATALOGO DUAL ---
         const catalog = {
             belleza: [
-                { title: "Arcilla Blanca (Caolín)", img: "https://arcillasygredasdecolombia.wordpress.com/wp-content/uploads/2022/01/img_8327.jpg", desc: "La más suave. Piel sensible.", benefits: ["Efecto Tensor", "pH Neutro"] },
-                { title: "Arcilla Verde (Illita)", img: "https://arcillasygredasdecolombia.wordpress.com/wp-content/uploads/2022/01/img_8330.jpg", desc: "Purificante y antibacteriana.", benefits: ["Piel Grasa", "Acné"] },
-                { title: "Arcilla Roja (Illita)", img: "https://arcillasygredasdecolombia.wordpress.com/wp-content/uploads/2022/01/img_8329.jpg", desc: "Estimula la circulación.", benefits: ["Piel Madura", "Revitalizante"] },
-                { title: "Arcilla Amarilla", img: "https://arcillasygredasdecolombia.wordpress.com/wp-content/uploads/2022/01/img_8331.jpg", desc: "Rica en minerales.", benefits: ["Luminosidad", "Desintoxicante"] },
-                { title: "Arcilla Negra", img: "https://arcillasygredasdecolombia.wordpress.com/wp-content/uploads/2022/01/img_8328.jpg", desc: "Volcánica.", benefits: ["Renovación Celular"] },
-                { title: "Mascarilla Lista", img: "https://arcillasygredasdecolombia.wordpress.com/wp-content/uploads/2024/01/img_8285-edited.jpg", desc: "Fórmula preparada.", benefits: ["Lista para usar"] }
+                { 
+                    title: "Arcilla Blanca (Caolín)", 
+                    img_raw: "https://arcillasygredasdecolombia.wordpress.com/wp-content/uploads/2022/01/img_8327.jpg",
+                    img_ready: "https://arcillasygredasdecolombia.wordpress.com/wp-content/uploads/2024/01/img_8285-edited.jpg",
+                    desc: "La más suave. Piel sensible.",
+                    prop: "Efecto Tensor Suave"
+                },
+                { 
+                    title: "Arcilla Verde (Illita)", 
+                    img_raw: "https://arcillasygredasdecolombia.wordpress.com/wp-content/uploads/2022/01/img_8330.jpg",
+                    img_ready: "https://arcillasygredasdecolombia.wordpress.com/wp-content/uploads/2024/01/img_8285-edited.jpg",
+                    desc: "Purificante y antibacteriana. Piel Grasa.",
+                    prop: "Limpieza Profunda"
+                },
+                { 
+                    title: "Arcilla Roja", 
+                    img_raw: "https://arcillasygredasdecolombia.wordpress.com/wp-content/uploads/2022/01/img_8329.jpg",
+                    img_ready: "https://arcillasygredasdecolombia.wordpress.com/wp-content/uploads/2024/01/img_8285-edited.jpg",
+                    desc: "Estimula la circulación. Piel Madura.",
+                    prop: "Revitalizante"
+                },
+                { 
+                    title: "Arcilla Amarilla", 
+                    img_raw: "https://arcillasygredasdecolombia.wordpress.com/wp-content/uploads/2022/01/img_8331.jpg",
+                    img_ready: "https://arcillasygredasdecolombia.wordpress.com/wp-content/uploads/2024/01/img_8285-edited.jpg",
+                    desc: "Rica en minerales. Luminosidad.",
+                    prop: "Desintoxicante"
+                },
+                 { 
+                    title: "Arcilla Negra", 
+                    img_raw: "https://arcillasygredasdecolombia.wordpress.com/wp-content/uploads/2022/01/img_8328.jpg",
+                    img_ready: "https://arcillasygredasdecolombia.wordpress.com/wp-content/uploads/2024/01/img_8285-edited.jpg",
+                    desc: "Origen volcánico. Renovación celular.",
+                    prop: "Exfoliante Físico"
+                }
             ],
+            // Otros (Formato simple)
             arte: [
-                { title: "Arcilla Moldeable", img: "https://arcillasygredasdecolombia.wordpress.com/wp-content/uploads/2024/01/picsart_07-06-06.04.17-edited.jpg", desc: "Masa plástica.", benefits: ["Escultura", "Secado al aire"] },
-                { title: "Torno Alfarero", img: "https://arcillasygredasdecolombia.wordpress.com/wp-content/uploads/2022/06/picsart_07-09-10.11.20-edited.jpg", desc: "Equipo profesional.", benefits: ["Motor Silencioso", "Plato Aluminio"] },
-                { title: "Arenas Colores", img: "https://arcillasygredasdecolombia.wordpress.com/wp-content/uploads/2024/01/img_20200705_122734_374-edited.jpg", desc: "Pigmentación UV.", benefits: ["Manualidades", "Arte Efímero"] },
-                { title: "Velas Artesanales", img: "https://arcillasygredasdecolombia.wordpress.com/wp-content/uploads/2022/06/d_nq_np_966784-mco48188020264_112021-o.webp", desc: "Insumos para velas.", benefits: ["Decoración", "Aromaterapia"] }
+                { title: "Arcilla Moldeable", img: "https://arcillasygredasdecolombia.wordpress.com/wp-content/uploads/2024/01/picsart_07-06-06.04.17-edited.jpg", desc: "Masa plástica lista." },
+                { title: "Torno Alfarero", img: "https://arcillasygredasdecolombia.wordpress.com/wp-content/uploads/2024/01/picsart_07-09-10.11.20-edited.jpg", desc: "Equipo profesional." },
+                { title: "Arenas Colores", img: "https://arcillasygredasdecolombia.wordpress.com/wp-content/uploads/2024/01/img_20200705_122734_374-edited.jpg", desc: "Decoración." }
             ],
             construccion: [
-                { title: "Ladrillos Escala", img: "https://arcillasygredasdecolombia.wordpress.com/wp-content/uploads/2018/05/ladrillos-tejas-bloques-a-escala.jpg", desc: "Arcilla cocida.", benefits: ["Maquetas", "Realismo"] },
-                { title: "Yeso Dental", img: "https://arcillasygredasdecolombia.wordpress.com/wp-content/uploads/2024/01/20200705_123706-edited-4.jpg", desc: "Alta dureza.", benefits: ["Copia Fiel", "Moldes"] },
-                { title: "Aserrín", img: "https://arcillasygredasdecolombia.wordpress.com/wp-content/uploads/2024/01/img-20200706-wa0003_1594050654061-edited.jpg", desc: "Seco y tamizado.", benefits: ["Industrial", "Absorbente"] }
+                { title: "Ladrillos Escala", img: "https://arcillasygredasdecolombia.wordpress.com/wp-content/uploads/2018/05/ladrillos-tejas-bloques-a-escala.jpg", desc: "Arcilla cocida." },
+                { title: "Yeso Dental", img: "https://arcillasygredasdecolombia.wordpress.com/wp-content/uploads/2024/01/20200705_123706-edited-4.jpg", desc: "Alta dureza." }
             ]
         };
 
@@ -479,53 +442,92 @@
             document.getElementById('page-products').classList.remove('active');
             document.getElementById('page-detail').classList.add('active');
             window.scrollTo(0,0);
+            
             const container = document.getElementById('detail-grid');
             const titleEl = document.getElementById('detail-title');
-            const catNames = { belleza: "Dermocosmética", arte: "Arte & Escultura", construccion: "Técnico" };
-            titleEl.textContent = catNames[category];
+            
+            titleEl.textContent = category === 'belleza' ? 'Belleza y Salud' : (category === 'arte' ? 'Arte' : 'Técnico');
             container.innerHTML = '';
-            catalog[category].forEach((item, index) => {
-                const benefitsHtml = item.benefits.map(b => `<li class="flex items-center gap-2"><i data-lucide="check" class="w-3 h-3 text-brand-clay"></i> ${b}</li>`).join('');
-                container.innerHTML += `
-                    <div class="product-card bg-white rounded-xl overflow-hidden animate-float shadow-lg" style="animation-delay: ${index*0.1}s;">
-                        <div class="h-56 overflow-hidden relative">
-                            <img src="${item.img}" class="w-full h-full object-cover transition-transform duration-700 hover:scale-110" alt="${item.title}">
+            
+            if(category === 'belleza') {
+                // VISTA DUAL PARA BELLEZA
+                container.classList.remove('md:grid-cols-3');
+                container.classList.add('md:grid-cols-1'); // Lista vertical
+                
+                catalog[category].forEach((item, index) => {
+                    container.innerHTML += `
+                        <div class="product-card bg-white rounded-xl overflow-hidden shadow-md flex flex-col md:flex-row animate-fade-in" style="animation-delay: ${index*0.1}s;">
+                            <!-- Lado Izquierdo: Polvo -->
+                            <div class="md:w-1/3 relative h-64 md:h-auto border-r border-gray-100">
+                                <img src="${item.img_raw}" class="w-full h-full object-cover" alt="Polvo">
+                                <span class="absolute top-2 left-2 bg-white/90 text-[10px] font-bold px-2 py-1 uppercase text-gray-500">Materia Prima</span>
+                            </div>
+                            
+                            <!-- Centro: Info -->
+                            <div class="p-6 md:w-1/3 flex flex-col justify-center border-r border-gray-100">
+                                <h3 class="text-2xl font-serif text-brand-dark mb-2">${item.title}</h3>
+                                <p class="text-gray-500 text-xs mb-4 italic">${item.desc}</p>
+                                <span class="inline-block bg-brand-light text-brand-clay px-3 py-1 rounded text-xs font-bold mb-4">${item.prop}</span>
+                            </div>
+
+                            <!-- Lado Derecho: Preparada -->
+                            <div class="md:w-1/3 relative h-64 md:h-auto bg-gray-50 flex flex-col justify-between">
+                                <div class="relative h-2/3">
+                                    <img src="${item.img_ready}" class="w-full h-full object-cover" alt="Lista">
+                                    <span class="absolute top-2 right-2 bg-brand-clay text-white text-[10px] font-bold px-2 py-1 uppercase">Lista (130g)</span>
+                                </div>
+                                <div class="p-4 flex gap-2">
+                                    <a href="https://wa.me/573136139989?text=Quiero%20cotizar%20${encodeURIComponent(item.title)}%20en%20POLVO" target="_blank" class="btn-buy flex-1 text-[10px]">
+                                        <i data-lucide="message-circle" class="w-3 h-3"></i> Polvo
+                                    </a>
+                                    <a href="https://wa.me/573136139989?text=Quiero%20cotizar%20${encodeURIComponent(item.title)}%20PREPARADA%20(130g)" target="_blank" class="btn-buy flex-1 text-[10px] bg-brand-clay hover:bg-brand-dark">
+                                        <i data-lucide="message-circle" class="w-3 h-3"></i> 130g Lista
+                                    </a>
+                                </div>
+                            </div>
                         </div>
-                        <div class="p-6">
-                            <h3 class="text-xl font-serif text-brand-dark mb-2">${item.title}</h3>
-                            <p class="text-brand-earth text-xs mb-4 italic">${item.desc}</p>
-                            <div class="bg-brand-clay/5 p-4 rounded mb-6"><ul class="text-brand-earth text-xs space-y-2 font-medium">${benefitsHtml}</ul></div>
-                            <a href="https://wa.me/573136139989?text=Cotizar ${encodeURIComponent(item.title)}" target="_blank" class="block w-full py-3 text-center bg-brand-dark text-white uppercase text-xs font-bold tracking-widest rounded shadow hover:bg-brand-clay transition-colors">Cotizar</a>
+                    `;
+                });
+            } else {
+                // VISTA SIMPLE OTRAS CATEGORIAS
+                container.classList.remove('md:grid-cols-1');
+                container.classList.add('md:grid-cols-3');
+                
+                catalog[category].forEach((item, index) => {
+                    container.innerHTML += `
+                        <div class="product-card bg-white rounded-xl overflow-hidden shadow-md animate-fade-in" style="animation-delay: ${index*0.1}s;">
+                            <div class="h-56 relative">
+                                <img src="${item.img}" class="w-full h-full object-cover hover:scale-105 transition-transform" alt="${item.title}">
+                            </div>
+                            <div class="p-6">
+                                <h3 class="text-lg font-serif text-brand-dark mb-2">${item.title}</h3>
+                                <p class="text-gray-500 text-xs mb-4 line-clamp-2">${item.desc}</p>
+                                <a href="https://wa.me/573136139989?text=Cotizar ${encodeURIComponent(item.title)}" target="_blank" class="btn-buy w-full">
+                                    <i data-lucide="message-circle" class="w-4 h-4"></i> Cotizar
+                                </a>
+                            </div>
                         </div>
-                    </div>
-                `;
-            });
+                    `;
+                });
+            }
             lucide.createIcons();
         }
 
+        // Three.js Logo
         const initThree = () => {
-            const container = document.getElementById('canvas-bg');
+            const container = document.getElementById('canvas-container');
             const scene = new THREE.Scene();
             const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000);
-            camera.position.z = 2;
-            const renderer = new THREE.WebGLRenderer({alpha:true, antialias:true});
+            camera.position.z = 8;
+            const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
             renderer.setSize(window.innerWidth, window.innerHeight);
             container.appendChild(renderer.domElement);
 
-            const geometry = new THREE.PlaneGeometry(5, 5);
-            const uniforms = {
-                uTime: { value: 0.0 },
-                uResolution: { value: new THREE.Vector2(window.innerWidth, window.innerHeight) },
-                uMouse: { value: new THREE.Vector2(0.5, 0.5) }
-            };
-
-            const material = new THREE.ShaderMaterial({
-                uniforms: uniforms,
-                vertexShader: document.getElementById('vertexShader').textContent,
-                fragmentShader: document.getElementById('fragmentShader').textContent,
-            });
-
-            scene.add(new THREE.Mesh(geometry, material));
+            const ambientLight = new THREE.AmbientLight(0xffffff, 1.2);
+            scene.add(ambientLight);
+            const dirLight = new THREE.DirectionalLight(0xffffff, 0.8);
+            dirLight.position.set(5, 5, 5);
+            scene.add(dirLight);
 
             const textureLoader = new THREE.TextureLoader();
             const logoUrl = 'https://raw.githubusercontent.com/instructorandradedcc/arcillasygredasdecolombia/main/2oro-logo%20con%20trasparencia.png';
@@ -533,30 +535,28 @@
 
             textureLoader.load(logoUrl, (texture) => {
                 const aspect = texture.image.width / texture.image.height;
-                const logoGeo = new THREE.PlaneGeometry(0.8 * aspect, 0.8); 
-                const logoMat = new THREE.MeshBasicMaterial({ map: texture, transparent: true, side: THREE.DoubleSide, depthTest: false });
-                logoMesh = new THREE.Mesh(logoGeo, logoMat);
-                adjustPosition(logoMesh);
+                const geometry = new THREE.PlaneGeometry(3.5 * aspect, 3.5);
+                const material = new THREE.MeshBasicMaterial({ map: texture, transparent: true, side: THREE.DoubleSide });
+                logoMesh = new THREE.Mesh(geometry, material);
                 scene.add(logoMesh);
+                adjustPosition(logoMesh);
             });
 
+            // Animación
             let mouseX = 0, mouseY = 0;
             document.addEventListener('mousemove', (e) => {
-                uniforms.uMouse.value.x = e.clientX / window.innerWidth;
-                uniforms.uMouse.value.y = 1.0 - (e.clientY / window.innerHeight);
                 mouseX = (e.clientX - window.innerWidth/2) * 0.0005;
                 mouseY = (e.clientY - window.innerHeight/2) * 0.0005;
             });
 
             const animate = () => {
                 requestAnimationFrame(animate);
-                uniforms.uTime.value += 0.003;
                 if(logoMesh) {
                     const time = Date.now() * 0.001;
-                    logoMesh.position.y = Math.sin(time) * 0.05;
+                    logoMesh.position.y = Math.sin(time) * 0.1;
                     logoMesh.position.x = logoMesh.userData.baseX;
-                    logoMesh.rotation.y = mouseX * 0.2;
-                    logoMesh.rotation.x = mouseY * 0.2;
+                    logoMesh.rotation.y = mouseX * 0.5;
+                    logoMesh.rotation.x = mouseY * 0.5;
                 }
                 renderer.render(scene, camera);
             };
@@ -568,22 +568,19 @@
                     mesh.visible = false;
                 } else {
                     mesh.visible = true;
-                    mesh.userData.baseX = 0.9;
+                    mesh.userData.baseX = 3.5;
                 }
             }
 
             window.addEventListener('resize', () => {
-                const width = window.innerWidth;
-                const height = window.innerHeight;
-                camera.aspect = width / height;
+                camera.aspect = window.innerWidth / window.innerHeight;
                 camera.updateProjectionMatrix();
-                renderer.setSize(width, height);
-                uniforms.uResolution.value.x = width;
-                uniforms.uResolution.value.y = height;
+                renderer.setSize(window.innerWidth, window.innerHeight);
                 if(logoMesh) adjustPosition(logoMesh);
             });
         };
-        initThree();
+
+        document.addEventListener('DOMContentLoaded', initThree);
     </script>
 </body>
 </html>
