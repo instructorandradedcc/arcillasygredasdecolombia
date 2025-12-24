@@ -26,10 +26,11 @@
                         brand: {
                             gold: '#B8860B', 
                             clay: '#A16E53', 
-                            dark: '#2D2420', // Texto casi negro
+                            dark: '#2D2420', 
                             earth: '#5D4037', 
                             whatsapp: '#25D366',
-                            light: '#F9F9F9'
+                            light: '#F9F9F9',
+                            sage: '#8FA89B'
                         }
                     },
                     fontFamily: {
@@ -53,12 +54,11 @@
 
     <style>
         body {
-            background-color: #ffffff; /* Fondo Blanco Puro */
+            background-color: #ffffff;
             color: #2D2420;
             overflow-x: hidden;
         }
 
-        /* Canvas 3D (Logo Flotante) */
         #canvas-container {
             position: fixed;
             top: 0;
@@ -69,14 +69,12 @@
             pointer-events: none;
         }
 
-        /* Capa de contenido */
         .content-layer {
             position: relative;
             z-index: 10;
             background: transparent;
         }
 
-        /* Navegación Blanca */
         .nav-glass {
             background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(10px);
@@ -95,7 +93,6 @@
         }
         .nav-link:hover, .nav-link.active { color: #A16E53; }
 
-        /* Estilo Bandera */
         .text-colombia-flag {
             background: linear-gradient(90deg, #FCD116 0%, #FCD116 33%, #003893 33%, #003893 66%, #CE1126 66%, #CE1126 100%);
             -webkit-background-clip: text;
@@ -104,7 +101,6 @@
             display: inline-block;
         }
 
-        /* Secciones */
         .page-section {
             display: none;
             min-height: 100vh;
@@ -118,7 +114,6 @@
             align-items: center;
         }
 
-        /* Tarjetas de Producto */
         .product-card {
             background: #ffffff;
             border: 1px solid #eeeeee;
@@ -133,7 +128,6 @@
             border-color: #A16E53;
         }
 
-        /* Botones */
         .btn-buy {
             background-color: #25D366;
             color: white;
@@ -150,6 +144,27 @@
             gap: 0.5rem;
         }
         .btn-buy:hover { background-color: #128C7E; }
+
+        /* Estilo para las listas de instrucciones */
+        .instruction-list li {
+            position: relative;
+            padding-left: 1.5rem;
+            margin-bottom: 0.75rem;
+            font-size: 0.85rem;
+            line-height: 1.5;
+            color: #4a4a4a;
+        }
+        .instruction-list li::before {
+            content: "•";
+            position: absolute;
+            left: 0;
+            color: #A16E53;
+            font-weight: bold;
+        }
+        .instruction-list strong {
+            color: #2D2420;
+            font-weight: 700;
+        }
     </style>
 </head>
 <body class="antialiased">
@@ -293,39 +308,99 @@
         </div>
     </section>
 
-    <!-- 3. INSTRUCCIONES (HORNEADO) -->
+    <!-- 3. INSTRUCCIONES COMPLETAS -->
     <section id="page-instructions" class="page-section content-layer">
-        <div class="max-w-4xl mx-auto px-6 pt-10 pb-20">
-            <div class="text-center mb-12">
-                <i data-lucide="flame" class="w-12 h-12 text-brand-clay mx-auto mb-4"></i>
-                <h2 class="font-serif text-4xl text-brand-dark mb-4">Guía de Horneado</h2>
-                <p class="text-gray-600 max-w-2xl mx-auto">Para garantizar la durabilidad de tus piezas de arcilla natural, sigue este proceso riguroso de secado y cocción.</p>
+        <div class="max-w-6xl mx-auto px-6 pt-10 pb-20">
+            <div class="text-center mb-16">
+                <i data-lucide="book-open" class="w-12 h-12 text-brand-clay mx-auto mb-4"></i>
+                <h2 class="font-serif text-4xl text-brand-dark mb-4">Manual de Uso Profesional</h2>
+                <p class="text-gray-600 max-w-2xl mx-auto">Domina el arte de la arcilla con nuestras guías técnicas detalladas.</p>
             </div>
 
-            <div class="bg-white border border-gray-200 rounded-xl p-8 shadow-xl">
-                <div class="prose max-w-none text-gray-700">
-                    <h3 class="text-xl font-bold text-brand-clay mb-4">Proceso General</h3>
-                    <p class="mb-8 font-serif italic text-lg text-gray-500">
-                        "Para hornear nuestra arcilla natural primero sécala al aire por días, luego precalienta un horno a baja temperatura (ej. 180°C/350°F), introduce la pieza en una bandeja, y cocina lentamente según el grosor (ej. 30-45 min por cada 0.6 cm), dejando enfriar dentro del horno para evitar grietas."
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                
+                <!-- Guía de Horneado -->
+                <div class="bg-white border border-gray-200 rounded-xl p-8 shadow-xl">
+                    <div class="flex items-center gap-4 mb-6 border-b border-gray-100 pb-4">
+                        <div class="p-3 bg-brand-clay/10 rounded-full text-brand-clay">
+                            <i data-lucide="flame" class="w-6 h-6"></i>
+                        </div>
+                        <h3 class="text-2xl font-serif text-brand-dark font-bold">Horneado de Arcilla</h3>
+                    </div>
+                    
+                    <p class="text-sm text-gray-600 mb-6 italic bg-gray-50 p-4 rounded-lg">
+                        "Para hornear nuestra arcilla natural primero sécala al aire por días, luego precalienta un horno a baja temperatura (ej. 180°C/350°F), introduce la pieza en una bandeja, y cocina lentamente."
                     </p>
 
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                        <div class="bg-brand-light p-6 rounded-lg border-l-4 border-brand-clay">
-                            <h4 class="font-bold text-brand-dark mb-2 flex items-center"><span class="bg-brand-clay text-white w-6 h-6 rounded-full flex items-center justify-center text-xs mr-2">1</span> Preparación</h4>
-                            <p class="text-sm"><strong>Secado al aire:</strong> Deja que la pieza se seque al aire libre por uno o varios días hasta que esté completamente seca y pálida al tacto. No hornear si está húmeda.</p>
+                    <div class="space-y-6">
+                        <div>
+                            <h4 class="font-bold text-sm text-brand-dark uppercase tracking-wide flex items-center mb-2"><span class="bg-brand-clay text-white w-5 h-5 rounded-full flex items-center justify-center text-[10px] mr-2">1</span> Preparación</h4>
+                            <ul class="instruction-list pl-8">
+                                <li><strong>Secado al aire:</strong> Deja que la pieza se seque al aire libre por uno o varios días hasta que esté completamente seca y pálida.</li>
+                            </ul>
                         </div>
-
-                        <div class="bg-brand-light p-6 rounded-lg border-l-4 border-brand-gold">
-                            <h4 class="font-bold text-brand-dark mb-2 flex items-center"><span class="bg-brand-gold text-white w-6 h-6 rounded-full flex items-center justify-center text-xs mr-2">2</span> Horneado</h4>
-                            <ul class="text-sm space-y-2 list-disc list-inside">
+                        <div>
+                            <h4 class="font-bold text-sm text-brand-dark uppercase tracking-wide flex items-center mb-2"><span class="bg-brand-clay text-white w-5 h-5 rounded-full flex items-center justify-center text-[10px] mr-2">2</span> Horneado</h4>
+                            <ul class="instruction-list pl-8">
                                 <li><strong>Precalienta:</strong> Pon el horno a 180°C (350°F).</li>
-                                <li><strong>Coloca la pieza:</strong> Usa una bandeja a temperatura ambiente, a media altura.</li>
-                                <li><strong>Tiempo:</strong> 30-45 min por cada 0.6 cm de grosor.</li>
-                                <li><strong>Enfriamiento:</strong> Apaga el horno y deja enfriar dentro. <span class="text-red-500 font-bold">¡No sacar caliente!</span> El cambio brusco la rompe.</li>
+                                <li><strong>Colocación:</strong> Ponla en una bandeja a media altura para calentamiento gradual.</li>
+                                <li><strong>Tiempo:</strong> 30 a 45 minutos por cada 0.6 cm (1/4 de pulgada) de grosor.</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-sm text-brand-dark uppercase tracking-wide flex items-center mb-2"><span class="bg-brand-clay text-white w-5 h-5 rounded-full flex items-center justify-center text-[10px] mr-2">3</span> Enfriamiento & Tips</h4>
+                            <ul class="instruction-list pl-8">
+                                <li>Apaga el horno y deja enfriar dentro. <strong>¡No sacar caliente!</strong> Un cambio brusco la rompe.</li>
+                                <li><strong>Paciencia:</strong> Aumentar la temperatura lentamente previene grietas.</li>
+                                <li><strong>Temperatura constante:</strong> Usa un termómetro de horno y evita el contacto directo con resistencias.</li>
                             </ul>
                         </div>
                     </div>
                 </div>
+
+                <!-- Guía de Moldeado -->
+                <div class="bg-white border border-gray-200 rounded-xl p-8 shadow-xl">
+                    <div class="flex items-center gap-4 mb-6 border-b border-gray-100 pb-4">
+                        <div class="p-3 bg-brand-gold/10 rounded-full text-brand-gold">
+                            <i data-lucide="hand" class="w-6 h-6"></i>
+                        </div>
+                        <h3 class="text-2xl font-serif text-brand-dark font-bold">Instrucciones de Moldeado</h3>
+                    </div>
+
+                    <div class="space-y-6">
+                        <div>
+                            <h4 class="font-bold text-sm text-brand-dark uppercase tracking-wide flex items-center mb-2">
+                                <i data-lucide="droplet" class="w-4 h-4 mr-2 text-brand-gold"></i> Humectación
+                            </h4>
+                            <p class="text-sm text-gray-600 pl-6">Ten agua a mano. Si la arcilla se pone dura, humedece ligeramente tus manos o la pieza, pero <strong>no la satures de agua</strong>.</p>
+                        </div>
+                        
+                        <div>
+                            <h4 class="font-bold text-sm text-brand-dark uppercase tracking-wide flex items-center mb-2">
+                                <i data-lucide="hammer" class="w-4 h-4 mr-2 text-brand-gold"></i> Técnicas de Modelado
+                            </h4>
+                            <ul class="instruction-list pl-6">
+                                <li><strong>Técnica de pellizco (cuencos):</strong> Haz una bola, introduce el pulgar en el centro y pellizca suavemente los bordes girando la pieza.</li>
+                                <li><strong>Unión de piezas:</strong> Raya las superficies y aplica <strong>barbotina</strong> (arcilla + agua) para que adhieran bien.</li>
+                                <li><strong>Soporte:</strong> Para piezas grandes, usa un soporte rígido cubierto con tela o papel para evitar grietas.</li>
+                                <li><strong>Herramientas:</strong> Usa tus dedos para alisar o estiletes y pinceles para detalles.</li>
+                            </ul>
+                        </div>
+
+                        <div>
+                            <h4 class="font-bold text-sm text-brand-dark uppercase tracking-wide flex items-center mb-2">
+                                <i data-lucide="sun" class="w-4 h-4 mr-2 text-brand-gold"></i> Acabado y Secado
+                            </h4>
+                            <ul class="instruction-list pl-6">
+                                <li><strong>Alisado:</strong> Usa dedos húmedos o una esponja para imperfecciones.</li>
+                                <li><strong>Secado:</strong> Guarda la pieza envuelta en plástico húmedo y un trapo para un secado lento y uniforme.</li>
+                                <li><strong>Decoración:</strong> Una vez seca, puedes pulir, tallar o decorar con nuestros esmaltes acrílicos (Decorartes).</li>
+                                <li><strong>Cocción (opcional):</strong> Para una pieza permanente, se puede hornear.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </div>
     </section>
@@ -430,7 +505,7 @@
             arte: [
                 { title: "Arcilla Moldeable", img: "https://arcillasygredasdecolombia.wordpress.com/wp-content/uploads/2024/01/picsart_07-06-06.04.17-edited.jpg", desc: "Masa plástica lista." },
                 { title: "Torno Alfarero", img: "https://arcillasygredasdecolombia.wordpress.com/wp-content/uploads/2024/01/picsart_07-09-10.11.20-edited.jpg", desc: "Equipo profesional." },
-                { title: "Arenas Colores", img: "https://arcillasygredasdecolombia.wordpress.com/wp-content/uploads/2024/01/img_20200705_122734_374-edited.jpg", desc: "Decoración." }
+                { title: "Arenas Colores", img: "https://arcillasygredasdecolombia.wordpress.com/wp-content/uploads/2024/01/img_20200705_122734_374-edited.jpg", desc: "Pigmentación UV." }
             ],
             construccion: [
                 { title: "Ladrillos Escala", img: "https://arcillasygredasdecolombia.wordpress.com/wp-content/uploads/2018/05/ladrillos-tejas-bloques-a-escala.jpg", desc: "Arcilla cocida." },
@@ -584,4 +659,3 @@
     </script>
 </body>
 </html>
-
