@@ -236,9 +236,8 @@
         <div class="max-w-7xl mx-auto px-6">
             <div class="flex justify-between items-center h-20">
                 <div class="flex items-center gap-4 cursor-pointer" onclick="navigateTo('home')">
-                    <!-- Logo Corregido (.png) -->
-                    <img src="https://arcillasygredasdecolombia.wordpress.com/2oro-logo-con-trasparencia.png" 
-                         onerror="this.src='https://raw.githubusercontent.com/instructorandradedcc/arcillasygredasdecolombia/main/2oro-logo%20con%20trasparencia.png'"
+                    <!-- Logo Corregido desde GitHub para asegurar carga -->
+                    <img src="https://raw.githubusercontent.com/instructorandradedcc/arcillasygredasdecolombia/main/2oro-logo%20con%20trasparencia.png" 
                          alt="Logo" class="h-12 w-auto hover:scale-105 transition-transform">
                     <div class="hidden md:block">
                         <h1 class="font-serif text-xs tracking-widest text-brand-dark leading-none font-bold">ARCILLAS Y GREDAS</h1>
@@ -313,8 +312,8 @@
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
                 <!-- Card Belleza -->
                 <div onclick="showSubCategory('belleza')" class="product-card group relative h-[450px] cursor-pointer">
-                    <!-- Imagen corregida -->
-                    <img src="https://arcillasygredasdecolombia.wordpress.com/arcilla-piel-frascos-3-prestaciones-y-arcilla-lista-todos-los-colores.jpg" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 opacity-90" alt="Belleza">
+                    <!-- Imagen de texturas de arcilla -->
+                    <img src="https://arcillasygredasdecolombia.wordpress.com/wp-content/uploads/2024/01/img_8285-edited.jpg" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 opacity-90" alt="Belleza">
                     <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
                     <div class="absolute bottom-0 left-0 p-8 w-full text-center">
                         <h3 class="text-3xl font-serif text-white mb-2">Belleza & Salud</h3>
@@ -325,7 +324,7 @@
 
                 <!-- Card Arte -->
                 <div onclick="showSubCategory('arte')" class="product-card group relative h-[450px] cursor-pointer">
-                    <img src="https://arcillasygredasdecolombia.wordpress.com/arcilla-moldeable-presentacion-un-kilo.jpg" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 opacity-90" alt="Arte">
+                    <img src="https://arcillasygredasdecolombia.wordpress.com/wp-content/uploads/2024/01/picsart_07-06-06.04.17-edited.jpg" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 opacity-90" alt="Arte">
                     <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
                     <div class="absolute bottom-0 left-0 p-8 w-full text-center">
                         <h3 class="text-3xl font-serif text-white mb-2">Arte & Escultura</h3>
@@ -336,7 +335,7 @@
 
                 <!-- Card Construcción -->
                 <div onclick="showSubCategory('construccion')" class="product-card group relative h-[450px] cursor-pointer">
-                    <img src="https://arcillasygredasdecolombia.wordpress.com/ladrillos-tejas-bloques-a-escala-2.jpg" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 opacity-90" alt="Construcción">
+                    <img src="https://arcillasygredasdecolombia.wordpress.com/wp-content/uploads/2018/05/ladrillos-tejas-bloques-a-escala.jpg" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 opacity-90" alt="Construcción">
                     <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
                     <div class="absolute bottom-0 left-0 p-8 w-full text-center">
                         <h3 class="text-3xl font-serif text-white mb-2">Técnico</h3>
@@ -463,7 +462,7 @@
                     type: "main-header",
                     title: "Belleza y Salud",
                     subtitle: "Minerales Vivos de Colombia para tu Piel",
-                    img: "https://arcillasygredasdecolombia.wordpress.com/arcilla-piel-frascos-3-prestaciones-y-arcilla-lista-todos-los-colores.jpg"
+                    img: "https://arcillasygredasdecolombia.wordpress.com/wp-content/uploads/2024/01/img_8285-edited.jpg"
                 },
                 
                 // === SUBGRUPO 1: ARCILLA EN POLVO (TARROS) ===
@@ -471,14 +470,14 @@
                     type: "subgroup-header",
                     title: "Presentación: Polvo Puro en Tarro",
                     subtitle: "Arcilla 100% Natural para preparar. Presentaciones: 100g, 250g, 500g.",
-                    img: "https://arcillasygredasdecolombia.wordpress.com/arcilla-piel-tarro-todolos-coloes-2x3-frontal-250g.jpg"
+                    img: "https://arcillasygredasdecolombia.wordpress.com/wp-content/uploads/2022/01/img_8331.jpg" // Imagen representativa
                 },
                 { 
                     type: "item-tarro",
                     title: "Arcilla Amarilla",
                     skin: "Piel Cansada",
                     benefit: "Iluminadora / Detox",
-                    img: "https://arcillasygredasdecolombia.wordpress.com/arcilla-piel-frascos-3-prestaciones-amarilla.jpg",
+                    img: "https://arcillasygredasdecolombia.wordpress.com/wp-content/uploads/2022/01/img_8331.jpg",
                     sizes: ["100g", "250g", "500g"]
                 },
                 { 
@@ -486,7 +485,7 @@
                     title: "Arcilla Azul",
                     skin: "Todo Tipo de Piel",
                     benefit: "Oxigenante / Relax",
-                    img: "https://arcillasygredasdecolombia.wordpress.com/arcilla-piel-frascos-3-prestaciones-azul.jpg",
+                    img: "https://arcillasygredasdecolombia.wordpress.com/wp-content/uploads/2022/01/img_8327.jpg", // Blanca (Placeholder)
                     sizes: ["100g", "250g", "500g"]
                 },
                 { 
@@ -494,7 +493,7 @@
                     title: "Arcilla Blanca (Caolín)",
                     skin: "Piel Sensible",
                     benefit: "Efecto Tensor / Suavidad",
-                    img: "https://arcillasygredasdecolombia.wordpress.com/arcilla-piel-frascos-3-prestaciones-blanca.jpg",
+                    img: "https://arcillasygredasdecolombia.wordpress.com/wp-content/uploads/2022/01/img_8327.jpg",
                     sizes: ["100g", "250g", "500g"]
                 },
                 { 
@@ -502,7 +501,7 @@
                     title: "Arcilla Roja",
                     skin: "Piel Madura",
                     benefit: "Riego Sanguíneo / Vitalidad",
-                    img: "https://arcillasygredasdecolombia.wordpress.com/arcilla-piel-frascos-3-prestaciones-roja.jpg",
+                    img: "https://arcillasygredasdecolombia.wordpress.com/wp-content/uploads/2022/01/img_8329.jpg",
                     sizes: ["100g", "250g", "500g"]
                 },
                  { 
@@ -510,7 +509,7 @@
                     title: "Arcilla Uva",
                     skin: "Piel Joven / Preventiva",
                     benefit: "Antioxidante / Nutrición",
-                    img: "https://arcillasygredasdecolombia.wordpress.com/arcilla-piel-frascos-3-prestaciones-uva.jpg",
+                    img: "https://arcillasygredasdecolombia.wordpress.com/wp-content/uploads/2022/01/img_8328.jpg", // Negra (Placeholder)
                     sizes: ["100g", "250g", "500g"]
                 },
                  { 
@@ -518,14 +517,14 @@
                     title: "Arcilla Verde",
                     skin: "Piel Grasa / Mixta",
                     benefit: "Limpieza Profunda / Acné",
-                    img: "https://arcillasygredasdecolombia.wordpress.com/arcilla-piel-frascos-3-prestaciones-verde.jpg",
+                    img: "https://arcillasygredasdecolombia.wordpress.com/wp-content/uploads/2022/01/img_8330.jpg",
                     sizes: ["100g", "250g", "500g"]
                 },
 
                 // === DECORACIÓN 1 ===
                 {
                     type: "decoration",
-                    img: "https://arcillasygredasdecolombia.wordpress.com/arcilla-piel-en-tarros-regadas-todos-los-colores-y-flores.jpg"
+                    img: "https://arcillasygredasdecolombia.wordpress.com/wp-content/uploads/2024/01/img_8285-edited.jpg"
                 },
 
                 // === SUBGRUPO 2: ARCILLA LISTA (MASCARILLA) ===
@@ -533,73 +532,73 @@
                     type: "subgroup-header",
                     title: "Presentación: Mascarilla Lista (Cream)",
                     subtitle: "Fórmula preparada lista para aplicar. Presentación única: 130g.",
-                    img: "https://arcillasygredasdecolombia.wordpress.com/arcilla-piel-lista-todos-los-coles-cajas-atras.jpg"
+                    img: "https://arcillasygredasdecolombia.wordpress.com/wp-content/uploads/2024/01/img_8285-edited.jpg"
                 },
                 {
                     type: "item-lista",
                     title: "Mascarilla Amarilla",
                     skin: "Piel Cansada",
                     benefit: "Luminosidad Instantánea",
-                    img_flowers: "https://arcillasygredasdecolombia.wordpress.com/archilla-piel-lista-con-flores-amarillo.jpg",
-                    img_product: "https://arcillasygredasdecolombia.wordpress.com/arcilla-lista-piel-amarilla.jpg"
+                    img_flowers: "https://arcillasygredasdecolombia.wordpress.com/wp-content/uploads/2022/01/img_8331.jpg",
+                    img_product: "https://arcillasygredasdecolombia.wordpress.com/wp-content/uploads/2024/01/img_8285-edited.jpg"
                 },
                 {
                     type: "item-lista",
                     title: "Mascarilla Uva",
                     skin: "Piel Joven",
                     benefit: "Antioxidante Natural",
-                    img_flowers: "https://arcillasygredasdecolombia.wordpress.com/archilla-piel-lista-con-flores-uva.jpg",
-                    img_product: "https://arcillasygredasdecolombia.wordpress.com/arcilla-piel-lista-uva.jpg"
+                    img_flowers: "https://arcillasygredasdecolombia.wordpress.com/wp-content/uploads/2022/01/img_8328.jpg",
+                    img_product: "https://arcillasygredasdecolombia.wordpress.com/wp-content/uploads/2024/01/img_8285-edited.jpg"
                 },
                 {
                     type: "item-lista",
                     title: "Mascarilla Verde",
                     skin: "Piel Grasa",
                     benefit: "Control de Grasa",
-                    img_flowers: "https://arcillasygredasdecolombia.wordpress.com/archilla-piel-lista-con-flores-verde.jpg",
-                    img_product: "https://arcillasygredasdecolombia.wordpress.com/arcilla-piel-lista-verde.jpg"
+                    img_flowers: "https://arcillasygredasdecolombia.wordpress.com/wp-content/uploads/2022/01/img_8330.jpg",
+                    img_product: "https://arcillasygredasdecolombia.wordpress.com/wp-content/uploads/2024/01/img_8285-edited.jpg"
                 },
                 {
                     type: "item-lista",
                     title: "Mascarilla Roja",
                     skin: "Piel Seca/Madura",
                     benefit: "Revitalización",
-                    img_flowers: "https://arcillasygredasdecolombia.wordpress.com/archilla-piel-lista-con-flores-roja.jpg",
-                    img_product: "https://arcillasygredasdecolombia.wordpress.com/arcilla-piel-lista-roja.jpg"
+                    img_flowers: "https://arcillasygredasdecolombia.wordpress.com/wp-content/uploads/2022/01/img_8329.jpg",
+                    img_product: "https://arcillasygredasdecolombia.wordpress.com/wp-content/uploads/2024/01/img_8285-edited.jpg"
                 },
                 {
                     type: "item-lista",
                     title: "Mascarilla Blanca",
                     skin: "Piel Sensible",
                     benefit: "Efecto Tensor",
-                    img_flowers: "https://arcillasygredasdecolombia.wordpress.com/archilla-piel-lista-con-flores-blancas.jpg",
-                    img_product: "https://arcillasygredasdecolombia.wordpress.com/arcilla-piel-lista-blanca.jpg"
+                    img_flowers: "https://arcillasygredasdecolombia.wordpress.com/wp-content/uploads/2022/01/img_8327.jpg",
+                    img_product: "https://arcillasygredasdecolombia.wordpress.com/wp-content/uploads/2024/01/img_8285-edited.jpg"
                 },
                 {
                     type: "item-lista",
                     title: "Mascarilla Azul",
                     skin: "Todo Tipo",
                     benefit: "Relax y Frescura",
-                    img_flowers: "https://arcillasygredasdecolombia.wordpress.com/archilla-piel-lista-con-flores-azul.jpg",
-                    img_product: "https://arcillasygredasdecolombia.wordpress.com/arcilla-piel-lista-azul.jpg"
+                    img_flowers: "https://arcillasygredasdecolombia.wordpress.com/wp-content/uploads/2022/01/img_8327.jpg",
+                    img_product: "https://arcillasygredasdecolombia.wordpress.com/wp-content/uploads/2024/01/img_8285-edited.jpg"
                 },
 
                 // === DECORACIÓN 2 ===
                 {
                     type: "decoration",
-                    img: "https://arcillasygredasdecolombia.wordpress.com/arcilla-piel-en-tarros-regadas-todos-los-colores-y-flores-defrente-2.jpg"
+                    img: "https://arcillasygredasdecolombia.wordpress.com/wp-content/uploads/2024/01/picsart_07-06-06.04.17-edited.jpg"
                 }
             ],
             
             // --- OTRAS CATEGORIAS (MANTENIDAS IGUAL) ---
             arte: [
-                { type: "item-standard", title: "Arcilla Moldeable", img: "https://arcillasygredasdecolombia.wordpress.com/arcilla-moldeable-presentacion-un-kilo.jpg", desc: "Masa plástica lista 1Kg.", link_cot: "Arcilla Moldeable" },
-                { type: "item-standard", title: "Torno Alfarero", img: "https://arcillasygredasdecolombia.wordpress.com/torno-vista-forntal.jpg", desc: "Equipo profesional.", link_cot: "Torno" },
-                { type: "item-standard", title: "Pinturas Acrílicas", img: "https://arcillasygredasdecolombia.wordpress.com/esmaltes-acrilicos.jpg", desc: "Set de colores.", link_cot: "Pinturas" }
+                { type: "item-standard", title: "Arcilla Moldeable", img: "https://arcillasygredasdecolombia.wordpress.com/wp-content/uploads/2024/01/arcilla-moldeable-presentacion-un-kilo.jpg", desc: "Masa plástica lista 1Kg.", link_cot: "Arcilla Moldeable" },
+                { type: "item-standard", title: "Torno Alfarero", img: "https://arcillasygredasdecolombia.wordpress.com/wp-content/uploads/2024/01/picsart_07-09-10.11.20-edited.jpg", desc: "Equipo profesional.", link_cot: "Torno" },
+                { type: "item-standard", title: "Pinturas Acrílicas", img: "https://arcillasygredasdecolombia.wordpress.com/wp-content/uploads/2024/01/img_8285-edited.jpg", desc: "Set de colores.", link_cot: "Pinturas" }
             ],
             construccion: [
-                { type: "item-standard", title: "Yeso Dental", img: "https://arcillasygredasdecolombia.wordpress.com/yeso-dental-blnaco-500g.jpg", desc: "Alta precisión.", link_cot: "Yeso Dental" },
-                { type: "item-standard", title: "Ladrillos Escala", img: "https://arcillasygredasdecolombia.wordpress.com/ladrillos-tejas-bloques-a-escala-2.jpg", desc: "Maquetas.", link_cot: "Ladrillos" }
+                { type: "item-standard", title: "Yeso Dental", img: "https://arcillasygredasdecolombia.wordpress.com/wp-content/uploads/2024/01/20200705_123706-edited-4.jpg", desc: "Alta precisión.", link_cot: "Yeso Dental" },
+                { type: "item-standard", title: "Ladrillos Escala", img: "https://arcillasygredasdecolombia.wordpress.com/wp-content/uploads/2018/05/ladrillos-tejas-bloques-a-escala.jpg", desc: "Maquetas.", link_cot: "Ladrillos" }
             ]
         };
 
@@ -616,7 +615,7 @@
             
             catalog[category].forEach((item, index) => {
                 
-                // 1. ENCABEZADO PRINCIPAL (IMAGEN GRANDE GRUPAL)
+                // 1. ENCABEZADO PRINCIPAL
                 if(item.type === 'main-header') {
                     container.innerHTML += `
                         <div class="section-header animate-fade-in">
@@ -631,7 +630,7 @@
                     return;
                 }
 
-                // 2. ENCABEZADO DE SUBGRUPO (IMAGEN DE CATEGORIA)
+                // 2. ENCABEZADO DE SUBGRUPO
                 if(item.type === 'subgroup-header') {
                     container.innerHTML += `
                         <div class="section-header animate-fade-in mt-12 border-t pt-12 border-gray-100">
@@ -655,9 +654,8 @@
                     return;
                 }
 
-                // 4. ITEM TIPO TARRO (SOLO 1 IMAGEN + FICHA)
+                // 4. ITEM TIPO TARRO
                 if(item.type === 'item-tarro') {
-                    // Botones de tamaños
                     let sizesHtml = item.sizes.map(s => `
                         <a href="https://wa.me/573136139989?text=Cotizar%20${encodeURIComponent(item.title)}%20${encodeURIComponent(s)}" 
                            target="_blank" 
@@ -668,22 +666,17 @@
 
                     container.innerHTML += `
                         <div class="product-card bg-white rounded-xl overflow-hidden shadow-md flex flex-col md:flex-row animate-fade-in h-auto border border-gray-100" style="animation-delay: ${index*0.1}s;">
-                            <!-- Imagen Única (3 presentaciones juntas) -->
                             <div class="md:w-1/2 relative h-64 md:h-auto overflow-hidden bg-gray-50 p-4 flex items-center justify-center">
                                 <img src="${item.img}" class="w-full h-full object-contain hover:scale-105 transition-transform" alt="${item.title}">
                             </div>
-                            
-                            <!-- Ficha Técnica -->
                             <div class="p-6 md:w-1/2 flex flex-col justify-center">
                                 <h4 class="text-xl font-serif text-brand-dark mb-1 font-bold">${item.title}</h4>
                                 <span class="text-[10px] tracking-widest text-brand-gold uppercase font-bold mb-4">100% Natural</span>
-                                
                                 <table class="card-info-table">
                                     <tr><td>Tipo de Piel</td><td>${item.skin}</td></tr>
                                     <tr><td>Beneficio</td><td>${item.benefit}</td></tr>
                                     <tr><td>Presentación</td><td>Polvo (Tarro)</td></tr>
                                 </table>
-
                                 <div class="mt-auto">
                                     <p class="text-[10px] font-bold text-gray-400 uppercase mb-2">Seleccionar Tamaño:</p>
                                     <div class="flex flex-wrap gap-2 mb-4">
@@ -699,11 +692,10 @@
                     return;
                 }
 
-                // 5. ITEM TIPO LISTA (PAREJA DE IMAGENES + FICHA)
+                // 5. ITEM TIPO LISTA
                 if(item.type === 'item-lista') {
                     container.innerHTML += `
                         <div class="product-card bg-white rounded-xl overflow-hidden shadow-md flex flex-col md:flex-row animate-fade-in h-auto border border-gray-100" style="animation-delay: ${index*0.1}s;">
-                            <!-- Pareja de Imágenes -->
                             <div class="md:w-1/2 flex h-64 md:h-80">
                                 <div class="w-1/2 h-full relative border-r border-white/50 overflow-hidden">
                                     <img src="${item.img_flowers}" class="w-full h-full object-cover" alt="Con Flores">
@@ -714,21 +706,16 @@
                                     <span class="absolute bottom-2 left-2 text-[8px] bg-brand-clay text-white px-1 font-bold uppercase">Producto</span>
                                 </div>
                             </div>
-                            
-                            <!-- Ficha Técnica -->
                             <div class="p-6 md:w-1/2 flex flex-col justify-center relative">
                                 <div class="absolute top-0 right-0 p-4 opacity-10"><i data-lucide="sparkles" class="w-12 h-12"></i></div>
-                                
                                 <h4 class="text-xl font-serif text-brand-dark mb-1 font-bold">${item.title}</h4>
                                 <span class="text-[10px] tracking-widest text-brand-whatsapp uppercase font-bold mb-4">Lista para Usar</span>
-                                
                                 <table class="card-info-table">
                                     <tr><td>Tipo de Piel</td><td>${item.skin}</td></tr>
                                     <tr><td>Beneficio Principal</td><td>${item.benefit}</td></tr>
                                     <tr><td>Formato</td><td>Crema (Tubo/Frasco)</td></tr>
                                     <tr><td>Contenido</td><td>130g</td></tr>
                                 </table>
-
                                 <div class="mt-4">
                                     <a href="https://wa.me/573136139989?text=Quiero%20comprar%20${encodeURIComponent(item.title)}%20130g" target="_blank" class="btn-buy w-full">
                                         <i data-lucide="shopping-bag" class="w-4 h-4"></i> Comprar 130g
@@ -740,7 +727,7 @@
                     return;
                 }
 
-                // 6. ITEM ESTANDAR (OTRAS CATEGORIAS)
+                // 6. ITEM ESTANDAR
                 if(item.type === 'item-standard') {
                     container.innerHTML += `
                         <div class="product-card bg-white rounded-xl overflow-hidden shadow-md animate-fade-in">
@@ -776,7 +763,8 @@
             scene.add(dirLight);
 
             const textureLoader = new THREE.TextureLoader();
-            const logoUrl = 'https://arcillasygredasdecolombia.wordpress.com/2oro-logo-con-trasparencia.png';
+            // Logo corregido
+            const logoUrl = 'https://raw.githubusercontent.com/instructorandradedcc/arcillasygredasdecolombia/main/2oro-logo%20con%20trasparencia.png';
             let logoMesh;
 
             textureLoader.load(logoUrl, (texture) => {
@@ -787,7 +775,6 @@
                 scene.add(logoMesh);
                 adjustPosition(logoMesh);
             }, undefined, function(err) {
-                 // Fallback si falla la carga del logo
                  console.log("Error loading logo");
             });
 
