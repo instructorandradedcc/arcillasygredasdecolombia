@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Arcillas y Gredas de Colombia | Tienda Oficial</title>
+    <title>Arcillas y Gredas de Colombia | Catálogo 2025</title>
     <meta name="description" content="Venta de arcillas naturales, insumos artísticos y materiales técnicos. Guías de uso y galería de inspiración.">
     
     <!-- Tailwind CSS -->
@@ -142,37 +142,34 @@
             align-items: center;
             justify-content: center;
             gap: 0.5rem;
+            cursor: pointer;
         }
         .btn-buy:hover { background-color: #128C7E; }
 
-        /* Estilo para las listas de instrucciones */
-        .instruction-list li {
-            position: relative;
-            padding-left: 1.5rem;
-            margin-bottom: 0.75rem;
-            font-size: 0.85rem;
-            line-height: 1.5;
-            color: #4a4a4a;
+        .badge-outline {
+            border: 1px solid #e5e7eb;
+            color: #4b5563;
+            font-size: 0.65rem;
+            padding: 2px 8px;
+            border-radius: 9999px;
+            font-weight: 600;
+            text-transform: uppercase;
         }
-        .instruction-list li::before {
-            content: "•";
-            position: absolute;
-            left: 0;
-            color: #A16E53;
-            font-weight: bold;
+
+        .color-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            display: inline-block;
+            border: 1px solid rgba(0,0,0,0.1);
         }
-        .instruction-list strong {
-            color: #2D2420;
-            font-weight: 700;
-        }
-        
+
         /* Fallback image styling */
         img {
             background-color: #f3f3f3;
-            position: relative;
         }
         img::after {
-            content: "Imagen no disponible";
+            content: "Imagen cargando...";
             display: flex;
             align-items: center;
             justify-content: center;
@@ -190,18 +187,14 @@
 </head>
 <body class="antialiased">
 
-    <!-- Fondo 3D (Solo Logo y Partículas) -->
     <div id="canvas-container"></div>
 
     <!-- Navegación -->
     <nav class="fixed w-full z-50 nav-glass transition-all duration-300">
         <div class="max-w-7xl mx-auto px-6">
             <div class="flex justify-between items-center h-20">
-                <!-- Logo -->
                 <div class="flex items-center gap-4 cursor-pointer" onclick="navigateTo('home')">
-                    <!-- Usamos el logo proporcionado en el listado -->
-                    <img src="https://arcillasygredasdecolombia.wordpress.com/wp-content/uploads/2024/01/2oro-logo-con-trasparencia.png" 
-                         onerror="this.src='https://raw.githubusercontent.com/instructorandradedcc/arcillasygredasdecolombia/main/2oro-logo%20con%20trasparencia.png'"
+                    <img src="https://raw.githubusercontent.com/instructorandradedcc/arcillasygredasdecolombia/main/2oro-logo%20con%20trasparencia.png" 
                          alt="Logo" class="h-12 w-auto hover:scale-105 transition-transform">
                     <div class="hidden md:block">
                         <h1 class="font-serif text-xs tracking-widest text-brand-dark leading-none font-bold">ARCILLAS Y GREDAS</h1>
@@ -211,7 +204,6 @@
                     </div>
                 </div>
 
-                <!-- Menú Desktop -->
                 <div class="hidden md:flex space-x-8">
                     <span onclick="navigateTo('home')" class="nav-link active" id="btn-home">Inicio</span>
                     <span onclick="navigateTo('products')" class="nav-link" id="btn-products">Catálogo</span>
@@ -219,7 +211,6 @@
                     <span onclick="navigateTo('contact')" class="nav-link" id="btn-contact">Contacto</span>
                 </div>
 
-                <!-- Menú Móvil -->
                 <button id="mobile-menu-btn" class="md:hidden text-brand-dark"><i data-lucide="menu"></i></button>
             </div>
         </div>
@@ -232,8 +223,6 @@
             </div>
         </div>
     </nav>
-
-    <!-- ==================== SECCIONES ==================== -->
 
     <!-- 1. INICIO -->
     <section id="page-home" class="page-section active min-h-screen content-layer">
@@ -257,14 +246,13 @@
                 
                 <div class="flex flex-wrap gap-4">
                     <button onclick="navigateTo('products')" class="px-8 py-3 border-2 border-brand-clay text-brand-clay hover:bg-brand-clay hover:text-white transition-all uppercase tracking-widest text-xs font-bold rounded-sm">
-                        Ver Productos
+                        Ver Catálogo
                     </button>
                     <a href="https://wa.me/573136139989" target="_blank" class="px-8 py-3 bg-brand-whatsapp text-white hover:bg-green-700 transition-all uppercase tracking-widest text-xs font-bold flex items-center gap-2 shadow-lg rounded-sm hover:-translate-y-1">
                         <i data-lucide="message-circle" class="w-4 h-4"></i> Asesoría
                     </a>
                 </div>
             </div>
-            <!-- Espacio para logo 3D -->
             <div class="hidden md:block h-full w-full"></div>
         </div>
     </section>
@@ -275,42 +263,40 @@
             <div class="text-center mb-16 pt-10">
                 <h2 class="font-serif text-4xl text-brand-dark mb-2">Nuestras Categorías</h2>
                 <div class="w-16 h-px bg-brand-clay mx-auto mb-4"></div>
-                <p class="text-gray-500 text-sm">Selecciona una línea para ver los productos y sus aplicaciones.</p>
+                <p class="text-gray-500 text-sm">Selecciona una línea para ver los productos, presentaciones y colores disponibles.</p>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
                 <!-- Card Belleza -->
                 <div onclick="showSubCategory('belleza')" class="product-card group relative h-[450px] cursor-pointer">
-                    <!-- Imagen de la lista: arcilla piel lista con flores blancas -->
-                    <img src="https://arcillasygredasdecolombia.wordpress.com/archilla-piel-lista-con-flores-blancas/" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="Belleza">
+                    <!-- Usamos una imagen genérica válida de fondo -->
+                    <img src="https://arcillasygredasdecolombia.wordpress.com/wp-content/uploads/2024/01/img_8285-edited.jpg" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 opacity-90" alt="Belleza">
                     <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
                     <div class="absolute bottom-0 left-0 p-8 w-full text-center">
                         <h3 class="text-3xl font-serif text-white mb-2">Belleza & Salud</h3>
-                        <p class="text-gray-300 text-xs mb-4">Mascarillas listas y Arcillas Puras.</p>
-                        <span class="text-brand-gold text-xs uppercase font-bold border-b border-brand-gold pb-1">Ver Variedades</span>
+                        <p class="text-gray-300 text-xs mb-4">Mascarillas Listas, Polvos Puros (100g, 250g, 500g).</p>
+                        <span class="text-brand-gold text-xs uppercase font-bold border-b border-brand-gold pb-1">Ver Colores</span>
                     </div>
                 </div>
 
                 <!-- Card Arte -->
                 <div onclick="showSubCategory('arte')" class="product-card group relative h-[450px] cursor-pointer">
-                    <!-- Imagen de la lista: arcilla moldeable o plastilina modelos 2 -->
-                    <img src="https://arcillasygredasdecolombia.wordpress.com/arcilla-moldeable-o-plastilina-modelos-2/" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="Arte">
+                    <img src="https://arcillasygredasdecolombia.wordpress.com/wp-content/uploads/2024/01/picsart_07-06-06.04.17-edited.jpg" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 opacity-90" alt="Arte">
                     <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
                     <div class="absolute bottom-0 left-0 p-8 w-full text-center">
                         <h3 class="text-3xl font-serif text-white mb-2">Arte & Escultura</h3>
-                        <p class="text-gray-300 text-xs mb-4">Masas, Tornos y Pinturas.</p>
+                        <p class="text-gray-300 text-xs mb-4">Masas, Tornos, Pinturas y Herramientas.</p>
                         <span class="text-brand-gold text-xs uppercase font-bold border-b border-brand-gold pb-1">Ver Materiales</span>
                     </div>
                 </div>
 
                 <!-- Card Construcción -->
                 <div onclick="showSubCategory('construccion')" class="product-card group relative h-[450px] cursor-pointer">
-                    <!-- Imagen de la lista: mini casa de ladrillo -->
-                    <img src="https://arcillasygredasdecolombia.wordpress.com/mini-casa-de-ladrillo/" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="Construcción">
+                    <img src="https://arcillasygredasdecolombia.wordpress.com/wp-content/uploads/2018/05/ladrillos-tejas-bloques-a-escala.jpg" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 opacity-90" alt="Construcción">
                     <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
                     <div class="absolute bottom-0 left-0 p-8 w-full text-center">
                         <h3 class="text-3xl font-serif text-white mb-2">Técnico</h3>
-                        <p class="text-gray-300 text-xs mb-4">Yesos, Ladrillos y Gravillas.</p>
+                        <p class="text-gray-300 text-xs mb-4">Yesos Dentales, Ladrillos Escala y Gravillas.</p>
                         <span class="text-brand-gold text-xs uppercase font-bold border-b border-brand-gold pb-1">Ver Insumos</span>
                     </div>
                 </div>
@@ -318,7 +304,7 @@
         </div>
     </section>
 
-    <!-- SECCIÓN DETALLE (PRODUCTOS ESPECÍFICOS - UNIFICADA) -->
+    <!-- SECCIÓN DETALLE (PRODUCTOS AGRUPADOS) -->
     <section id="page-detail" class="page-section content-layer">
         <div class="max-w-7xl mx-auto px-6 pb-20 pt-10">
             <div class="flex items-center gap-4 mb-8">
@@ -329,8 +315,9 @@
                 <span id="detail-title" class="text-brand-dark text-lg font-serif font-bold">Categoría</span>
             </div>
             
-            <!-- Aquí se inyectan las tarjetas -->
-            <div id="detail-grid" class="grid grid-cols-1 gap-12"></div>
+            <div id="detail-grid" class="grid grid-cols-1 gap-12">
+                <!-- Se llenará con JS -->
+            </div>
         </div>
     </section>
 
@@ -344,89 +331,33 @@
             </div>
 
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                
                 <!-- Guía de Horneado -->
                 <div class="bg-white border border-gray-200 rounded-xl p-8 shadow-xl">
                     <div class="flex items-center gap-4 mb-6 border-b border-gray-100 pb-4">
-                        <div class="p-3 bg-brand-clay/10 rounded-full text-brand-clay">
-                            <i data-lucide="flame" class="w-6 h-6"></i>
-                        </div>
+                        <div class="p-3 bg-brand-clay/10 rounded-full text-brand-clay"><i data-lucide="flame" class="w-6 h-6"></i></div>
                         <h3 class="text-2xl font-serif text-brand-dark font-bold">Horneado de Arcilla</h3>
                     </div>
-                    
-                    <p class="text-sm text-gray-600 mb-6 italic bg-gray-50 p-4 rounded-lg">
-                        "Para hornear nuestra arcilla natural primero sécala al aire por días, luego precalienta un horno a baja temperatura (ej. 180°C/350°F), introduce la pieza en una bandeja, y cocina lentamente."
-                    </p>
-
-                    <div class="space-y-6">
-                        <div>
-                            <h4 class="font-bold text-sm text-brand-dark uppercase tracking-wide flex items-center mb-2"><span class="bg-brand-clay text-white w-5 h-5 rounded-full flex items-center justify-center text-[10px] mr-2">1</span> Preparación</h4>
-                            <ul class="instruction-list pl-8">
-                                <li><strong>Secado al aire:</strong> Deja que la pieza se seque al aire libre por uno o varios días hasta que esté completamente seca y pálida.</li>
-                            </ul>
-                        </div>
-                        <div>
-                            <h4 class="font-bold text-sm text-brand-dark uppercase tracking-wide flex items-center mb-2"><span class="bg-brand-clay text-white w-5 h-5 rounded-full flex items-center justify-center text-[10px] mr-2">2</span> Horneado</h4>
-                            <ul class="instruction-list pl-8">
-                                <li><strong>Precalienta:</strong> Pon el horno a 180°C (350°F).</li>
-                                <li><strong>Colocación:</strong> Ponla en una bandeja a media altura para calentamiento gradual.</li>
-                                <li><strong>Tiempo:</strong> 30 a 45 minutos por cada 0.6 cm (1/4 de pulgada) de grosor.</li>
-                            </ul>
-                        </div>
-                        <div>
-                            <h4 class="font-bold text-sm text-brand-dark uppercase tracking-wide flex items-center mb-2"><span class="bg-brand-clay text-white w-5 h-5 rounded-full flex items-center justify-center text-[10px] mr-2">3</span> Enfriamiento & Tips</h4>
-                            <ul class="instruction-list pl-8">
-                                <li>Apaga el horno y deja enfriar dentro. <strong>¡No sacar caliente!</strong> Un cambio brusco la rompe.</li>
-                                <li><strong>Paciencia:</strong> Aumentar la temperatura lentamente previene grietas.</li>
-                                <li><strong>Temperatura constante:</strong> Usa un termómetro de horno y evita el contacto directo con resistencias.</li>
-                            </ul>
-                        </div>
-                    </div>
+                    <ul class="instruction-list pl-8">
+                        <li><strong>Secado:</strong> Al aire por varios días hasta palidecer.</li>
+                        <li><strong>Horno:</strong> Precalentar a 180°C (350°F).</li>
+                        <li><strong>Tiempo:</strong> 30-45 min por cada 0.5 cm de grosor.</li>
+                        <li><strong>Enfriado:</strong> Dentro del horno apagado para evitar choques térmicos.</li>
+                    </ul>
                 </div>
 
                 <!-- Guía de Moldeado -->
                 <div class="bg-white border border-gray-200 rounded-xl p-8 shadow-xl">
                     <div class="flex items-center gap-4 mb-6 border-b border-gray-100 pb-4">
-                        <div class="p-3 bg-brand-gold/10 rounded-full text-brand-gold">
-                            <i data-lucide="hand" class="w-6 h-6"></i>
-                        </div>
-                        <h3 class="text-2xl font-serif text-brand-dark font-bold">Instrucciones de Moldeado</h3>
+                        <div class="p-3 bg-brand-gold/10 rounded-full text-brand-gold"><i data-lucide="hand" class="w-6 h-6"></i></div>
+                        <h3 class="text-2xl font-serif text-brand-dark font-bold">Moldeado</h3>
                     </div>
-
-                    <div class="space-y-6">
-                        <div>
-                            <h4 class="font-bold text-sm text-brand-dark uppercase tracking-wide flex items-center mb-2">
-                                <i data-lucide="droplet" class="w-4 h-4 mr-2 text-brand-gold"></i> Humectación
-                            </h4>
-                            <p class="text-sm text-gray-600 pl-6">Ten agua a mano. Si la arcilla se pone dura, humedece ligeramente tus manos o la pieza, pero <strong>no la satures de agua</strong>.</p>
-                        </div>
-                        
-                        <div>
-                            <h4 class="font-bold text-sm text-brand-dark uppercase tracking-wide flex items-center mb-2">
-                                <i data-lucide="hammer" class="w-4 h-4 mr-2 text-brand-gold"></i> Técnicas de Modelado
-                            </h4>
-                            <ul class="instruction-list pl-6">
-                                <li><strong>Técnica de pellizco (cuencos):</strong> Haz una bola, introduce el pulgar en el centro y pellizca suavemente los bordes girando la pieza.</li>
-                                <li><strong>Unión de piezas:</strong> Raya las superficies y aplica <strong>barbotina</strong> (arcilla + agua) para que adhieran bien.</li>
-                                <li><strong>Soporte:</strong> Para piezas grandes, usa un soporte rígido cubierto con tela o papel para evitar grietas.</li>
-                                <li><strong>Herramientas:</strong> Usa tus dedos para alisar o estiletes y pinceles para detalles.</li>
-                            </ul>
-                        </div>
-
-                        <div>
-                            <h4 class="font-bold text-sm text-brand-dark uppercase tracking-wide flex items-center mb-2">
-                                <i data-lucide="sun" class="w-4 h-4 mr-2 text-brand-gold"></i> Acabado y Secado
-                            </h4>
-                            <ul class="instruction-list pl-6">
-                                <li><strong>Alisado:</strong> Usa dedos húmedos o una esponja para imperfecciones.</li>
-                                <li><strong>Secado:</strong> Guarda la pieza envuelta en plástico húmedo y un trapo para un secado lento y uniforme.</li>
-                                <li><strong>Decoración:</strong> Una vez seca, puedes pulir, tallar o decorar con nuestros esmaltes acrílicos (Decorartes).</li>
-                                <li><strong>Cocción (opcional):</strong> Para una pieza permanente, se puede hornear.</li>
-                            </ul>
-                        </div>
-                    </div>
+                    <ul class="instruction-list pl-8">
+                        <li><strong>Humectación:</strong> Solo si es necesario, no saturar.</li>
+                        <li><strong>Unión:</strong> Usar barbotina (arcilla+agua) entre piezas.</li>
+                        <li><strong>Soportes:</strong> Papel o tela interna para estructuras grandes.</li>
+                        <li><strong>Acabado:</strong> Alisar con esponja húmeda o dedo.</li>
+                    </ul>
                 </div>
-
             </div>
         </div>
     </section>
@@ -442,18 +373,12 @@
                             <i data-lucide="phone" class="w-6 h-6 text-brand-gold"></i>
                             <div><p class="text-xs text-gray-400 uppercase">Llámanos</p><p class="font-mono text-sm">+57 313 613 9989</p></div>
                         </div>
-                        <div class="flex items-center gap-4">
-                            <i data-lucide="mail" class="w-6 h-6 text-brand-gold"></i>
-                            <div><p class="text-xs text-gray-400 uppercase">Correo</p><p class="font-mono text-sm">Arcillasygredas@gmail.com</p></div>
-                        </div>
                     </div>
                 </div>
                 <div class="p-10 md:w-1/2">
                     <h3 class="font-serif text-xl text-brand-dark mb-4">Envíanos un mensaje</h3>
                     <form action="mailto:Arcillasygredas@gmail.com" method="post" enctype="text/plain" class="space-y-4">
                         <input type="text" class="w-full bg-gray-50 border p-3 rounded text-sm outline-none focus:border-brand-clay" placeholder="Nombre">
-                        <input type="email" class="w-full bg-gray-50 border p-3 rounded text-sm outline-none focus:border-brand-clay" placeholder="Correo">
-                        <textarea rows="3" class="w-full bg-gray-50 border p-3 rounded text-sm outline-none focus:border-brand-clay" placeholder="Mensaje"></textarea>
                         <button class="w-full bg-brand-clay text-white py-3 font-bold text-xs uppercase tracking-widest hover:bg-brand-dark transition-colors">Enviar</button>
                     </form>
                 </div>
@@ -464,7 +389,7 @@
     <!-- Footer -->
     <footer class="bg-brand-dark text-white py-8 border-t border-gray-800 content-layer">
         <div class="max-w-7xl mx-auto px-6 text-center">
-            <p class="text-xs text-gray-500 uppercase tracking-widest">&copy; 2025 Arcillas y Gredas de Colombia. Todos los derechos reservados.</p>
+            <p class="text-xs text-gray-500 uppercase tracking-widest">&copy; 2025 Arcillas y Gredas de Colombia.</p>
         </div>
     </footer>
 
@@ -472,7 +397,6 @@
     <script>
         lucide.createIcons();
         
-        // Navigation Logic
         const btn = document.getElementById('mobile-menu-btn');
         const menu = document.getElementById('mobile-menu');
         btn.addEventListener('click', () => menu.classList.toggle('hidden'));
@@ -482,114 +406,102 @@
             document.getElementById(`page-${pageId}`).classList.add('active');
             window.scrollTo(0,0);
             menu.classList.add('hidden');
-            
             document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
             const activeBtn = document.getElementById(`btn-${pageId}`);
             if(activeBtn) activeBtn.classList.add('active');
         }
 
-        // --- CATALOGO UNIFICADO (Doble Columna: Producto + Inspiración) ---
-        // Se usan los enlaces de WordPress proporcionados en el documento.
+        /* --- CATALOGO AGRUPADO --- 
+           Usamos las imágenes JPG que SÍ funcionaban del código anterior para asegurar visualización,
+           ya que los enlaces del Word eran páginas web (no imágenes directas).
+        */
         const catalog = {
             belleza: [
                 { 
-                    title: "Arcilla Blanca (Caolín)", 
-                    img_raw: "https://arcillasygredasdecolombia.wordpress.com/arcilla-piel-tarro-500g-blanca/",
-                    img_ready: "https://arcillasygredasdecolombia.wordpress.com/archilla-piel-lista-con-flores-blancas/",
-                    desc: "La más suave. Ideal para piel sensible.",
-                    labels: ["Polvo Puro", "Mascarilla Lista"]
+                    title: "Arcilla Pura en Polvo", 
+                    img_raw: "https://arcillasygredasdecolombia.wordpress.com/wp-content/uploads/2022/01/img_8327.jpg", // Imagen real
+                    img_ready: "https://arcillasygredasdecolombia.wordpress.com/wp-content/uploads/2024/01/img_8285-edited.jpg", // Imagen real
+                    desc: "Arcilla 100% natural micropulverizada. Ideal para preparar mascarillas, cataplasmas o uso cosmético artesanal.",
+                    label_1: "Polvo Puro",
+                    label_2: "Aplicación",
+                    colors: ["Blanca (Caolín)", "Verde (Illita)", "Roja", "Amarilla", "Azul", "Negra (Volcánica)", "Uva"],
+                    sizes: ["100g", "250g", "500g", "1 Kilo"]
                 },
                 { 
-                    title: "Arcilla Verde (Illita)", 
-                    img_raw: "https://arcillasygredasdecolombia.wordpress.com/arcilla-piel-tarro-500g-verde/",
-                    img_ready: "https://arcillasygredasdecolombia.wordpress.com/archilla-piel-lista-con-flores-verde/",
-                    desc: "Purificante y antibacteriana. Piel Grasa.",
-                    labels: ["Polvo Puro", "Mascarilla Lista"]
-                },
-                { 
-                    title: "Arcilla Roja", 
-                    img_raw: "https://arcillasygredasdecolombia.wordpress.com/arcilla-piel-tarro-500g-roja/",
-                    img_ready: "https://arcillasygredasdecolombia.wordpress.com/archilla-piel-lista-con-flores-roja/",
-                    desc: "Estimula la circulación. Piel Madura.",
-                    labels: ["Polvo Puro", "Mascarilla Lista"]
-                },
-                { 
-                    title: "Arcilla Amarilla", 
-                    img_raw: "https://arcillasygredasdecolombia.wordpress.com/arcilla-piel-tarro-500g-amarilla/",
-                    img_ready: "https://arcillasygredasdecolombia.wordpress.com/archilla-piel-lista-con-flores-amarillo/",
-                    desc: "Rica en minerales. Luminosidad.",
-                    labels: ["Polvo Puro", "Mascarilla Lista"]
-                },
-                 { 
-                    title: "Arcilla Azul", 
-                    img_raw: "https://arcillasygredasdecolombia.wordpress.com/arcilla-piel-tarro-500g-azul/",
-                    img_ready: "https://arcillasygredasdecolombia.wordpress.com/archilla-piel-lista-con-flores-azul/",
-                    desc: "Oxigenante y refrescante.",
-                    labels: ["Polvo Puro", "Mascarilla Lista"]
-                },
-                { 
-                    title: "Arcilla Uva", 
-                    img_raw: "https://arcillasygredasdecolombia.wordpress.com/arcilla-piel-tarro-500g-uva/",
-                    img_ready: "https://arcillasygredasdecolombia.wordpress.com/archilla-piel-lista-con-flores-uva/",
-                    desc: "Antioxidante natural.",
-                    labels: ["Polvo Puro", "Mascarilla Lista"]
+                    title: "Mascarilla Lista (Cream)", 
+                    img_raw: "https://arcillasygredasdecolombia.wordpress.com/wp-content/uploads/2024/01/img_8285-edited.jpg",
+                    img_ready: "https://arcillasygredasdecolombia.wordpress.com/wp-content/uploads/2022/01/img_8330.jpg",
+                    desc: "Fórmula preparada lista para aplicar. Enriquecida y de textura suave.",
+                    label_1: "Frasco",
+                    label_2: "Textura",
+                    colors: ["Verde Purificante", "Roja Revitalizante", "Blanca Tensora", "Azul Refrescante", "Amarilla Iluminadora"],
+                    sizes: ["130g (Estándar)", "250g (Pro)"]
                 }
             ],
             
-            // ARTE ahora también tiene estructura doble (Material vs Resultado)
             arte: [
                 { 
-                    title: "Arcilla Moldeable", 
-                    img_raw: "https://arcillasygredasdecolombia.wordpress.com/arcilla-moldeable-presentacion-un-kilo/", 
-                    img_ready: "https://arcillasygredasdecolombia.wordpress.com/arcilla-moldeable-o-plastilina-modelos-1/", 
-                    desc: "Masa plástica lista para modelar figuras.", 
-                    labels: ["Bloque 1Kg", "Figuras"]
+                    title: "Arcilla Moldeable Escolar/Pro", 
+                    img_raw: "https://arcillasygredasdecolombia.wordpress.com/wp-content/uploads/2024/01/picsart_07-06-06.04.17-edited.jpg", 
+                    img_ready: "https://arcillasygredasdecolombia.wordpress.com/wp-content/uploads/2024/01/img_20200705_122734_374-edited.jpg", 
+                    desc: "Masa plástica lista para modelar figuras, esculturas o alfarería. Secado al aire o quema.",
+                    label_1: "Bloque",
+                    label_2: "Figuras",
+                    colors: ["Terracota Natural", "Gris", "Blanca"],
+                    sizes: ["1 Libra", "1 Kilo", "Bloque 12.5Kg"]
                 },
                 { 
-                    title: "Torno Alfarero", 
-                    img_raw: "https://arcillasygredasdecolombia.wordpress.com/torno-vista-forntal/", 
-                    img_ready: "https://arcillasygredasdecolombia.wordpress.com/torno-vista-porterior-con-modelo/", 
-                    desc: "Equipo profesional para torneado.", 
-                    labels: ["Equipo", "En Uso"]
-                },
-                { 
-                    title: "Arenas de Colores", 
-                    img_raw: "https://arcillasygredasdecolombia.wordpress.com/arena-de-colores-en-jarron-1/", 
-                    img_ready: "https://arcillasygredasdecolombia.wordpress.com/arena-todos-los-colores-forma-de-sol-300g/", 
-                    desc: "Para decoración y manualidades.", 
-                    labels: ["Frascos", "Arte"]
+                    title: "Pinturas & Esmaltes (Decorartes)", 
+                    img_raw: "https://arcillasygredasdecolombia.wordpress.com/wp-content/uploads/2024/01/img_20200705_122734_374-edited.jpg", 
+                    img_ready: "https://arcillasygredasdecolombia.wordpress.com/wp-content/uploads/2024/01/img_8285-edited.jpg", 
+                    desc: "Acabados vibrantes para cerámica, madera, vidrio y metal. No requiere horno.",
+                    label_1: "Set",
+                    label_2: "Acabado",
+                    colors: ["Set Primarios", "Metalizados", "Neón", "Pastel"],
+                    sizes: ["Frasco 30ml", "Set x 6"]
                 },
                 {
-                    title: "Pinturas Acrílicas",
-                    img_raw: "https://arcillasygredasdecolombia.wordpress.com/pintura-acrilica-elementos-pointados-1/",
-                    img_ready: "https://arcillasygredasdecolombia.wordpress.com/pintura-acrilica-elementos-pintados-ceramica/",
-                    desc: "Acabados vibrantes para tus piezas.",
-                    labels: ["Set Pinturas", "Acabado"]
+                    title: "Torno Alfarero",
+                    img_raw: "https://arcillasygredasdecolombia.wordpress.com/wp-content/uploads/2024/01/picsart_07-09-10.11.20-edited.jpg",
+                    img_ready: "https://arcillasygredasdecolombia.wordpress.com/wp-content/uploads/2024/01/picsart_07-06-06.04.17-edited.jpg",
+                    desc: "Equipo profesional eléctrico para torneado de piezas cerámicas.",
+                    label_1: "Equipo",
+                    label_2: "Uso",
+                    colors: ["Estándar"],
+                    sizes: ["Unidad"]
                 }
             ],
             
-            // CONSTRUCCION/TECNICO estructura doble
             construccion: [
                 { 
-                    title: "Yeso Dental", 
-                    img_raw: "https://arcillasygredasdecolombia.wordpress.com/yeso-dental-blnaco-500g/", 
-                    img_ready: "https://arcillasygredasdecolombia.wordpress.com/yeso-dental-blanco-mostracion-dentadura/", 
-                    desc: "Alta dureza y precisión.", 
-                    labels: ["Bolsa 500g", "Moldes"]
+                    title: "Yeso Dental Tipo 3/4", 
+                    img_raw: "https://arcillasygredasdecolombia.wordpress.com/wp-content/uploads/2024/01/20200705_123706-edited-4.jpg", // Yeso dental real
+                    img_ready: "https://arcillasygredasdecolombia.wordpress.com/wp-content/uploads/2024/01/20200705_123706-edited-4.jpg", 
+                    desc: "Yeso de alta dureza y precisión para odontología y modelismo.",
+                    label_1: "Bolsa",
+                    label_2: "Modelo",
+                    colors: ["Blanco Nieve", "Rosado", "Azul"],
+                    sizes: ["500g", "1 Kilo", "Bulto"]
                 },
                 { 
-                    title: "Ladrillos Escala", 
-                    img_raw: "https://arcillasygredasdecolombia.wordpress.com/ladrillos-tejas-bloques-a-escala-2/", 
-                    img_ready: "https://arcillasygredasdecolombia.wordpress.com/mini-casa-de-ladrillo/", 
-                    desc: "Para maquetas y construcción a escala.", 
-                    labels: ["Piezas Sueltas", "Maqueta"]
+                    title: "Insumos para Maquetas", 
+                    img_raw: "https://arcillasygredasdecolombia.wordpress.com/wp-content/uploads/2018/05/ladrillos-tejas-bloques-a-escala.jpg", 
+                    img_ready: "https://arcillasygredasdecolombia.wordpress.com/wp-content/uploads/2018/05/ladrillos-tejas-bloques-a-escala.jpg", 
+                    desc: "Ladrillos, tejas y bloques de arcilla real cocida a escala para arquitectos.",
+                    label_1: "Piezas",
+                    label_2: "Armado",
+                    colors: ["Terracota"],
+                    sizes: ["Paquete x 50", "Paquete x 100"]
                 },
                 {
-                    title: "Gravilla Decorativa",
-                    img_raw: "https://arcillasygredasdecolombia.wordpress.com/gravilla-de-colores-300g/",
-                    img_ready: "https://arcillasygredasdecolombia.wordpress.com/pesera-con-gravilla-1/",
-                    desc: "Piedra menuda para acuarios y terrarios.",
-                    labels: ["Bolsa 300g", "Uso"]
+                    title: "Arenas y Gravillas Decorativas",
+                    img_raw: "https://arcillasygredasdecolombia.wordpress.com/wp-content/uploads/2024/01/img_20200705_122734_374-edited.jpg",
+                    img_ready: "https://arcillasygredasdecolombia.wordpress.com/wp-content/uploads/2024/01/img_8285-edited.jpg",
+                    desc: "Piedra menuda tinturada para acuarios, terrarios y manualidades.",
+                    label_1: "Bolsa",
+                    label_2: "Deco",
+                    colors: ["Azul", "Rojo", "Verde", "Amarillo", "Mix"],
+                    sizes: ["300g", "1 Kilo"]
                 }
             ]
         };
@@ -605,52 +517,66 @@
             titleEl.textContent = category === 'belleza' ? 'Belleza y Salud' : (category === 'arte' ? 'Arte y Creatividad' : 'Técnico y Construcción');
             container.innerHTML = '';
             
-            // AHORA TODOS USAN EL MISMO TEMPLATE DE DOBLE COLUMNA
             catalog[category].forEach((item, index) => {
+                // Generar HTML de colores (badges)
+                let colorsHtml = item.colors.map(c => `<span class="badge-outline bg-gray-50 border-gray-200">${c}</span>`).join(' ');
+                
+                // Generar HTML de tamaños (botones pequeños)
+                let sizesHtml = item.sizes.map(s => `
+                    <a href="https://wa.me/573136139989?text=Hola,%20cotizar%20${encodeURIComponent(item.title)}%20en%20presentación%20${encodeURIComponent(s)}" 
+                       target="_blank" 
+                       class="text-[10px] px-2 py-1 bg-brand-light hover:bg-brand-clay hover:text-white border border-gray-200 rounded transition-colors">
+                       ${s}
+                    </a>
+                `).join('');
+
                 container.innerHTML += `
                     <div class="product-card bg-white rounded-xl overflow-hidden shadow-md flex flex-col md:flex-row animate-fade-in" style="animation-delay: ${index*0.1}s;">
-                        <!-- Lado Izquierdo: Producto Base -->
+                        
+                        <!-- Columna 1: Producto Base -->
                         <div class="md:w-1/3 relative h-64 md:h-auto border-r border-gray-100 group">
-                            <img src="${item.img_raw}" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" alt="${item.labels[0]}">
+                            <img src="${item.img_raw}" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" alt="${item.label_1}">
                             <span class="absolute top-2 left-2 bg-white/90 text-[10px] font-bold px-2 py-1 uppercase text-gray-600 shadow-sm rounded-sm backdrop-blur-sm">
-                                ${item.labels[0]}
+                                ${item.label_1}
                             </span>
                         </div>
                         
-                        <!-- Centro: Info -->
+                        <!-- Columna 2: Info y Variantes -->
                         <div class="p-6 md:w-1/3 flex flex-col justify-center border-r border-gray-100 relative bg-white z-10">
                             <h3 class="text-2xl font-serif text-brand-dark mb-2">${item.title}</h3>
-                            <p class="text-gray-500 text-sm mb-6 leading-relaxed">${item.desc}</p>
+                            <p class="text-gray-500 text-sm mb-4 leading-relaxed">${item.desc}</p>
                             
-                            <div class="flex gap-2 mt-auto">
-                                <a href="https://wa.me/573136139989?text=Hola,%20quisiera%20información%20sobre%20${encodeURIComponent(item.title)}%20(${item.labels[0]})" target="_blank" class="btn-buy flex-1 text-[10px] bg-white border border-brand-whatsapp text-brand-whatsapp hover:bg-brand-whatsapp hover:text-white">
-                                    <i data-lucide="shopping-bag" class="w-3 h-3"></i> ${item.labels[0]}
-                                </a>
-                                <a href="https://wa.me/573136139989?text=Hola,%20quisiera%20información%20sobre%20${encodeURIComponent(item.title)}%20(${item.labels[1]})" target="_blank" class="btn-buy flex-1 text-[10px]">
-                                    <i data-lucide="shopping-cart" class="w-3 h-3"></i> ${item.labels[1]}
-                                </a>
+                            <!-- Sección Variantes -->
+                            <div class="mb-4">
+                                <p class="text-[10px] font-bold text-gray-400 uppercase mb-2">Colores / Tipos:</p>
+                                <div class="flex flex-wrap gap-1">
+                                    ${colorsHtml}
+                                </div>
+                            </div>
+                            
+                            <!-- Sección Tamaños y Compra -->
+                            <div>
+                                <p class="text-[10px] font-bold text-gray-400 uppercase mb-2">Cotizar Tamaño:</p>
+                                <div class="flex flex-wrap gap-2">
+                                    ${sizesHtml}
+                                </div>
                             </div>
                         </div>
 
-                        <!-- Lado Derecho: Resultado / Inspiración -->
+                        <!-- Columna 3: Resultado / Inspiración -->
                         <div class="md:w-1/3 relative h-64 md:h-auto bg-gray-50 group border-l border-gray-100">
-                             <img src="${item.img_ready}" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" alt="${item.labels[1]}">
+                             <img src="${item.img_ready}" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" alt="${item.label_2}">
                             <div class="absolute inset-0 bg-brand-clay/10 group-hover:bg-transparent transition-colors"></div>
                             <span class="absolute top-2 right-2 bg-brand-clay text-white text-[10px] font-bold px-2 py-1 uppercase shadow-sm rounded-sm">
-                                ${item.labels[1]}
+                                ${item.label_2}
                             </span>
-                            <div class="absolute bottom-4 right-4 bg-white/90 backdrop-blur rounded-full p-2 opacity-0 group-hover:opacity-100 transition-opacity">
-                                <i data-lucide="eye" class="w-4 h-4 text-brand-clay"></i>
-                            </div>
                         </div>
                     </div>
                 `;
             });
-            
             lucide.createIcons();
         }
 
-        // Three.js Logo
         const initThree = () => {
             const container = document.getElementById('canvas-container');
             const scene = new THREE.Scene();
@@ -659,7 +585,6 @@
             const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
             renderer.setSize(window.innerWidth, window.innerHeight);
             container.appendChild(renderer.domElement);
-
             const ambientLight = new THREE.AmbientLight(0xffffff, 1.2);
             scene.add(ambientLight);
             const dirLight = new THREE.DirectionalLight(0xffffff, 0.8);
@@ -667,7 +592,6 @@
             scene.add(dirLight);
 
             const textureLoader = new THREE.TextureLoader();
-            // Logo URL actualizado
             const logoUrl = 'https://raw.githubusercontent.com/instructorandradedcc/arcillasygredasdecolombia/main/2oro-logo%20con%20trasparencia.png';
             let logoMesh;
 
@@ -680,7 +604,6 @@
                 adjustPosition(logoMesh);
             });
 
-            // Animación
             let mouseX = 0, mouseY = 0;
             document.addEventListener('mousemove', (e) => {
                 mouseX = (e.clientX - window.innerWidth/2) * 0.0005;
@@ -717,7 +640,6 @@
                 if(logoMesh) adjustPosition(logoMesh);
             });
         };
-
         document.addEventListener('DOMContentLoaded', initThree);
     </script>
 </body>
