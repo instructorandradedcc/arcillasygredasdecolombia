@@ -112,6 +112,35 @@
         }
         .nav-link:hover, .nav-link.active { color: #A16E53; }
 
+        /* Submenu Sticky Style */
+        .submenu-sticky {
+            position: sticky;
+            top: 80px; /* Altura del navbar */
+            z-index: 40;
+            background: rgba(255, 255, 255, 0.98);
+            border-bottom: 1px solid #e5e7eb;
+            overflow-x: auto;
+            white-space: nowrap;
+            padding: 1rem 0;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
+        }
+        .submenu-item {
+            display: inline-block;
+            padding: 0.5rem 1.5rem;
+            color: #5D4037;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            cursor: pointer;
+            border-radius: 99px;
+            transition: all 0.2s;
+            margin: 0 0.25rem;
+        }
+        .submenu-item:hover, .submenu-item.active {
+            background-color: #A16E53;
+            color: white;
+        }
+
         /* Floating WhatsApp Button */
         .floating-whatsapp {
             position: fixed;
@@ -400,13 +429,13 @@
             </div>
             <div class="prose prose-lg mx-auto text-gray-600 text-justify leading-relaxed">
                 <p class="mb-6">
-                    Somos una empresa colombiana dedicada a la extracción, procesamiento y comercialización de arcillas y minerales naturales de la más alta calidad. Nuestro compromiso es brindar productos 100% naturales que resalten la riqueza de nuestra tierra.
+                    Somos fabricantes y productores directos de arcillas y minerales 100% naturales de la más alta calidad en Colombia. Nuestros productos están diseñados para ofrecer excelentes resultados tanto en aplicaciones artísticas como técnicas.
                 </p>
                 <p class="mb-6">
-                    Con años de experiencia en el mercado, servimos tanto al sector de la belleza y la salud, como al mundo artístico y técnico, proporcionando insumos confiables para ceramistas, escultores, odontólogos y artesanos.
+                    Nos enorgullece garantizar la pureza y trabajabilidad de nuestros materiales, asegurando que cada cliente, ya sea artesano, escultor o profesional de la salud, reciba lo mejor de nuestra tierra para sus proyectos.
                 </p>
                 <p>
-                    Creemos en el poder de la tierra y en la creatividad de nuestros clientes. Por eso, nos esforzamos por ofrecer variedad, calidad y un servicio personalizado que acompañe cada proyecto y cada cuidado.
+                    Con un compromiso firme hacia la calidad y el servicio, acompañamos el proceso creativo y técnico de nuestros usuarios, ofreciendo soluciones confiables y sostenibles.
                 </p>
             </div>
         </div>
@@ -477,28 +506,54 @@
 
     <!-- 3. INSTRUCCIONES COMPLETAS -->
     <section id="page-instructions" class="page-section content-layer bg-white">
-        <div class="max-w-6xl mx-auto px-6 pt-10 pb-20">
+        <div class="max-w-7xl mx-auto px-6 pt-10 pb-20">
             <div class="text-center mb-16">
                 <i data-lucide="book-open" class="w-12 h-12 text-brand-clay mx-auto mb-4"></i>
                 <h2 class="font-serif text-4xl text-brand-dark mb-4">Manual de Uso Profesional</h2>
                 <p class="text-gray-600 max-w-2xl mx-auto">Domina el arte de la arcilla con nuestras guías técnicas detalladas.</p>
             </div>
-            <!-- Contenido de instrucciones -->
+            
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <!-- Horneado -->
                 <div class="bg-white border border-gray-200 rounded-xl p-8 shadow-xl">
-                    <h3 class="text-2xl font-serif text-brand-dark font-bold mb-4">Horneado</h3>
-                    <ul class="instruction-list pl-8">
-                        <li><strong>Secado:</strong> Al aire por varios días hasta palidecer.</li>
-                        <li><strong>Horno:</strong> Precalentar a 180°C.</li>
-                        <li><strong>Tiempo:</strong> 30-45 min.</li>
+                    <div class="flex items-center gap-4 mb-6 border-b border-gray-100 pb-4">
+                        <div class="p-3 bg-brand-clay/10 rounded-full text-brand-clay"><i data-lucide="flame" class="w-6 h-6"></i></div>
+                        <h3 class="text-2xl font-serif text-brand-dark font-bold">Horneado de Arcilla</h3>
+                    </div>
+                    <p class="text-sm text-gray-600 mb-4 text-justify">
+                        Para hornear nuestra arcilla natural primero sécala al aire por días, luego precalienta un horno a baja temperatura (ej. 180°C/350°F), introduce la pieza en una bandeja, y cocina lentamente según el grosor, dejando enfriar dentro del horno para evitar grietas.
+                    </p>
+                    <ul class="instruction-list pl-8 space-y-3">
+                        <li><strong>1. Preparación (Secado):</strong> Deja que la pieza se seque al aire libre por uno o varios días hasta que esté completamente seca y pálida.</li>
+                        <li><strong>2. Precalentado:</strong> Pon el horno a 180°C (350°F) y deja que alcance la temperatura.</li>
+                        <li><strong>3. Colocación:</strong> Ponla en una bandeja a temperatura ambiente, a media altura, para que se caliente gradualmente.</li>
+                        <li><strong>4. Tiempo:</strong> Hornea de 30 a 45 minutos por cada 0.6 cm de grosor.</li>
                     </ul>
                 </div>
+
+                <!-- Moldeado -->
                 <div class="bg-white border border-gray-200 rounded-xl p-8 shadow-xl">
-                    <h3 class="text-2xl font-serif text-brand-dark font-bold mb-4">Moldeado</h3>
-                    <ul class="instruction-list pl-8">
-                        <li><strong>Humectación:</strong> Solo si es necesario.</li>
-                        <li><strong>Unión:</strong> Usar barbotina.</li>
-                    </ul>
+                    <div class="flex items-center gap-4 mb-6 border-b border-gray-100 pb-4">
+                        <div class="p-3 bg-brand-gold/10 rounded-full text-brand-gold"><i data-lucide="hand" class="w-6 h-6"></i></div>
+                        <h3 class="text-2xl font-serif text-brand-dark font-bold">Instrucciones de Moldeado</h3>
+                    </div>
+                    <div class="space-y-4 text-sm text-gray-700">
+                        <p><strong>Humedece:</strong> Ten agua a mano. Humedece ligeramente tus manos o la pieza si se pone dura, pero no la satures.</p>
+                        
+                        <h4 class="font-bold text-brand-clay uppercase text-xs tracking-wider mt-4">Técnicas</h4>
+                        <ul class="instruction-list pl-8">
+                            <li><strong>Pellizco:</strong> Haz una bola, introduce el pulgar y pellizca los bordes girando la pieza.</li>
+                            <li><strong>Unión:</strong> Raya las superficies y aplica barbotina (arcilla+agua) para adherir.</li>
+                            <li><strong>Soporte:</strong> Usa soportes con tela o papel para piezas grandes.</li>
+                        </ul>
+
+                        <h4 class="font-bold text-brand-clay uppercase text-xs tracking-wider mt-4">Acabado y Secado</h4>
+                        <ul class="instruction-list pl-8">
+                            <li><strong>Alisado:</strong> Usa dedos húmedos o esponja.</li>
+                            <li><strong>Secado Lento:</strong> Cubre con plástico y trapo para evitar grietas.</li>
+                            <li><strong>Decoración:</strong> Pule, talla o usa nuestros esmaltes acrílicos una vez seca.</li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>
@@ -510,7 +565,22 @@
             <div class="bg-white border border-gray-200 rounded-xl shadow-2xl overflow-hidden flex flex-col md:flex-row">
                 <div class="p-10 bg-brand-dark text-white md:w-1/2 flex flex-col justify-center">
                     <h2 class="font-serif text-3xl mb-6 text-brand-gold">Contáctanos</h2>
-                    <p class="font-mono text-sm mb-4">+57 313 613 9989</p>
+                    <div class="space-y-6">
+                        <div class="flex items-center gap-4">
+                            <i data-lucide="phone" class="w-6 h-6 text-brand-gold"></i>
+                            <div>
+                                <p class="text-xs text-gray-400 uppercase">WhatsApp / Celular</p>
+                                <p class="font-mono text-lg font-bold">+57 313 613 9989</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-4">
+                            <i data-lucide="mail" class="w-6 h-6 text-brand-gold"></i>
+                            <div>
+                                <p class="text-xs text-gray-400 uppercase">Correo Electrónico</p>
+                                <a href="mailto:Arcillasygredas@gmail.com" class="font-mono text-sm underline hover:text-brand-gold">Arcillasygredas@gmail.com</a>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <div class="p-10 md:w-1/2">
                     <h3 class="font-serif text-xl text-brand-dark mb-4">Envíanos un mensaje</h3>
@@ -549,6 +619,11 @@
             document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
             const activeBtn = document.getElementById(`btn-${pageId}`);
             if(activeBtn) activeBtn.classList.add('active');
+            
+            // Ocultar submenú si no es detalle
+            if(pageId !== 'detail') {
+                document.getElementById('dynamic-submenu').classList.add('hidden');
+            }
         }
 
         const IMG_BASE = "https://arcillasygredasdecolombia.wordpress.com/wp-content/uploads/2025/12/";
@@ -558,7 +633,7 @@
             return IMG_BASE + filename + ".jpg";
         }
 
-        // --- DATOS CATALOGO UNIFICADO (BELLEZA + ARTE ESTRUCTURADO) ---
+        // --- DATOS CATALOGO ---
         const catalog = {
             belleza: [
                 {
@@ -567,7 +642,7 @@
                     subtitle: "Minerales Vivos de Colombia para tu Piel",
                     img: "set-de-arsillas-piel-organizados-conjunto.jpg"
                 },
-                // LISTADO DIRECTO PARA BELLEZA (COMO SOLICITADO)
+                // LISTADO DIRECTO PARA BELLEZA
                 {
                     type: "subgroup-header",
                     title: "Mascarillas Listas (Cream)",
@@ -689,9 +764,22 @@
                             presentation: "300 gramos."
                         },
                         gallery: [
-                            { src: "grava-de-colores.jpg", desc: "Grano Grueso" }
+                            { src: "grava-de-colores.jpg", desc: "Grano Grueso" },
+                            { src: "pesera-con-gravilla-1.png", desc: "Uso en Peceras" },
+                            { src: "pesera-con-gravilla-2.png", desc: "Decoración Acuática" }
                         ]
-                    },
+                    }
+                ]
+            },
+
+            // TÉCNICO
+            construccion: {
+                mainHeader: {
+                    title: "Técnico y Construcción",
+                    subtitle: "Insumos especializados para profesionales y maquetistas.",
+                    img: "ladrillos-tejas-bloques-a-escala.jpg"
+                },
+                products: [
                     {
                         id: "aserrin",
                         title: "Aserrín Natural",
@@ -705,18 +793,7 @@
                             { src: "aserrin-natural-maquita-1.png", desc: "Maquetas" },
                             { src: "aserrin-natural-maquita-2.png", desc: "Texturas" }
                         ]
-                    }
-                ]
-            },
-
-            // TÉCNICO (NUEVA ESTRUCTURA GRID -> DETALLE)
-            construccion: {
-                mainHeader: {
-                    title: "Técnico y Construcción",
-                    subtitle: "Insumos especializados para profesionales y maquetistas.",
-                    img: "ladrillos-tejas-bloques-a-escala.jpg"
-                },
-                products: [
+                    },
                     {
                         id: "yesos",
                         title: "Yeso Dental y Cemento",
@@ -826,7 +903,7 @@
                 </div>
             `;
 
-            // Ficha Técnica HTML
+            // Ficha Técnica HTML (SIN BOTÓN COTIZAR INDIVIDUAL)
             const specHtml = `
                 <div class="spec-card animate-fade-in">
                     <div class="md:w-1/2 relative bg-gray-50 flex items-center justify-center p-8">
@@ -844,10 +921,6 @@
                             <tr><td>Presentación</td><td>${product.spec.presentation}</td></tr>
                             <tr><td>Colores</td><td>${product.spec.colors}</td></tr>
                         </table>
-
-                        <a href="https://wa.me/573136139989?text=Hola,%20me%20interesa%20el%20producto:%20${encodeURIComponent(product.title)}" target="_blank" class="w-full bg-brand-whatsapp text-white py-4 font-bold text-center uppercase tracking-widest rounded hover:bg-green-700 transition-colors shadow-lg flex justify-center items-center gap-2">
-                            <i data-lucide="message-circle" class="w-5 h-5"></i> Cotizar Ahora
-                        </a>
                     </div>
                 </div>
             `;
@@ -878,7 +951,7 @@
             lucide.createIcons();
         }
 
-        // Renderizado de lista plana (Para Belleza)
+        // Renderizado de lista plana (Para Belleza - SIN BOTÓN COTIZAR INDIVIDUAL)
         function renderLinearList(container, items) {
             let html = '<div class="grid grid-cols-1 gap-12">';
             items.forEach((item, index) => {
@@ -900,7 +973,6 @@
                             <p class="text-sm text-gray-500 mb-6 italic">${item.subtitle}</p>
                         </div>`;
                 } else if(item.type === 'item-lista') {
-                    // Item lista (Belleza)
                     html += `
                         <div class="product-card bg-white rounded-xl overflow-hidden shadow-md flex flex-col md:flex-row animate-fade-in h-auto border border-gray-100">
                             <div class="md:w-1/2 flex h-64 md:h-72">
