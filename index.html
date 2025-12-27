@@ -198,12 +198,36 @@
             border-color: #A16E53;
         }
 
+        /* Estilos Ficha Técnica */
+        .spec-card {
+            display: flex;
+            flex-direction: column;
+            md:flex-row;
+            background: #fff;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid #e5e7eb;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
+        }
+        .spec-table tr td {
+            padding: 8px 0;
+            border-bottom: 1px solid #f3f4f6;
+            font-size: 0.85rem;
+        }
+        .spec-table tr td:first-child {
+            font-weight: 700;
+            color: #9ca3af;
+            width: 35%;
+            text-transform: uppercase;
+            font-size: 0.7rem;
+        }
+
         .section-header {
             grid-column: 1 / -1;
             padding-top: 2rem;
             padding-bottom: 2rem;
             text-align: center;
-            scroll-margin-top: 150px; /* Para que el scroll no quede tapado por el header */
+            scroll-margin-top: 150px;
         }
 
         .decorative-banner {
@@ -309,6 +333,7 @@
 
                 <div class="hidden md:flex space-x-8">
                     <span onclick="navigateTo('home')" class="nav-link active" id="btn-home">Inicio</span>
+                    <span onclick="navigateTo('about')" class="nav-link" id="btn-about">Nosotros</span>
                     <span onclick="navigateTo('products')" class="nav-link" id="btn-products">Catálogo</span>
                     <span onclick="navigateTo('instructions')" class="nav-link" id="btn-instructions">Instrucciones</span>
                     <span onclick="navigateTo('contact')" class="nav-link" id="btn-contact">Contacto</span>
@@ -320,6 +345,7 @@
         <div id="mobile-menu" class="hidden md:hidden bg-white border-b border-gray-100 absolute w-full left-0 top-20 z-40 shadow-lg">
             <div class="flex flex-col p-6 space-y-4 text-center">
                 <span onclick="navigateTo('home')" class="text-brand-dark font-bold py-2 uppercase text-xs">Inicio</span>
+                <span onclick="navigateTo('about')" class="text-brand-dark font-bold py-2 uppercase text-xs">Nosotros</span>
                 <span onclick="navigateTo('products')" class="text-brand-dark font-bold py-2 uppercase text-xs">Catálogo</span>
                 <span onclick="navigateTo('instructions')" class="text-brand-dark font-bold py-2 uppercase text-xs">Instrucciones</span>
                 <span onclick="navigateTo('contact')" class="text-brand-dark font-bold py-2 uppercase text-xs">Contacto</span>
@@ -362,6 +388,27 @@
         </div>
     </section>
 
+    <!-- 1.1 QUIENES SOMOS -->
+    <section id="page-about" class="page-section content-layer bg-white">
+        <div class="max-w-4xl mx-auto px-6 py-20">
+            <div class="text-center mb-12">
+                <h2 class="font-serif text-4xl text-brand-dark mb-4">Quiénes Somos</h2>
+                <div class="w-16 h-px bg-brand-clay mx-auto"></div>
+            </div>
+            <div class="prose prose-lg mx-auto text-gray-600 text-justify">
+                <p class="mb-6">
+                    Somos una empresa colombiana dedicada a la extracción, procesamiento y comercialización de arcillas y minerales naturales de la más alta calidad. Nuestro compromiso es brindar productos 100% naturales que resalten la riqueza de nuestra tierra.
+                </p>
+                <p class="mb-6">
+                    Con años de experiencia en el mercado, servimos tanto al sector de la belleza y la salud, como al mundo artístico y técnico, proporcionando insumos confiables para ceramistas, escultores, odontólogos y artesanos.
+                </p>
+                <p>
+                    Creemos en el poder de la tierra y en la creatividad de nuestros clientes. Por eso, nos esforzamos por ofrecer variedad, calidad y un servicio personalizado que acompañe cada proyecto y cada cuidado.
+                </p>
+            </div>
+        </div>
+    </section>
+
     <!-- 2. CATÁLOGO PRINCIPAL (LANDING DE PRODUCTOS) -->
     <section id="page-products" class="page-section content-layer bg-white/80">
         <div class="max-w-7xl mx-auto px-6 pb-20">
@@ -374,7 +421,6 @@
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
                 <!-- Card Belleza -->
                 <div onclick="showSubCategory('belleza')" class="product-card group relative h-[450px] cursor-pointer">
-                    <!-- Corrección nombre de archivo arsillas -->
                     <img src="https://arcillasygredasdecolombia.wordpress.com/wp-content/uploads/2025/12/set-de-arsillas-piel-organizados-conjunto.jpg" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 opacity-90" alt="Belleza">
                     <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
                     <div class="absolute bottom-0 left-0 p-8 w-full text-center">
@@ -390,7 +436,7 @@
                     <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
                     <div class="absolute bottom-0 left-0 p-8 w-full text-center">
                         <h3 class="text-3xl font-serif text-white mb-2">Arte y Escultura</h3>
-                        <p class="text-gray-300 text-xs mb-4">Arcillas Moldeables, Tornos, Arenas y Esmaltes.</p>
+                        <p class="text-gray-300 text-xs mb-4">Arcillas Moldeables, Arenas y Esmaltes.</p>
                         <span class="text-brand-gold text-xs uppercase font-bold border-b border-brand-gold pb-1">Ver Materiales</span>
                     </div>
                 </div>
@@ -401,7 +447,7 @@
                     <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
                     <div class="absolute bottom-0 left-0 p-8 w-full text-center">
                         <h3 class="text-3xl font-serif text-white mb-2">Técnico</h3>
-                        <p class="text-gray-300 text-xs mb-4">Yesos Dentales & Maquetas a Escala.</p>
+                        <p class="text-gray-300 text-xs mb-4">Yesos Dentales, Tornos & Maquetas.</p>
                         <span class="text-brand-gold text-xs uppercase font-bold border-b border-brand-gold pb-1">Ver Insumos</span>
                     </div>
                 </div>
@@ -527,7 +573,7 @@
                     id: "belleza-main",
                     title: "Belleza y Salud",
                     subtitle: "Minerales Vivos de Colombia para tu Piel",
-                    img: "set-de-arsillas-piel-organizados-conjunto.jpg" // Corrección: arsillas
+                    img: "set-de-arsillas-piel-organizados-conjunto.jpg"
                 },
                 // === SUBGRUPO: MASCARILLA LISTA (LISA CREAM) ===
                 {
@@ -543,7 +589,6 @@
                     skin: "Piel Cansada",
                     benefit: "Luminosidad / Detox",
                     characteristic: "100% Natural",
-                    // Corrección nombres archivo: archilla / amarillo.png
                     img_flowers: "archilla-piel-lista-con-flores-amarillo.png", 
                     img_product: "arcilla-lista-piel-amarilla.jpg"
                 },
@@ -562,7 +607,6 @@
                     skin: "Piel Sensible",
                     benefit: "Efecto Tensor",
                     characteristic: "100% Natural",
-                    // Corrección: blancas.png
                     img_flowers: "archilla-piel-lista-con-flores-blancas.png",
                     img_product: "arcilla-piel-lista-blanca.jpg"
                 },
@@ -590,7 +634,6 @@
                     skin: "Piel Joven",
                     benefit: "Antioxidante",
                     characteristic: "100% Natural",
-                    // Corrección: uva-.jpg
                     img_flowers: "archilla-piel-lista-con-flores-uva-.jpg",
                     img_product: "arcilla-piel-lista-uva.jpg"
                 },
@@ -608,7 +651,6 @@
                     title: "Arcilla Amarilla",
                     skin: "Piel Cansada",
                     benefit: "Iluminadora",
-                    // Usando nombres del listado
                     img: "arcilla-piel-frascos-3-prestaciones-amarilla-.jpg",
                     sizes: ["100g", "250g", "500g"]
                 },
@@ -654,7 +696,7 @@
                 }
             ],
             
-            // --- ARTE & ESCULTURA ---
+            // --- ARTE & ESCULTURA (ESTRUCTURA NUEVA CON FICHAS TÉCNICAS) ---
             arte: [
                 {
                     type: "main-header",
@@ -664,7 +706,7 @@
                     img: "arcillas-moldeables-o-plastilinas-en-fila-todos-los-colores.jpg"
                 },
                 
-                // 1. ARCILLAS MOLDEABLES (CORREGIDO DE MALVIANAS)
+                // 1. ARCILLAS MOLDEABLES
                 {
                     type: "subgroup-header",
                     id: "moldeables",
@@ -672,65 +714,118 @@
                     subtitle: "Masas listas para modelar y crear.",
                     img: "arcilla-moldeable-presentacion-un-kilo.jpg"
                 },
-                { type: "item-standard", title: "Arcilla Moldeable 1 Kg", img: "arcilla-moldeable-presentacion-un-kilo.jpg", desc: "Bloque sólido para grandes proyectos.", link_cot: "Arcilla Moldeable 1Kg" },
-                { type: "item-standard", title: "Bloque 500g", img: "arcilla-moldeable-presentacion-libra.jpg", desc: "Ideal para iniciar.", link_cot: "Arcilla Bloque 500g" },
-                
-                { type: "decoration", title: "Inspiración", img: "arcilla-moldeable-o-plastilina-modelos-1.png" },
-                { type: "decoration", title: "", img: "arcilla-moldeable-o-plastilina-modelos-2.png" },
-
-                // 2. TORNOS
+                // FICHA TÉCNICA PRODUCTO
                 {
-                    type: "subgroup-header",
-                    id: "tornos",
-                    title: "Tornos y Equipos",
-                    subtitle: "Galería de equipos de trabajo.",
-                    img: "torno-con-modelo-vista-frontal.jpg"
+                    type: "product-spec",
+                    title: "Arcilla Moldeable Natural",
+                    img: "arcilla-moldeable-presentacion-un-kilo.jpg",
+                    specs: [
+                        { label: "Presentación", value: "Bloque 500g / Bloque 1 Kg" },
+                        { label: "Colores", value: "Terracota, Roja, Café, Blanca, Negra" },
+                        { label: "Uso", value: "Modelado manual, escultura, torno" }
+                    ]
                 },
-                { type: "item-showcase", title: "Torno Vista Frontal", img: "torno-vista-forntal.jpg", desc: "Diseño ergonómico." },
-                { type: "item-showcase", title: "Torno Vista Posterior", img: "torno-vista-posterior.jpg", desc: "Mecanismo robusto." },
-                { type: "item-showcase", title: "En Uso (Lateral)", img: "torno-vista-lateral-con-modelo.jpg", desc: "Facilidad de trabajo." },
-                { type: "item-showcase", title: "En Uso (General)", img: "torno-con-modelo-vista-frontal.jpg", desc: "Estabilidad total." },
+                // INSPIRACIÓN
+                { 
+                    type: "gallery-grid",
+                    title: "Lo que puedes crear",
+                    images: [
+                        { src: "arcilla-moldeable-o-plastilina-modelos-1.png", desc: "Figuras Creativas" },
+                        { src: "arcilla-moldeable-o-plastilina-modelos-2.png", desc: "Esculturas" }
+                    ]
+                },
 
-                // 3. ESMALTES
+                // 2. ESMALTES
                 {
                     type: "subgroup-header",
                     id: "esmaltes",
-                    title: "Decoración y Acabados",
-                    subtitle: "Esmaltes acrílicos para diversas superficies.",
+                    title: "Esmaltes y Acabados",
+                    subtitle: "Pinturas acrílicas especializadas.",
                     img: "esmaltes-acrilicos.jpg"
                 },
-                { type: "item-standard", title: "Set Esmaltes Acrílicos", img: "esmaltes-acrilicos.jpg", desc: "Variedad de colores.", link_cot: "Set Esmaltes" },
-                { type: "item-standard", title: "Esmalte Acrílico 3", img: "esmalte-acrilico-3.jpg", desc: "Acabado brillante.", link_cot: "Esmalte 3" },
-                { type: "item-standard", title: "Aplicación en Vidrio", img: "pintura-acrilica-elementos-pintados-vidrio.png", desc: "Adherencia en vidrio.", link_cot: "Esmaltes Vidrio" },
-                // Uso de genérico pointados del listado
-                { type: "item-standard", title: "Aplicación en Metal/Hierro", img: "pintura-acrilica-elementos-pointados-4.png", desc: "Protección y color.", link_cot: "Esmaltes Metal" }, 
-                { type: "item-standard", title: "Aplicación en Madera", img: "pintura-acrilica-elementos-pointados-1.png", desc: "Resalta la textura.", link_cot: "Esmaltes Madera" },
-                { type: "item-standard", title: "Aplicación en Cerámica", img: "pintura-acrilica-elementos-pointados-5.png", desc: "Acabado profesional.", link_cot: "Esmaltes Cerámica" },
+                // FICHA TÉCNICA PRODUCTO
+                {
+                    type: "product-spec",
+                    title: "Esmaltes Acrílicos",
+                    img: "esmaltes-acrilicos.jpg",
+                    specs: [
+                        { label: "Presentación", value: "Frasco Individual / Set x 6" },
+                        { label: "Variedad", value: "Colores Primarios, Neón, Metalizados" },
+                        { label: "Superficies", value: "Cerámica, Madera, Metal, Vidrio" }
+                    ]
+                },
+                // INSPIRACIÓN
+                { 
+                    type: "gallery-grid",
+                    title: "Aplicaciones",
+                    images: [
+                        { src: "pintura-acrilica-elementos-pintados-vidrio.png", desc: "Vidrio" },
+                        { src: "pintura-acrilica-elementos-pointados-1.png", desc: "Madera" },
+                        { src: "pintura-acrilica-elementos-pointados-4.png", desc: "Metal" },
+                        { src: "pintura-acrilica-elementos-pointados-5.png", desc: "Cerámica" }
+                    ]
+                },
 
-                // 4. ARENAS
+                // 3. ARENAS
                 {
                     type: "subgroup-header",
                     id: "arenas",
                     title: "Arenas Decorativas",
-                    subtitle: "Colores vivos para ambientación.",
+                    subtitle: "Arenas de cuarzo finas.",
                     img: "arena-todos-los-colores-forma-de-sol-300g.jpg"
                 },
-                { type: "item-standard", title: "Arena Jarrón", img: "arena-de-colores-en-jarron-1.png", desc: "Ideal para floreros.", link_cot: "Arena Jarrón" },
-                { type: "item-standard", title: "Muestrario Fila", img: "arena-de-colores-en-fila.jpg", desc: "Gama de colores.", link_cot: "Arena Colores" },
+                // FICHA TÉCNICA PRODUCTO
+                {
+                    type: "product-spec",
+                    title: "Arena de Colores",
+                    img: "arena-todos-los-colores-forma-de-sol-300g.jpg",
+                    specs: [
+                        { label: "Presentación", value: "Bolsa 300g" },
+                        { label: "Colores", value: "Amarillo, Azul, Rojo, Verde, Naranja, Negro, Blanco..." },
+                        { label: "Uso", value: "Decoración de jarrones, arte efímero" }
+                    ]
+                },
+                // INSPIRACIÓN
+                { 
+                    type: "gallery-grid",
+                    title: "Lo que puedes hacer",
+                    images: [
+                        { src: "arena-de-colores-en-jarron-1.png", desc: "Jarrones Decorativos" },
+                        { src: "arena-de-colores-en-jarron-2.png", desc: "Arte en Vidrio" },
+                        { src: "arena-de-colores-en-jarron-con-el-logo.png", desc: "Personalizados" }
+                    ]
+                },
 
-                // 5. GRAVAS
+                // 4. GRAVAS
                 {
                     type: "subgroup-header",
                     id: "gravas",
                     title: "Gravas y Peceras",
-                    subtitle: "Texturas naturales para acuarios.",
+                    subtitle: "Texturas naturales.",
                     img: "grava-de-colores.jpg"
                 },
-                { type: "item-standard", title: "Grava Colores", img: "grava-de-colores.jpg", desc: "Grano grueso.", link_cot: "Grava" },
-                { type: "item-standard", title: "Pecera con Gravilla 1", img: "pesera-con-gravilla-1.png", desc: "Ejemplo de uso.", link_cot: "Gravilla Pecera" },
-                { type: "item-standard", title: "Pecera con Gravilla 2", img: "pesera-con-gravilla-2.png", desc: "Ejemplo de uso.", link_cot: "Gravilla Pecera" },
+                // FICHA TÉCNICA PRODUCTO
+                {
+                    type: "product-spec",
+                    title: "Grava de Colores",
+                    img: "grava-de-colores.jpg",
+                    specs: [
+                        { label: "Presentación", value: "Bolsa 300g" },
+                        { label: "Grano", value: "Grueso / Texturizado" },
+                        { label: "Uso", value: "Acuarios, Jardinería, Maquetas" }
+                    ]
+                },
+                // INSPIRACIÓN
+                { 
+                    type: "gallery-grid",
+                    title: "Inspiración",
+                    images: [
+                        { src: "pesera-con-gravilla-1.png", desc: "Acuarios" },
+                        { src: "pesera-con-gravilla-2.png", desc: "Decoración" }
+                    ]
+                },
 
-                // 6. ASERRÍN
+                // 5. ASERRÍN
                 {
                     type: "subgroup-header",
                     id: "aserrin",
@@ -738,12 +833,29 @@
                     subtitle: "Para maquetas y texturas.",
                     img: "aserrin-natural-50g.jpg"
                 },
-                { type: "item-standard", title: "Aserrín Natural", img: "aserrin-natural-50g.jpg", desc: "Producto natural.", link_cot: "Aserrín" },
-                { type: "item-showcase", title: "Maqueta Demostración 1", img: "aserrin-natural-maquita-1.png", desc: "Lo que puedes crear." },
-                { type: "item-showcase", title: "Maqueta Demostración 2", img: "aserrin-natural-maquita-2.png", desc: "Creatividad sin límites." }
+                // FICHA TÉCNICA PRODUCTO
+                {
+                    type: "product-spec",
+                    title: "Aserrín Natural",
+                    img: "aserrin-natural-50g.jpg",
+                    specs: [
+                        { label: "Presentación", value: "Bolsa 50g" },
+                        { label: "Tipo", value: "Natural / Coloreado" },
+                        { label: "Uso", value: "Maquetería, Texturas, Pesebres" }
+                    ]
+                },
+                // INSPIRACIÓN
+                { 
+                    type: "gallery-grid",
+                    title: "Lo que puedes hacer",
+                    images: [
+                        { src: "aserrin-natural-maquita-1.png", desc: "Maquetas" },
+                        { src: "aserrin-natural-maquita-2.png", desc: "Paisajismo" }
+                    ]
+                }
             ],
 
-            // --- TÉCNICO & CONSTRUCCIÓN ---
+            // --- TÉCNICO & CONSTRUCCIÓN (CON TORNO MOVIDO AQUÍ) ---
             construccion: [
                 {
                     type: "main-header",
@@ -752,31 +864,87 @@
                     subtitle: "Insumos especializados.",
                     img: "ladrillos-tejas-bloques-a-escala.jpg"
                 },
-                // YESOS
+                // 1. TORNOS (MOVIDO)
+                {
+                    type: "subgroup-header",
+                    id: "tornos",
+                    title: "Tornos Alfareros",
+                    subtitle: "Equipos profesionales.",
+                    img: "torno-con-modelo-vista-frontal.jpg"
+                },
+                {
+                    type: "product-spec",
+                    title: "Torno Alfarero Profesional",
+                    img: "torno-vista-forntal.jpg",
+                    specs: [
+                        { label: "Tipo", value: "Eléctrico de Pedal" },
+                        { label: "Uso", value: "Alfarería Profesional / Enseñanza" },
+                        { label: "Características", value: "Plato metálico, fácil limpieza, robusto" }
+                    ]
+                },
+                { 
+                    type: "gallery-grid",
+                    title: "En Uso",
+                    images: [
+                        { src: "torno-vista-posterior.jpg", desc: "Vista Posterior" },
+                        { src: "torno-vista-lateral-con-modelo.jpg", desc: "Ergonomía" },
+                        { src: "torno-con-modelo-vista-frontal.jpg", desc: "Trabajo en proceso" }
+                    ]
+                },
+
+                // 2. YESOS
                 {
                     type: "subgroup-header",
                     id: "yesos",
                     title: "Yesos Dentales",
-                    subtitle: "Alta precisión y dureza.",
-                    // typo blnaco en origen
+                    subtitle: "Alta precisión.",
                     img: "yeso-dental-blnaco-500g.jpg"
                 },
-                { type: "item-standard", title: "Yeso Dental Blanco", img: "yeso-dental-blnaco-500g.jpg", desc: "Alta pureza.", link_cot: "Yeso Dental" },
-                { type: "item-showcase", title: "Resultado: Dentadura", img: "yeso-dental-blanco-mostracion-dentadura.png", desc: "Detalle perfecto." },
-                { type: "item-showcase", title: "Resultado: Mano", img: "yeso-dental-blanco-mostracion-mano.png", desc: "Moldeado corporal." },
-                { type: "item-showcase", title: "Resultado: Piezas", img: "yeso-dental-blanco-mostracion-1.png", desc: "Diversos usos." },
+                {
+                    type: "product-spec",
+                    title: "Yeso Dental Blanco",
+                    img: "yeso-dental-blnaco-500g.jpg",
+                    specs: [
+                        { label: "Presentación", value: "Bolsa 500g" },
+                        { label: "Tipo", value: "Alta Dureza / Fraguado Rápido" },
+                        { label: "Uso", value: "Odontología, Moldes de precisión" }
+                    ]
+                },
+                { 
+                    type: "gallery-grid",
+                    title: "Resultados",
+                    images: [
+                        { src: "yeso-dental-blanco-mostracion-dentadura.png", desc: "Modelos Dentales" },
+                        { src: "yeso-dental-blanco-mostracion-mano.png", desc: "Moldes Corporales" }
+                    ]
+                },
 
-                // MAQUETAS
+                // 3. MAQUETAS
                 {
                     type: "subgroup-header",
                     id: "maquetas",
-                    title: "Maquetería (Inspiración)",
-                    subtitle: "Lo que construyes con nuestros ladrillos.",
+                    title: "Maquetería",
+                    subtitle: "Ladrillos a escala.",
                     img: "mini-casa-de-ladrillo.png"
                 },
-                { type: "item-showcase", title: "Mini Casa", img: "mini-casa-de-ladrillo.png", desc: "Proyecto terminado." },
-                { type: "item-showcase", title: "Mini Molino", img: "mini-molino-de-ladrillo.png", desc: "Proyecto terminado." },
-                { type: "item-standard", title: "Ladrillos y Tejas", img: "ladrillos-tejas-bloques-a-escala.jpg", desc: "Insumos sueltos.", link_cot: "Ladrillos Escala" }
+                {
+                    type: "product-spec",
+                    title: "Insumos a Escala",
+                    img: "ladrillos-tejas-bloques-a-escala.jpg",
+                    specs: [
+                        { label: "Variedad", value: "Ladrillos, Tejas, Bloques" },
+                        { label: "Material", value: "Arcilla Real cocida" },
+                        { label: "Uso", value: "Maquetas arquitectónicas, Dioramas" }
+                    ]
+                },
+                { 
+                    type: "gallery-grid",
+                    title: "Inspiración",
+                    images: [
+                        { src: "mini-casa-de-ladrillo.png", desc: "Proyectos Completos" },
+                        { src: "mini-molino-de-ladrillo.png", desc: "Estructuras Complejas" }
+                    ]
+                }
             ]
         };
 
@@ -806,7 +974,6 @@
 
             // Renderizar contenido
             catalog[category].forEach((item, index) => {
-                // CORRECCIÓN CRÍTICA: Solo generar URL si la propiedad img existe
                 const imgUrlMain = item.img ? buildImgUrl(item.img) : null;
                 
                 // 1. HEADER
@@ -824,7 +991,7 @@
                     return;
                 }
 
-                // 2. SUBGRUPO HEADER (Con ID para ancla)
+                // 2. SUBGRUPO HEADER
                 if(item.type === 'subgroup-header') {
                     container.innerHTML += `
                         <div id="${item.id}" class="section-header animate-fade-in mt-8 border-t pt-8 border-gray-100 col-span-1 md:col-span-3 lg:col-span-3 scroll-mt-32">
@@ -835,32 +1002,71 @@
                     return;
                 }
 
-                // 3. DECORATION
-                if(item.type === 'decoration') {
+                // 3. FICHA TÉCNICA (NUEVO)
+                if(item.type === 'product-spec') {
+                    let specsRows = item.specs.map(s => `<tr><td>${s.label}</td><td>${s.value}</td></tr>`).join('');
+                    
                     container.innerHTML += `
-                        <div class="decorative-banner animate-fade-in shadow-inner col-span-1 md:col-span-3 lg:col-span-3">
-                            <img src="${imgUrlMain}" alt="Decoración" onerror="handleImageError(this)">
-                            ${item.title ? `<div class="absolute bottom-4 left-4 bg-white/80 px-4 py-1 text-xs font-bold uppercase">${item.title}</div>` : ''}
+                        <div class="spec-card animate-fade-in md:col-span-3 lg:col-span-3">
+                            <div class="md:w-1/2 relative h-64 md:h-auto bg-gray-50">
+                                <img src="${imgUrlMain}" class="w-full h-full object-contain p-4" alt="${item.title}" onerror="handleImageError(this)">
+                            </div>
+                            <div class="p-8 md:w-1/2 flex flex-col justify-center">
+                                <h3 class="text-2xl font-serif text-brand-dark mb-2 font-bold">${item.title}</h3>
+                                <div class="w-12 h-1 bg-brand-gold mb-6"></div>
+                                <table class="spec-table w-full mb-6">
+                                    ${specsRows}
+                                </table>
+                            </div>
                         </div>
                     `;
                     return;
                 }
 
-                // 4. ITEM LISTA (Sin botón cotizar)
+                // 4. GALERÍA DE INSPIRACIÓN (NUEVO)
+                if(item.type === 'gallery-grid') {
+                    let imagesHtml = item.images.map(img => `
+                        <div class="group relative aspect-square bg-gray-100 rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow">
+                            <img src="${buildImgUrl(img.src)}" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" onerror="handleImageError(this)">
+                            <div class="absolute bottom-0 left-0 w-full bg-gradient-to-t from-black/70 to-transparent p-4 opacity-0 group-hover:opacity-100 transition-opacity">
+                                <p class="text-white text-xs font-bold">${img.desc}</p>
+                            </div>
+                        </div>
+                    `).join('');
+
+                    container.innerHTML += `
+                        <div class="md:col-span-3 lg:col-span-3 animate-fade-in">
+                            <h4 class="text-sm uppercase tracking-widest text-gray-400 font-bold mb-4 text-center">${item.title}</h4>
+                            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                                ${imagesHtml}
+                            </div>
+                        </div>
+                    `;
+                    return;
+                }
+
+                // DECORATION
+                if(item.type === 'decoration') {
+                    container.innerHTML += `
+                        <div class="decorative-banner animate-fade-in shadow-inner col-span-1 md:col-span-3 lg:col-span-3">
+                            <img src="${imgUrlMain}" alt="Decoración" onerror="handleImageError(this)">
+                        </div>
+                    `;
+                    return;
+                }
+
+                // ITEMS DE BELLEZA (MANTENIDOS IGUAL)
                 if(item.type === 'item-lista') {
                     const imgUrlFlowers = buildImgUrl(item.img_flowers);
                     const imgUrlProd = buildImgUrl(item.img_product);
-
                     container.innerHTML += `
-                        <div class="product-card bg-white rounded-xl overflow-hidden shadow-md flex flex-col md:flex-row animate-fade-in h-auto border border-gray-100" style="animation-delay: ${index*0.1}s;">
+                        <div class="product-card bg-white rounded-xl overflow-hidden shadow-md flex flex-col md:flex-row animate-fade-in h-auto border border-gray-100">
                             <div class="md:w-1/2 flex h-64 md:h-72">
                                 <div class="w-1/2 h-full relative border-r border-white/50 overflow-hidden group">
                                     <img src="${imgUrlFlowers}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" alt="Con Flores" onerror="handleImageError(this)">
-                                    <span class="absolute bottom-2 left-2 text-[8px] bg-white/90 px-2 py-1 font-bold text-gray-500 uppercase rounded">Ingrediente</span>
                                 </div>
                                 <div class="w-1/2 h-full relative overflow-hidden group">
                                     <img src="${imgUrlProd}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" alt="Producto" onerror="handleImageError(this)">
-                                    <span class="absolute bottom-2 left-2 text-[8px] bg-brand-clay text-white px-2 py-1 font-bold uppercase rounded">Producto</span>
                                 </div>
                             </div>
                             <div class="p-6 md:w-1/2 flex flex-col justify-center relative">
@@ -876,20 +1082,15 @@
                     return;
                 }
 
-                // 5. ITEM TARRO (Sin botón cotizar)
                 if(item.type === 'item-tarro') {
-                    let sizesHtml = item.sizes.map(s => `
-                        <span class="text-[9px] px-2 py-1 bg-gray-100 border border-gray-200 rounded text-gray-600">${s}</span>
-                    `).join('');
-
+                    let sizesHtml = item.sizes.map(s => `<span class="text-[9px] px-2 py-1 bg-gray-100 border border-gray-200 rounded text-gray-600">${s}</span>`).join('');
                     container.innerHTML += `
-                        <div class="product-card bg-white rounded-xl overflow-hidden shadow-md flex flex-col animate-fade-in h-auto border border-gray-100" style="animation-delay: ${index*0.1}s;">
+                        <div class="product-card bg-white rounded-xl overflow-hidden shadow-md flex flex-col animate-fade-in h-auto border border-gray-100">
                             <div class="h-48 relative overflow-hidden bg-gray-50 flex items-center justify-center p-4">
                                 <img src="${imgUrlMain}" class="h-full w-auto object-contain hover:scale-105 transition-transform" alt="${item.title}" onerror="handleImageError(this)">
                             </div>
                             <div class="p-4 flex flex-col flex-1">
                                 <h4 class="text-lg font-serif text-brand-dark mb-1 font-bold">${item.title}</h4>
-                                <span class="text-[9px] tracking-widest text-brand-gold uppercase font-bold mb-2">100% Natural</span>
                                 <div class="flex gap-1 mb-3">${sizesHtml}</div>
                                 <p class="text-xs text-gray-500 mb-1"><strong>Beneficio:</strong> ${item.benefit}</p>
                                 <p class="text-xs text-gray-500 mb-4"><strong>Piel:</strong> ${item.skin}</p>
@@ -897,22 +1098,6 @@
                         </div>
                     `;
                     return;
-                }
-
-                // 6. ITEM STANDARD / SHOWCASE (Sin botón cotizar)
-                if(item.type === 'item-standard' || item.type === 'item-showcase') {
-                    container.innerHTML += `
-                        <div class="product-card bg-white rounded-xl overflow-hidden shadow-md animate-fade-in">
-                            <div class="h-56 relative">
-                                <img src="${imgUrlMain}" class="w-full h-full object-cover hover:scale-105 transition-transform" alt="${item.title}" onerror="handleImageError(this)">
-                                ${item.type === 'item-showcase' ? '<div class="absolute top-2 right-2 bg-black/60 text-white text-[9px] px-2 py-1 rounded uppercase font-bold">Muestrario</div>' : ''}
-                            </div>
-                            <div class="p-6">
-                                <h3 class="text-lg font-serif text-brand-dark mb-2">${item.title}</h3>
-                                <p class="text-gray-500 text-xs mb-4 line-clamp-2">${item.desc}</p>
-                            </div>
-                        </div>
-                    `;
                 }
             });
             
@@ -928,10 +1113,8 @@
             lucide.createIcons();
         }
 
-        // --- SISTEMA DE CORRECCIÓN AUTOMÁTICA DE IMÁGENES ---
         function handleImageError(img) {
             const src = img.src;
-            // Si falla la imagen .jpg, intenta .png (común en este catálogo)
             if (src.includes('.jpg') && !src.includes('tried_png')) {
                 img.src = src.replace('.jpg', '.png') + "?tried_png=true";
                 return;
