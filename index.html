@@ -189,9 +189,10 @@
         /* Fallback image styling */
         img {
             background-color: #f3f3f3;
+            transition: opacity 0.3s;
         }
         img::after {
-            content: "Imagen cargando...";
+            content: "Cargando imagen...";
             display: flex;
             align-items: center;
             justify-content: center;
@@ -236,8 +237,8 @@
         <div class="max-w-7xl mx-auto px-6">
             <div class="flex justify-between items-center h-20">
                 <div class="flex items-center gap-4 cursor-pointer" onclick="navigateTo('home')">
-                    <!-- Logo Corregido -->
-                    <img src="https://arcillasygredasdecolombia.wordpress.com/wp-content/uploads/2024/01/2oro-logo-con-trasparencia.png" 
+                    <!-- Logo Actualizado a ruta 2025/12 -->
+                    <img src="https://arcillasygredasdecolombia.wordpress.com/wp-content/uploads/2025/12/2oro-logo-con-trasparencia.png" 
                          onerror="this.src='https://raw.githubusercontent.com/instructorandradedcc/arcillasygredasdecolombia/main/2oro-logo%20con%20trasparencia.png'"
                          alt="Logo" class="h-12 w-auto hover:scale-105 transition-transform">
                     <div class="hidden md:block">
@@ -313,7 +314,8 @@
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
                 <!-- Card Belleza -->
                 <div onclick="showSubCategory('belleza')" class="product-card group relative h-[450px] cursor-pointer">
-                    <img src="https://arcillasygredasdecolombia.wordpress.com/wp-content/uploads/2024/01/arcilla-piel-frascos-3-prestaciones-y-arcilla-lista-todos-los-colores.jpg" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 opacity-90" alt="Belleza">
+                    <!-- Updated with new 2025/12 link -->
+                    <img src="https://arcillasygredasdecolombia.wordpress.com/wp-content/uploads/2025/12/arcilla-piel-frascos-3-prestaciones-y-arcilla-lista-todos-los-colores.jpg" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 opacity-90" alt="Belleza">
                     <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
                     <div class="absolute bottom-0 left-0 p-8 w-full text-center">
                         <h3 class="text-3xl font-serif text-white mb-2">Belleza & Salud</h3>
@@ -324,7 +326,7 @@
 
                 <!-- Card Arte -->
                 <div onclick="showSubCategory('arte')" class="product-card group relative h-[450px] cursor-pointer">
-                    <img src="https://arcillasygredasdecolombia.wordpress.com/wp-content/uploads/2024/01/arcillas-moldeables-o-plastilinas-en-fila-todos-los-colores.jpg" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 opacity-90" alt="Arte">
+                    <img src="https://arcillasygredasdecolombia.wordpress.com/wp-content/uploads/2025/12/arcillas-moldeables-o-plastilinas-en-fila-todos-los-colores.jpg" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 opacity-90" alt="Arte">
                     <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
                     <div class="absolute bottom-0 left-0 p-8 w-full text-center">
                         <h3 class="text-3xl font-serif text-white mb-2">Arte & Escultura</h3>
@@ -335,7 +337,7 @@
 
                 <!-- Card Construcción -->
                 <div onclick="showSubCategory('construccion')" class="product-card group relative h-[450px] cursor-pointer">
-                    <img src="https://arcillasygredasdecolombia.wordpress.com/wp-content/uploads/2024/01/ladrillos-tejas-bloques-a-escala-2.jpg" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 opacity-90" alt="Construcción">
+                    <img src="https://arcillasygredasdecolombia.wordpress.com/wp-content/uploads/2025/12/ladrillos-tejas-bloques-a-escala.jpg" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 opacity-90" alt="Construcción">
                     <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
                     <div class="absolute bottom-0 left-0 p-8 w-full text-center">
                         <h3 class="text-3xl font-serif text-white mb-2">Técnico</h3>
@@ -454,30 +456,38 @@
             if(activeBtn) activeBtn.classList.add('active');
         }
 
-        // Base URL para imágenes (Corregido para apuntar a uploads)
-        const IMG_BASE = "https://arcillasygredasdecolombia.wordpress.com/wp-content/uploads/2024/01/";
+        // Base URL corregida a 2025/12
+        const IMG_BASE = "https://arcillasygredasdecolombia.wordpress.com/wp-content/uploads/2025/12/";
 
+        // Función para construir la URL de la imagen
+        function buildImgUrl(filename) {
+            // Verificar si ya incluye extension, sino agregar .jpg por defecto (muchos en la lista son png)
+            if (filename.includes('.')) return IMG_BASE + filename;
+            return IMG_BASE + filename + ".jpg";
+        }
+
+        // --- CATÁLOGO CON ENLACES DEL LISTADO ACTUALIZADO (2025/12) ---
         const catalog = {
             belleza: [
                 {
                     type: "main-header",
                     title: "Belleza y Salud",
                     subtitle: "Minerales Vivos de Colombia para tu Piel",
-                    img: IMG_BASE + "arcilla-piel-frascos-3-prestaciones-y-arcilla-lista-todos-los-colores.jpg"
+                    img: "arcilla-piel-frascos-3-prestaciones-y-arcilla-lista-todos-los-colores.jpg"
                 },
                 // === SUBGRUPO 1: ARCILLA EN POLVO (TARROS) ===
                 {
                     type: "subgroup-header",
                     title: "Presentación: Polvo Puro en Tarro",
                     subtitle: "Arcilla 100% Natural para preparar. Presentaciones: 100g, 250g, 500g.",
-                    img: IMG_BASE + "arcilla-piel-tarro-todolos-coloes-2x3-frontal-250g.jpg"
+                    img: "arcilla-piel-tarro-todolos-coloes-2x3-frontal-250g.jpg"
                 },
                 { 
                     type: "item-tarro",
                     title: "Arcilla Amarilla",
                     skin: "Piel Cansada",
                     benefit: "Iluminadora / Detox",
-                    img: IMG_BASE + "arcilla-piel-frascos-3-prestaciones-amarilla.jpg",
+                    img: "arcilla-piel-frascos-3-prestaciones-amarilla-.jpg",
                     sizes: ["100g", "250g", "500g"]
                 },
                 { 
@@ -485,7 +495,7 @@
                     title: "Arcilla Azul",
                     skin: "Todo Tipo de Piel",
                     benefit: "Oxigenante / Relax",
-                    img: IMG_BASE + "arcilla-piel-frascos-3-prestaciones-azul.jpg",
+                    img: "arcilla-piel-frascos-3-prestaciones-azul.jpg",
                     sizes: ["100g", "250g", "500g"]
                 },
                 { 
@@ -493,7 +503,7 @@
                     title: "Arcilla Blanca (Caolín)",
                     skin: "Piel Sensible",
                     benefit: "Efecto Tensor / Suavidad",
-                    img: IMG_BASE + "arcilla-piel-frascos-3-prestaciones-blanca.jpg",
+                    img: "arcilla-piel-frascos-3-prestaciones-blanca.jpg",
                     sizes: ["100g", "250g", "500g"]
                 },
                 { 
@@ -501,7 +511,7 @@
                     title: "Arcilla Roja",
                     skin: "Piel Madura",
                     benefit: "Riego Sanguíneo / Vitalidad",
-                    img: IMG_BASE + "arcilla-piel-frascos-3-prestaciones-roja.jpg",
+                    img: "arcilla-piel-frascos-3-prestaciones-roja.jpg",
                     sizes: ["100g", "250g", "500g"]
                 },
                  { 
@@ -509,7 +519,7 @@
                     title: "Arcilla Uva",
                     skin: "Piel Joven / Preventiva",
                     benefit: "Antioxidante / Nutrición",
-                    img: IMG_BASE + "arcilla-piel-frascos-3-prestaciones-uva.jpg",
+                    img: "arcilla-piel-frascos-3-prestaciones-uva.jpg",
                     sizes: ["100g", "250g", "500g"]
                 },
                  { 
@@ -517,14 +527,14 @@
                     title: "Arcilla Verde",
                     skin: "Piel Grasa / Mixta",
                     benefit: "Limpieza Profunda / Acné",
-                    img: IMG_BASE + "arcilla-piel-frascos-3-prestaciones-verde.jpg",
+                    img: "arcilla-piel-frascos-3-prestaciones-verde.jpg",
                     sizes: ["100g", "250g", "500g"]
                 },
 
                 // === DECORACIÓN 1 ===
                 {
                     type: "decoration",
-                    img: IMG_BASE + "arcilla-piel-en-tarros-regadas-todos-los-colores-y-flores.jpg"
+                    img: "arcilla-piel-en-tarros-regadas-todos-los-colores-y-flores.png"
                 },
 
                 // === SUBGRUPO 2: ARCILLA LISTA (MASCARILLA) ===
@@ -532,145 +542,156 @@
                     type: "subgroup-header",
                     title: "Presentación: Mascarilla Lista (Cream)",
                     subtitle: "Fórmula preparada lista para aplicar. Presentación única: 130g.",
-                    img: IMG_BASE + "arcilla-piel-lista-todos-los-coles-cajas-atras.jpg"
+                    img: "arcilla-piel-lista-todos-los-coles-cajas-atras.jpg"
                 },
+                // PAREJAS: Izq = Insumo/Origen (Flores), Der = Producto Final (Tubo)
                 {
                     type: "item-lista",
                     title: "Mascarilla Amarilla",
                     skin: "Piel Cansada",
                     benefit: "Luminosidad Instantánea",
-                    img_flowers: IMG_BASE + "archilla-piel-lista-con-flores-amarillo.jpg",
-                    img_product: IMG_BASE + "arcilla-lista-piel-amarilla.jpg"
+                    img_flowers: "archilla-piel-lista-con-flores-amarillo.png",
+                    img_product: "arcilla-lista-piel-amarilla.jpg"
                 },
                 {
                     type: "item-lista",
                     title: "Mascarilla Uva",
                     skin: "Piel Joven",
                     benefit: "Antioxidante Natural",
-                    img_flowers: IMG_BASE + "archilla-piel-lista-con-flores-uva.jpg",
-                    img_product: IMG_BASE + "arcilla-piel-lista-uva.jpg"
+                    img_flowers: "archilla-piel-lista-con-flores-uva-.jpg",
+                    img_product: "arcilla-piel-lista-uva.jpg"
                 },
                 {
                     type: "item-lista",
                     title: "Mascarilla Verde",
                     skin: "Piel Grasa",
                     benefit: "Control de Grasa",
-                    img_flowers: IMG_BASE + "archilla-piel-lista-con-flores-verde.jpg",
-                    img_product: IMG_BASE + "arcilla-piel-lista-verde.jpg"
+                    img_flowers: "archilla-piel-lista-con-flores-verde.jpg",
+                    img_product: "arcilla-piel-lista-verde.jpg"
                 },
                 {
                     type: "item-lista",
                     title: "Mascarilla Roja",
                     skin: "Piel Seca/Madura",
                     benefit: "Revitalización",
-                    img_flowers: IMG_BASE + "archilla-piel-lista-con-flores-roja.jpg",
-                    img_product: IMG_BASE + "arcilla-piel-lista-roja.jpg"
+                    img_flowers: "archilla-piel-lista-con-flores-roja.jpg",
+                    img_product: "arcilla-piel-lista-roja.jpg"
                 },
                 {
                     type: "item-lista",
                     title: "Mascarilla Blanca",
                     skin: "Piel Sensible",
                     benefit: "Efecto Tensor",
-                    img_flowers: IMG_BASE + "archilla-piel-lista-con-flores-blancas.jpg",
-                    img_product: IMG_BASE + "arcilla-piel-lista-blanca.jpg"
+                    img_flowers: "archilla-piel-lista-con-flores-blancas.png",
+                    img_product: "arcilla-piel-lista-blanca.jpg"
                 },
                 {
                     type: "item-lista",
                     title: "Mascarilla Azul",
                     skin: "Todo Tipo",
                     benefit: "Relax y Frescura",
-                    img_flowers: IMG_BASE + "archilla-piel-lista-con-flores-azul.jpg",
-                    img_product: IMG_BASE + "arcilla-piel-lista-azul.jpg"
+                    img_flowers: "archilla-piel-lista-con-flores-azul.jpg",
+                    img_product: "arcilla-piel-lista-azul.jpg"
                 },
 
                 // === DECORACIÓN 2 ===
                 {
                     type: "decoration",
-                    img: IMG_BASE + "arcilla-piel-en-tarros-regadas-todos-los-colores-y-flores-defrente-2.jpg"
+                    img: "arcilla-piel-en-tarros-regadas-todos-los-colores-y-flores-defrente-2.png"
                 }
             ],
             
-            // --- ARTE & ESCULTURA CON SUBGRUPOS ---
+            // --- ARTE & ESCULTURA ---
             arte: [
                 {
                     type: "main-header",
                     title: "Arte y Creatividad",
                     subtitle: "Insumos profesionales para alfarería y manualidades",
-                    img: IMG_BASE + "arcillas-moldeables-o-plastilinas-en-fila-todos-los-colores.jpg"
+                    img: "arcillas-moldeables-o-plastilinas-en-fila-todos-los-colores.jpg"
                 },
                 // Subgrupo Arcillas Moldeables
                 {
                     type: "subgroup-header",
                     title: "Arcillas Moldeables",
                     subtitle: "Masas listas para modelar. Secado al aire o quema.",
-                    img: IMG_BASE + "arcillas-moldeables-o-plastilinas-6-colores-forman-media-luna.jpg"
+                    img: "arcillas-moldeables-o-plastilinas-6-colores-forman-media-luna.jpg"
                 },
-                { type: "item-standard", title: "Arcilla Moldeable 1Kg", img: IMG_BASE + "arcilla-moldeable-presentacion-un-kilo.jpg", desc: "Bloque sólido de 1 Kilo.", link_cot: "Arcilla Moldeable 1Kg" },
-                { type: "item-standard", title: "Arcilla Moldeable Libra", img: IMG_BASE + "arcilla-moldeable-presentacion-libra.jpg", desc: "Bloque de 500g.", link_cot: "Arcilla Moldeable Libra" },
-                { type: "item-standard", title: "Modelos Didácticos 1", img: IMG_BASE + "arcilla-moldeable-o-plastilina-modelos-1.jpg", desc: "Figuras ejemplo.", link_cot: "Arcilla Modelos" },
+                { type: "item-standard", title: "Arcilla Moldeable 1Kg", img: "arcilla-moldeable-presentacion-un-kilo.jpg", desc: "Bloque sólido de 1 Kilo.", link_cot: "Arcilla Moldeable 1Kg" },
+                { type: "item-standard", title: "Arcilla Moldeable Libra", img: "arcilla-moldeable-presentacion-libra.jpg", desc: "Bloque de 500g.", link_cot: "Arcilla Moldeable Libra" },
+                { type: "item-standard", title: "Modelos Didácticos 1", img: "arcilla-moldeable-o-plastilina-modelos-1.png", desc: "Figuras ejemplo.", link_cot: "Arcilla Modelos" },
+                { type: "item-standard", title: "Modelos Didácticos 2", img: "arcilla-moldeable-o-plastilina-modelos-2.png", desc: "Figuras ejemplo.", link_cot: "Arcilla Modelos" },
                 
                 // Subgrupo Tornos
                 {
                     type: "subgroup-header",
                     title: "Tornos y Equipos",
                     subtitle: "Herramientas profesionales para el taller.",
-                    img: IMG_BASE + "torno-vista-forntal.jpg"
+                    img: "torno-vista-forntal.jpg"
                 },
-                { type: "item-standard", title: "Torno Frontal", img: IMG_BASE + "torno-vista-forntal.jpg", desc: "Vista frontal.", link_cot: "Torno" },
-                { type: "item-standard", title: "Torno Posterior", img: IMG_BASE + "torno-vista-posterior.jpg", desc: "Vista posterior.", link_cot: "Torno" },
-                { type: "item-standard", title: "Torno en Uso", img: IMG_BASE + "torno-con-modelo-vista-frontal.jpg", desc: "Demostración de uso.", link_cot: "Torno" },
+                { type: "item-standard", title: "Torno Frontal", img: "torno-vista-forntal.jpg", desc: "Vista frontal.", link_cot: "Torno" },
+                { type: "item-standard", title: "Torno Posterior", img: "torno-vista-posterior.jpg", desc: "Vista posterior.", link_cot: "Torno" },
+                { type: "item-standard", title: "Torno en Uso", img: "torno-con-modelo-vista-frontal.jpg", desc: "Demostración de uso.", link_cot: "Torno" },
+                { type: "item-standard", title: "Torno Lateral", img: "torno-vista-lateral-con-modelo.jpg", desc: "Vista lateral en uso.", link_cot: "Torno" },
 
                 // Subgrupo Pinturas y Arenas
                 {
                     type: "subgroup-header",
                     title: "Decoración y Acabados",
                     subtitle: "Pinturas, esmaltes y arenas de colores.",
-                    img: IMG_BASE + "pintura-acrilica-elementos-pointados-1.jpg"
+                    img: "pintura-acrilica-elementos-pointados-1.png"
                 },
-                { type: "item-standard", title: "Esmaltes Acrílicos", img: IMG_BASE + "esmaltes-acrilicos.jpg", desc: "Set de pinturas.", link_cot: "Esmaltes" },
-                { type: "item-standard", title: "Arena Jarrón", img: IMG_BASE + "arena-de-colores-en-jarron-1.jpg", desc: "Arena decorativa.", link_cot: "Arena" },
-                { type: "item-standard", title: "Arena Sol", img: IMG_BASE + "arena-todos-los-colores-forma-de-sol-300g.jpg", desc: "Muestra de colores.", link_cot: "Arena" }
+                { type: "item-standard", title: "Esmaltes Acrílicos", img: "esmaltes-acrilicos.jpg", desc: "Set de pinturas.", link_cot: "Esmaltes" },
+                { type: "item-standard", title: "Pintura Cerámica", img: "pintura-acrilica-elementos-pintados-ceramica.jpg", desc: "Aplicación en cerámica.", link_cot: "Pintura" },
+                { type: "item-standard", title: "Pintura Madera", img: "pintura-acrilica-elementos-pintados-madera.jpg", desc: "Aplicación en madera.", link_cot: "Pintura" },
+                { type: "item-standard", title: "Arena Jarrón 1", img: "arena-de-colores-en-jarron-1.png", desc: "Arena decorativa.", link_cot: "Arena" },
+                { type: "item-standard", title: "Arena Sol", img: "arena-todos-los-colores-forma-de-sol-300g.jpg", desc: "Muestra de colores.", link_cot: "Arena" },
+                { type: "item-standard", title: "Arena Fila", img: "arena-de-colores-en-fila.jpg", desc: "Colores disponibles.", link_cot: "Arena" }
             ],
 
-            // --- TÉCNICO & CONSTRUCCIÓN CON SUBGRUPOS ---
+            // --- TÉCNICO & CONSTRUCCIÓN ---
             construccion: [
                 {
                     type: "main-header",
                     title: "Técnico y Construcción",
                     subtitle: "Insumos especializados para maquetas y odontología",
-                    img: IMG_BASE + "ladrillos-tejas-bloques-a-escala-2.jpg"
+                    img: "ladrillos-tejas-bloques-a-escala.jpg"
                 },
                 // Subgrupo Yesos
                 {
                     type: "subgroup-header",
                     title: "Yesos Dentales",
                     subtitle: "Alta dureza y precisión.",
-                    img: IMG_BASE + "yeso-dental-blnaco-500g.jpg"
+                    img: "yeso-dental-blnaco-500g.jpg"
                 },
-                { type: "item-standard", title: "Yeso Dental 500g", img: IMG_BASE + "yeso-dental-blnaco-500g.jpg", desc: "Bolsa 500g.", link_cot: "Yeso Dental" },
-                { type: "item-standard", title: "Muestrario Dentadura", img: IMG_BASE + "yeso-dental-blanco-mostracion-dentadura.jpg", desc: "Resultado final.", link_cot: "Yeso Dental" },
+                { type: "item-standard", title: "Yeso Dental 500g", img: "yeso-dental-blnaco-500g.jpg", desc: "Bolsa 500g.", link_cot: "Yeso Dental" },
+                { type: "item-standard", title: "Yeso Dental 500g (2)", img: "yeso-dental-blanco-500-gramos.jpg", desc: "Presentación bolsa.", link_cot: "Yeso Dental" },
+                { type: "item-standard", title: "Muestrario Dentadura", img: "yeso-dental-blanco-mostracion-dentadura.png", desc: "Resultado final.", link_cot: "Yeso Dental" },
+                { type: "item-standard", title: "Muestrario Mano", img: "yeso-dental-blanco-mostracion-mano.png", desc: "Detalle de fraguado.", link_cot: "Yeso Dental" },
                 
                 // Subgrupo Maquetas
                 {
                     type: "subgroup-header",
                     title: "Maquetas a Escala",
                     subtitle: "Ladrillos y tejas de arcilla real.",
-                    img: IMG_BASE + "mini-casa-de-ladrillo.jpg"
+                    img: "mini-casa-de-ladrillo.png"
                 },
-                { type: "item-standard", title: "Mini Casa", img: IMG_BASE + "mini-casa-de-ladrillo.jpg", desc: "Ejemplo de construcción.", link_cot: "Ladrillos" },
-                { type: "item-standard", title: "Mini Molino", img: IMG_BASE + "mini-molino-de-ladrillo.jpg", desc: "Ejemplo de construcción.", link_cot: "Ladrillos" },
-                { type: "item-standard", title: "Bloques Sueltos", img: IMG_BASE + "ladrillos-tejas-bloques-a-escala-2.jpg", desc: "Material a granel.", link_cot: "Ladrillos" },
+                { type: "item-standard", title: "Mini Casa", img: "mini-casa-de-ladrillo.png", desc: "Ejemplo de construcción.", link_cot: "Ladrillos" },
+                { type: "item-standard", title: "Mini Molino", img: "mini-molino-de-ladrillo.png", desc: "Ejemplo de construcción.", link_cot: "Ladrillos" },
+                { type: "item-standard", title: "Bloques Sueltos", img: "ladrillos-tejas-bloques-a-escala.jpg", desc: "Material a granel.", link_cot: "Ladrillos" },
 
                 // Subgrupo Gravillas
                 {
                     type: "subgroup-header",
                     title: "Gravillas y Aserrín",
                     subtitle: "Materiales para texturas y acuarios.",
-                    img: IMG_BASE + "gravilla-de-colores-300g.jpg"
+                    img: "gravilla-de-colores-300g.jpg"
                 },
-                { type: "item-standard", title: "Gravilla Colores", img: IMG_BASE + "gravilla-de-colores-300g.jpg", desc: "Bolsa 300g.", link_cot: "Gravilla" },
-                { type: "item-standard", title: "Pecera Decorada", img: IMG_BASE + "pesera-con-gravilla-1.jpg", desc: "Uso en acuarios.", link_cot: "Gravilla" },
-                { type: "item-standard", title: "Aserrín Natural", img: IMG_BASE + "aserrin-natural-50g.jpg", desc: "Bolsa 50g.", link_cot: "Aserrin" }
+                { type: "item-standard", title: "Gravilla Colores 300g", img: "gravilla-de-colores-300g.jpg", desc: "Bolsa 300g.", link_cot: "Gravilla" },
+                { type: "item-standard", title: "Gravilla Colores", img: "gravilla-de-colores-.jpg", desc: "Detalle textura.", link_cot: "Gravilla" },
+                { type: "item-standard", title: "Grava Colores", img: "grava-de-colores.jpg", desc: "Grano grueso.", link_cot: "Grava" },
+                { type: "item-standard", title: "Pecera Decorada 1", img: "pesera-con-gravilla-1.png", desc: "Uso en acuarios.", link_cot: "Gravilla" },
+                { type: "item-standard", title: "Aserrín Natural 50g", img: "aserrin-natural-50g.jpg", desc: "Bolsa 50g.", link_cot: "Aserrin" },
+                { type: "item-standard", title: "Aserrín Maqueta 1", img: "aserrin-natural-maquita-1.png", desc: "Uso en maqueta.", link_cot: "Aserrin" }
             ]
         };
 
@@ -686,6 +707,7 @@
             container.innerHTML = '';
             
             catalog[category].forEach((item, index) => {
+                const imgUrlMain = buildImgUrl(item.img);
                 
                 // 1. ENCABEZADO PRINCIPAL
                 if(item.type === 'main-header') {
@@ -694,7 +716,7 @@
                             <h2 class="font-serif text-4xl text-brand-dark mb-4">${item.title}</h2>
                             <p class="text-gray-500 mb-8 max-w-2xl mx-auto">${item.subtitle}</p>
                             <div class="w-full h-80 rounded-xl overflow-hidden shadow-2xl relative">
-                                <img src="${item.img}" class="w-full h-full object-cover" alt="Grupo Principal">
+                                <img src="${imgUrlMain}" class="w-full h-full object-cover" alt="Grupo Principal" onerror="handleImageError(this)">
                                 <div class="absolute inset-0 bg-black/20"></div>
                             </div>
                         </div>
@@ -709,7 +731,7 @@
                             <h3 class="font-serif text-2xl text-brand-clay mb-2 font-bold">${item.title}</h3>
                             <p class="text-sm text-gray-500 mb-6 italic">${item.subtitle}</p>
                             <div class="w-full md:w-1/3 mx-auto h-48 rounded-xl overflow-hidden shadow-lg border-4 border-white">
-                                <img src="${item.img}" class="w-full h-full object-cover" alt="Subgrupo">
+                                <img src="${imgUrlMain}" class="w-full h-full object-cover" alt="Subgrupo" onerror="handleImageError(this)">
                             </div>
                         </div>
                     `;
@@ -720,7 +742,7 @@
                 if(item.type === 'decoration') {
                     container.innerHTML += `
                         <div class="decorative-banner animate-fade-in shadow-inner col-span-1 md:col-span-3 lg:col-span-3">
-                            <img src="${item.img}" class="w-full h-full object-cover opacity-80" alt="Decoración">
+                            <img src="${imgUrlMain}" class="w-full h-full object-cover opacity-80" alt="Decoración" onerror="handleImageError(this)">
                         </div>
                     `;
                     return;
@@ -739,7 +761,7 @@
                     container.innerHTML += `
                         <div class="product-card bg-white rounded-xl overflow-hidden shadow-md flex flex-col md:flex-row animate-fade-in h-auto border border-gray-100" style="animation-delay: ${index*0.1}s;">
                             <div class="md:w-1/2 relative h-64 md:h-auto overflow-hidden bg-gray-50 p-4 flex items-center justify-center">
-                                <img src="${item.img}" class="w-full h-full object-contain hover:scale-105 transition-transform" alt="${item.title}">
+                                <img src="${imgUrlMain}" class="w-full h-full object-contain hover:scale-105 transition-transform" alt="${item.title}" onerror="handleImageError(this)">
                             </div>
                             <div class="p-6 md:w-1/2 flex flex-col justify-center">
                                 <h4 class="text-xl font-serif text-brand-dark mb-1 font-bold">${item.title}</h4>
@@ -766,15 +788,18 @@
 
                 // 5. ITEM TIPO LISTA
                 if(item.type === 'item-lista') {
+                    const imgUrlFlowers = buildImgUrl(item.img_flowers);
+                    const imgUrlProd = buildImgUrl(item.img_product);
+
                     container.innerHTML += `
                         <div class="product-card bg-white rounded-xl overflow-hidden shadow-md flex flex-col md:flex-row animate-fade-in h-auto border border-gray-100" style="animation-delay: ${index*0.1}s;">
                             <div class="md:w-1/2 flex h-64 md:h-80">
                                 <div class="w-1/2 h-full relative border-r border-white/50 overflow-hidden">
-                                    <img src="${item.img_flowers}" class="w-full h-full object-cover" alt="Con Flores">
+                                    <img src="${imgUrlFlowers}" class="w-full h-full object-cover" alt="Con Flores" onerror="handleImageError(this)">
                                     <span class="absolute bottom-2 left-2 text-[8px] bg-white/80 px-1 font-bold text-gray-500 uppercase">Inspiración</span>
                                 </div>
                                 <div class="w-1/2 h-full relative overflow-hidden">
-                                    <img src="${item.img_product}" class="w-full h-full object-cover" alt="Producto">
+                                    <img src="${imgUrlProd}" class="w-full h-full object-cover" alt="Producto" onerror="handleImageError(this)">
                                     <span class="absolute bottom-2 left-2 text-[8px] bg-brand-clay text-white px-1 font-bold uppercase">Producto</span>
                                 </div>
                             </div>
@@ -804,7 +829,7 @@
                     container.innerHTML += `
                         <div class="product-card bg-white rounded-xl overflow-hidden shadow-md animate-fade-in">
                             <div class="h-64 relative">
-                                <img src="${item.img}" class="w-full h-full object-cover hover:scale-105 transition-transform" alt="${item.title}">
+                                <img src="${imgUrlMain}" class="w-full h-full object-cover hover:scale-105 transition-transform" alt="${item.title}" onerror="handleImageError(this)">
                             </div>
                             <div class="p-6">
                                 <h3 class="text-lg font-serif text-brand-dark mb-2">${item.title}</h3>
@@ -830,6 +855,22 @@
             lucide.createIcons();
         }
 
+        // --- SISTEMA DE CORRECCIÓN AUTOMÁTICA DE IMÁGENES ---
+        function handleImageError(img) {
+            // Intenta diferentes rutas comunes de WordPress si la principal falla
+            const src = img.src;
+            if (src.includes('2025/12')) {
+                // Intento 1: Cambiar año
+                img.src = src.replace('2025/12', '2024/01');
+            } else if (src.includes('2024/01')) {
+                // Intento 2: Cambiar año
+                img.src = src.replace('2024/01', '2023/01');
+            } else if (src.includes('2023/01')) {
+                // Intento 3: Cambiar año
+                img.src = src.replace('2023/01', '2022/01');
+            }
+        }
+
         const initThree = () => {
             const container = document.getElementById('canvas-container');
             const scene = new THREE.Scene();
@@ -845,6 +886,7 @@
             scene.add(dirLight);
 
             const textureLoader = new THREE.TextureLoader();
+            // Logo corregido
             const logoUrl = 'https://raw.githubusercontent.com/instructorandradedcc/arcillasygredasdecolombia/main/2oro-logo%20con%20trasparencia.png';
             let logoMesh;
 
