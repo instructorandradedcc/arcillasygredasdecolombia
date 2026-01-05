@@ -462,23 +462,36 @@
         </div>
     </section>
 
-    <!-- 1.1 QUIENES SOMOS -->
+    <!-- 1.1 QUIENES SOMOS (ACTUALIZADO) -->
     <section id="page-about" class="page-section content-layer bg-white">
         <div class="max-w-4xl mx-auto px-6 py-20 pointer-events-auto">
             <div class="text-center mb-12">
                 <h2 class="font-serif text-4xl text-brand-dark mb-4">Quiénes Somos</h2>
                 <div class="w-16 h-px bg-brand-clay mx-auto"></div>
             </div>
-            <div class="prose prose-lg mx-auto text-gray-600 text-justify leading-relaxed">
+            <div class="prose prose-lg mx-auto text-gray-600 text-justify leading-relaxed font-light">
                 <p class="mb-6">
-                    Somos fabricantes y productores directos de arcillas y minerales 100% naturales de la más alta calidad en Colombia. Nuestros productos están diseñados para ofrecer excelentes resultados tanto en aplicaciones artísticas como técnicas.
+                    Somos una empresa colombiana con <strong class="text-brand-clay font-bold">más de 25 años de experiencia</strong>, especializada en la extracción, procesamiento y producción de arcillas de la más alta calidad, conservando su naturalidad, plasticidad y homogeneidad. Nuestros productos están libres de todo tipo de impurezas, como residuos vegetales, piedras, arenas, etc.
                 </p>
                 <p class="mb-6">
-                    Nos enorgullece garantizar la pureza y trabajabilidad de nuestros materiales, asegurando que cada cliente, ya sea artesano, escultor o profesional de la salud, reciba lo mejor de nuestra tierra para sus proyectos.
+                    Nuestros productos son de uso indispensable en colegios, jardines infantiles, universidades y todo tipo de establecimientos relacionados con el arte y la educación. Además, son fundamentales en terapias ocupacionales, ya que desarrollan y estimulan la motricidad fina, la creatividad y el talento.
                 </p>
-                <p>
-                    Con un compromiso firme hacia la calidad y el servicio, acompañamos el proceso creativo y técnico de nuestros usuarios, ofreciendo soluciones confiables y sostenibles.
+                <p class="mb-10 p-6 bg-brand-light border-l-4 border-brand-sage rounded-r-lg italic">
+                    Conoce nuestra línea de salud y belleza, <strong class="text-brand-dark">Natural Clay</strong>, arcilla en polvo pura y mascarillas 100% de arcilla para todo tipo de piel.
                 </p>
+
+                <div class="mb-12">
+                    <h3 class="font-serif text-2xl text-brand-dark mb-4 text-center">Misión</h3>
+                    <p class="text-center max-w-2xl mx-auto">
+                        Arcillas y Gredas de Colombia LTDA, se ha propuesto ejecutar la explotación, transformación y comercialización de arcilla como materia prima de excelente calidad, para toda clase de productos, aplicaciones y usos.
+                    </p>
+                </div>
+
+                <!-- Banner de Ventas -->
+                <div class="mt-12 bg-brand-dark text-white p-8 text-center rounded-xl shadow-lg transform hover:scale-[1.02] transition-transform">
+                    <h3 class="font-serif text-3xl text-brand-gold mb-2 tracking-wide">VENTAS AL POR MAYOR Y DETAL</h3>
+                    <p class="text-gray-300 text-sm uppercase tracking-widest">Envíos a todo el país • Calidad Garantizada</p>
+                </div>
             </div>
         </div>
     </section>
@@ -492,7 +505,8 @@
                 <p class="text-gray-500 text-sm">Selecciona una línea para explorar.</p>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <!-- GRID ACTUALIZADO A 2 COLUMNAS (FUSIÓN REALIZADA) -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
                 <!-- Card Belleza (Abre menú de categoría) -->
                 <div onclick="showSubCategory('belleza')" class="product-card group relative h-[450px] cursor-pointer">
                     <img src="https://arcillasygredasdecolombia.wordpress.com/wp-content/uploads/2025/12/set-de-arsillas-piel-organizados-conjunto.jpg" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 opacity-90" alt="Belleza">
@@ -504,25 +518,14 @@
                     </div>
                 </div>
 
-                <!-- Card Arte (Abre menú de categoría) -->
+                <!-- Card Arte y Escultura (Ahora incluye Técnico) -->
                 <div onclick="showSubCategory('arte')" class="product-card group relative h-[450px] cursor-pointer">
                     <img src="https://arcillasygredasdecolombia.wordpress.com/wp-content/uploads/2025/12/arcillas-y-arenas-de-colores-y-plastilinas.jpg" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 opacity-90" alt="Arte">
                     <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
                     <div class="absolute bottom-0 left-0 p-8 w-full text-center">
                         <h3 class="text-3xl font-serif text-white mb-2">Arte y Escultura</h3>
-                        <p class="text-gray-300 text-xs mb-4">Arcillas Moldeables, Arenas y Esmaltes.</p>
-                        <span class="text-brand-gold text-xs uppercase font-bold border-b border-brand-gold pb-1">Ver Materiales</span>
-                    </div>
-                </div>
-
-                <!-- Card Construcción (Abre menú de categoría) -->
-                <div onclick="showSubCategory('construccion')" class="product-card group relative h-[450px] cursor-pointer">
-                    <img src="https://arcillasygredasdecolombia.wordpress.com/wp-content/uploads/2025/12/ladrillos-tejas-bloques-a-escala.jpg" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 opacity-90" alt="Construcción">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
-                    <div class="absolute bottom-0 left-0 p-8 w-full text-center">
-                        <h3 class="text-3xl font-serif text-white mb-2">Técnico</h3>
-                        <p class="text-gray-300 text-xs mb-4">Yesos Dentales, Tornos & Maquetas.</p>
-                        <span class="text-brand-gold text-xs uppercase font-bold border-b border-brand-gold pb-1">Ver Insumos</span>
+                        <p class="text-gray-300 text-xs mb-4">Arcillas, Insumos Técnicos y Materiales.</p>
+                        <span class="text-brand-gold text-xs uppercase font-bold border-b border-brand-gold pb-1">Ver Todo el Catálogo</span>
                     </div>
                 </div>
             </div>
@@ -822,14 +825,15 @@
                 ]
             },
             
-            // ARTE
+            // ARTE Y ESCULTURA (FUSIONADA CON TÉCNICO)
             arte: {
                 mainHeader: {
-                    title: "Arte y Creatividad",
-                    subtitle: "El mundo es infinito de acuerdo a tu creatividad.",
+                    title: "Arte y Escultura",
+                    subtitle: "Todo para la creación: desde arcillas y esmaltes hasta materiales técnicos.",
                     img: "arcillas-moldeables-o-plastilinas-en-fila-todos-los-colores.jpg"
                 },
                 products: [
+                    // PRODUCTOS ORIGINALES DE ARTE
                     {
                         id: "moldeables",
                         title: "Arcilla Moldeable",
@@ -1038,18 +1042,8 @@
                             { src: "pesera-con-gravilla-1.png", desc: "Uso en Peceras" },
                             { src: "pesera-con-gravilla-2.png", desc: "Decoración Acuática" }
                         ]
-                    }
-                ]
-            },
-
-            // TÉCNICO
-            construccion: {
-                mainHeader: {
-                    title: "Técnico y Construcción",
-                    subtitle: "Insumos especializados para profesionales y maquetistas.",
-                    img: "ladrillos-tejas-bloques-a-escala.jpg"
-                },
-                products: [
+                    },
+                    // PRODUCTOS MOVIDOS DESDE TÉCNICO
                     {
                         id: "aserrin",
                         title: "Aserrín Natural",
