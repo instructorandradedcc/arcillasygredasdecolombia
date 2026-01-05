@@ -13,7 +13,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <!-- Three.js (GLTFLoader - Para cargar el modelo .glb) -->
     <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
-    <!-- Three.js (OrbitControls - Para mover el modelo con el mouse) -->
+    <!-- Three.js (OrbitControls - Para mover el modelo con el mouse/tactil) -->
     <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
     
     <!-- Icons -->
@@ -88,13 +88,15 @@
             width: 100%;
             height: 100%;
             z-index: 0;
-            /* Permitimos eventos para que funcione el control 3D, pero ajustaremos en JS si interfiere */
-            pointer-events: none; 
+            /* CAMBIO IMPORTANTE: Activamos pointer-events aquí para capturar el click/touch */
+            pointer-events: auto; 
         }
         
-        /* Hacemos que el canvas capture eventos solo cuando es necesario o hacemos una capa encima transparente */
+        /* El canvas captura eventos táctiles y de mouse */
         #canvas-container canvas {
-            pointer-events: auto; /* El canvas sí recibe clicks */
+            pointer-events: auto; 
+            touch-action: none; /* Evita que el navegador haga scroll cuando tocas el modelo */
+            outline: none;
         }
 
         .content-layer {
@@ -106,7 +108,7 @@
         }
         
         .content-layer > * {
-            pointer-events: auto; /* El contenido real sí captura clicks */
+            pointer-events: auto; /* El contenido real (texto, botones) sí captura clicks */
         }
 
         .nav-glass {
@@ -1315,7 +1317,8 @@
             const controls = new THREE.OrbitControls(camera, renderer.domElement);
             controls.enableDamping = true; // Movimiento suave
             controls.dampingFactor = 0.05;
-            controls.enableZoom = true;
+            controls.enableZoom = false; // Desactivar zoom para no interrumpir el scroll
+            controls.enablePan = false;  // Desactivar movimiento lateral
             controls.autoRotate = true; // Rotación automática si no se toca
             controls.autoRotateSpeed = 2.0; // Velocidad de rotación automática
 
@@ -1352,12 +1355,14 @@
                 if(!mesh) return;
                 
                 if(window.innerWidth < 768) {
-                    // En móviles, mover el modelo o ocultarlo si tapa el texto
-                    // Para este diseño, como el texto está arriba, lo bajamos o lo hacemos pequeño
-                    mesh.visible = false; // Ocultar en móvil para legibilidad, igual que el diseño original ocultaba la imagen
+                    // MÓVIL: Hacemos visible el modelo y lo movemos arriba
+                    mesh.visible = true; 
+                    mesh.scale.set(2.2, 2.2, 2.2); // Más pequeño para que quepa
+                    mesh.position.set(0, 1.2, 0); // Arriba, sobre el texto
                 } else {
+                    // ESCRITORIO
                     mesh.visible = true;
-                    // Centrarlo en la mitad derecha de la pantalla
+                    mesh.scale.set(3.5, 3.5, 3.5);
                     mesh.position.set(3.5, 0, 0); 
                 }
             }
