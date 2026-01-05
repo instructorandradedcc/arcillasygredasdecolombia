@@ -3,14 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Arcillas y Gredas de Colombia | Catálogo 2025</title>
+    <title>Arcillas y Gredas de Colombia | Catálogo 2026</title>
     <meta name="description" content="Venta de arcillas naturales, insumos artísticos y materiales técnicos. Guías de uso y galería de inspiración.">
     
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     
-    <!-- Three.js -->
+    <!-- Three.js (Core) -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <!-- Three.js (GLTFLoader - Para cargar el modelo .glb) -->
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
+    <!-- Three.js (OrbitControls - Para mover el modelo con el mouse) -->
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
     
     <!-- Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
@@ -84,7 +88,13 @@
             width: 100%;
             height: 100%;
             z-index: 0;
-            pointer-events: none;
+            /* Permitimos eventos para que funcione el control 3D, pero ajustaremos en JS si interfiere */
+            pointer-events: none; 
+        }
+        
+        /* Hacemos que el canvas capture eventos solo cuando es necesario o hacemos una capa encima transparente */
+        #canvas-container canvas {
+            pointer-events: auto; /* El canvas sí recibe clicks */
         }
 
         .content-layer {
@@ -92,6 +102,11 @@
             z-index: 10;
             background: transparent;
             flex: 1;
+            pointer-events: none; /* Dejamos pasar clicks a través de las secciones vacías */
+        }
+        
+        .content-layer > * {
+            pointer-events: auto; /* El contenido real sí captura clicks */
         }
 
         .nav-glass {
@@ -158,6 +173,7 @@
             box-shadow: 0 4px 15px rgba(0,0,0,0.3);
             transition: transform 0.3s;
             cursor: pointer;
+            pointer-events: auto;
         }
         .floating-whatsapp:hover {
             transform: scale(1.1);
@@ -367,10 +383,11 @@
 <body class="antialiased">
 
     <div class="hero-bg"></div>
+    <!-- Canvas container para Three.js -->
     <div id="canvas-container"></div>
 
     <!-- Navegación Principal -->
-    <nav class="fixed w-full z-50 nav-glass transition-all duration-300">
+    <nav class="fixed w-full z-50 nav-glass transition-all duration-300 pointer-events-auto">
         <div class="max-w-7xl mx-auto px-6">
             <div class="flex justify-between items-center h-20">
                 <div class="flex items-center gap-4 cursor-pointer" onclick="navigateTo('home')">
@@ -415,7 +432,7 @@
     <!-- 1. INICIO -->
     <section id="page-home" class="page-section active content-layer">
         <div class="max-w-7xl mx-auto px-6 w-full grid grid-cols-1 md:grid-cols-2 gap-12 h-full items-center">
-            <div class="text-left animate-fade-in flex flex-col justify-center pt-10 md:pt-0">
+            <div class="text-left animate-fade-in flex flex-col justify-center pt-10 md:pt-0 pointer-events-auto">
                 <div class="mb-6 flex items-center gap-3">
                     <span class="h-px w-8 bg-brand-clay"></span>
                     <span class="text-brand-clay text-xs font-mono tracking-widest uppercase font-bold">Tienda Oficial</span>
@@ -438,13 +455,14 @@
                     </button>
                 </div>
             </div>
+            <!-- Espacio vacío donde se ve el modelo 3D -->
             <div class="hidden md:block h-full w-full"></div>
         </div>
     </section>
 
     <!-- 1.1 QUIENES SOMOS -->
     <section id="page-about" class="page-section content-layer bg-white">
-        <div class="max-w-4xl mx-auto px-6 py-20">
+        <div class="max-w-4xl mx-auto px-6 py-20 pointer-events-auto">
             <div class="text-center mb-12">
                 <h2 class="font-serif text-4xl text-brand-dark mb-4">Quiénes Somos</h2>
                 <div class="w-16 h-px bg-brand-clay mx-auto"></div>
@@ -465,7 +483,7 @@
 
     <!-- 2. CATÁLOGO PRINCIPAL (LANDING DE PRODUCTOS) -->
     <section id="page-products" class="page-section content-layer bg-white/80">
-        <div class="max-w-7xl mx-auto px-6 pb-20">
+        <div class="max-w-7xl mx-auto px-6 pb-20 pointer-events-auto">
             <div class="text-center mb-16 pt-10">
                 <h2 class="font-serif text-4xl text-brand-dark mb-2">Nuestras Categorías</h2>
                 <div class="w-16 h-px bg-brand-clay mx-auto mb-4"></div>
@@ -511,7 +529,7 @@
 
     <!-- SECCIÓN DETALLE (PRODUCTOS/SUBMENÚ) -->
     <section id="page-detail" class="page-section content-layer bg-white">
-        <div class="max-w-7xl mx-auto px-6 pb-20 pt-10">
+        <div class="max-w-7xl mx-auto px-6 pb-20 pt-10 pointer-events-auto">
             <div class="flex items-center gap-4 mb-8">
                 <button onclick="navigateTo('products')" class="flex items-center gap-2 text-gray-500 hover:text-brand-clay transition-colors text-xs uppercase font-bold">
                     <i data-lucide="arrow-left" class="w-4 h-4"></i> Volver
@@ -528,7 +546,7 @@
 
     <!-- 3. INSTRUCCIONES COMPLETAS -->
     <section id="page-instructions" class="page-section content-layer bg-white">
-        <div class="max-w-6xl mx-auto px-6 pt-10 pb-20">
+        <div class="max-w-6xl mx-auto px-6 pt-10 pb-20 pointer-events-auto">
             <div class="text-center mb-16">
                 <i data-lucide="book-open" class="w-12 h-12 text-brand-clay mx-auto mb-4"></i>
                 <h2 class="font-serif text-4xl text-brand-dark mb-4">Manual de Uso Profesional</h2>
@@ -599,7 +617,7 @@
 
     <!-- 4. CONTACTO -->
     <section id="page-contact" class="page-section content-layer bg-white">
-        <div class="max-w-4xl mx-auto px-6 pt-10 pb-20">
+        <div class="max-w-4xl mx-auto px-6 pt-10 pb-20 pointer-events-auto">
             <div class="bg-white border border-gray-200 rounded-xl shadow-2xl overflow-hidden flex flex-col md:flex-row">
                 <div class="p-10 bg-brand-dark text-white md:w-1/2 flex flex-col justify-center">
                     <h2 class="font-serif text-3xl mb-6 text-brand-gold">Contáctanos</h2>
@@ -632,9 +650,9 @@
     </section>
 
     <!-- Footer -->
-    <footer class="bg-brand-dark text-white py-8 border-t border-gray-800 content-layer mt-auto">
+    <footer class="bg-brand-dark text-white py-8 border-t border-gray-800 content-layer mt-auto pointer-events-auto">
         <div class="max-w-7xl mx-auto px-6 text-center">
-            <p class="text-xs text-gray-500 uppercase tracking-widest mb-2">&copy; 2025 Arcillas y Gredas de Colombia.</p>
+            <p class="text-xs text-gray-500 uppercase tracking-widest mb-2">&copy; 2026 Arcillas y Gredas de Colombia.</p>
             <div class="flex flex-col items-center justify-center gap-2 mt-4">
                 <img src="https://arcillasygredasdecolombia.wordpress.com/wp-content/uploads/2025/12/marca-colombia-logo.png" 
                      alt="Marca Colombia" 
@@ -662,7 +680,7 @@
             
             // Ocultar submenú si no es detalle
             if(pageId !== 'detail') {
-                document.getElementById('dynamic-submenu').classList.add('hidden');
+               // document.getElementById('dynamic-submenu').classList.add('hidden'); // Removed as element doesn't exist
             }
         }
 
@@ -1266,61 +1284,81 @@
             }
         }
 
+        // --- INICIALIZACIÓN DE THREE.JS CON MODELO GLB Y ORBIT CONTROLS ---
         const initThree = () => {
             const container = document.getElementById('canvas-container');
             const scene = new THREE.Scene();
+            
+            // Cámara
             const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000);
-            camera.position.z = 8;
+            camera.position.set(0, 0, 8); // Posición inicial
+            
+            // Renderizador
             const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
             renderer.setSize(window.innerWidth, window.innerHeight);
+            renderer.setPixelRatio(window.devicePixelRatio); // Mejor calidad en móviles
             container.appendChild(renderer.domElement);
-            const ambientLight = new THREE.AmbientLight(0xffffff, 1.2);
+            
+            // Luces
+            const ambientLight = new THREE.AmbientLight(0xffffff, 1.5);
             scene.add(ambientLight);
-            const dirLight = new THREE.DirectionalLight(0xffffff, 0.8);
+            
+            const dirLight = new THREE.DirectionalLight(0xffffff, 2);
             dirLight.position.set(5, 5, 5);
             scene.add(dirLight);
 
-            const textureLoader = new THREE.TextureLoader();
-            const logoUrl = 'https://raw.githubusercontent.com/instructorandradedcc/arcillasygredasdecolombia/main/2oro-logo%20con%20trasparencia.png';
-            let logoMesh;
+            const dirLight2 = new THREE.DirectionalLight(0xffffff, 1);
+            dirLight2.position.set(-5, 0, 5);
+            scene.add(dirLight2);
 
-            textureLoader.load(logoUrl, (texture) => {
-                const aspect = texture.image.width / texture.image.height;
-                const geometry = new THREE.PlaneGeometry(3.5 * aspect, 3.5);
-                const material = new THREE.MeshBasicMaterial({ map: texture, transparent: true, side: THREE.DoubleSide });
-                logoMesh = new THREE.Mesh(geometry, material);
-                scene.add(logoMesh);
-                adjustPosition(logoMesh);
-            }, undefined, function(err) {
-                 console.log("Error loading logo");
+            // Controles de Órbita (Permite girar el modelo)
+            const controls = new THREE.OrbitControls(camera, renderer.domElement);
+            controls.enableDamping = true; // Movimiento suave
+            controls.dampingFactor = 0.05;
+            controls.enableZoom = true;
+            controls.autoRotate = true; // Rotación automática si no se toca
+            controls.autoRotateSpeed = 2.0; // Velocidad de rotación automática
+
+            // Cargar modelo GLB
+            const loader = new THREE.GLTFLoader();
+            const modelUrl = 'https://raw.githubusercontent.com/instructorandradedcc/arcillasygredasdecolombia/main/golden%20logo%20arcillas.glb'; // Enlace RAW corregido
+            
+            let modelMesh;
+
+            loader.load(modelUrl, (gltf) => {
+                modelMesh = gltf.scene;
+                
+                // Ajustar posición y escala
+                modelMesh.scale.set(3.5, 3.5, 3.5); // Escala ajustada para que sea visible pero no invasiva
+                modelMesh.position.set(3, -0.5, 0); // Posicionado a la derecha (donde estaba la imagen)
+
+                scene.add(modelMesh);
+                adjustPosition(modelMesh);
+                
+            }, undefined, function(error) {
+                console.error("Error cargando el modelo 3D:", error);
             });
 
-            let mouseX = 0, mouseY = 0;
-            document.addEventListener('mousemove', (e) => {
-                mouseX = (e.clientX - window.innerWidth/2) * 0.0005;
-                mouseY = (e.clientY - window.innerHeight/2) * 0.0005;
-            });
-
+            // Loop de animación
             const animate = () => {
                 requestAnimationFrame(animate);
-                if(logoMesh) {
-                    const time = Date.now() * 0.001;
-                    logoMesh.position.y = Math.sin(time) * 0.1;
-                    logoMesh.position.x = logoMesh.userData.baseX;
-                    logoMesh.rotation.y = mouseX * 0.5;
-                    logoMesh.rotation.x = mouseY * 0.5;
-                }
+                controls.update(); // Necesario para damping y auto-rotación
                 renderer.render(scene, camera);
             };
             animate();
 
+            // Ajuste Responsivo
             function adjustPosition(mesh) {
                 if(!mesh) return;
+                
                 if(window.innerWidth < 768) {
-                    mesh.visible = false;
+                    // En móviles, mover el modelo o ocultarlo si tapa el texto
+                    // Para este diseño, como el texto está arriba, lo bajamos o lo hacemos pequeño
+                    mesh.visible = false; // Ocultar en móvil para legibilidad, igual que el diseño original ocultaba la imagen
                 } else {
                     mesh.visible = true;
-                    mesh.userData.baseX = 3.5;
+                    // Centrarlo en la mitad derecha de la pantalla
+                    mesh.position.set(3.5, 0, 0); 
                 }
             }
 
@@ -1328,9 +1366,13 @@
                 camera.aspect = window.innerWidth / window.innerHeight;
                 camera.updateProjectionMatrix();
                 renderer.setSize(window.innerWidth, window.innerHeight);
-                if(logoMesh) adjustPosition(logoMesh);
+                if(modelMesh) adjustPosition(modelMesh);
             });
+            
+            // Ajuste inicial por si carga en móvil
+            adjustPosition(modelMesh);
         };
+        
         document.addEventListener('DOMContentLoaded', initThree);
     </script>
 </body>
