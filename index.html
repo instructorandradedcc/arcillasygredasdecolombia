@@ -462,7 +462,7 @@
         </div>
     </section>
 
-    <!-- 1.1 QUIENES SOMOS (ACTUALIZADO) -->
+    <!-- 1.1 QUIENES SOMOS -->
     <section id="page-about" class="page-section content-layer bg-white">
         <div class="max-w-4xl mx-auto px-6 py-20 pointer-events-auto">
             <div class="text-center mb-12">
@@ -505,7 +505,7 @@
                 <p class="text-gray-500 text-sm">Selecciona una línea para explorar.</p>
             </div>
 
-            <!-- GRID ACTUALIZADO A 2 COLUMNAS (FUSIÓN REALIZADA) -->
+            <!-- GRID ACTUALIZADO A 2 COLUMNAS -->
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
                 <!-- Card Belleza (Abre menú de categoría) -->
                 <div onclick="showSubCategory('belleza')" class="product-card group relative h-[450px] cursor-pointer">
@@ -518,12 +518,12 @@
                     </div>
                 </div>
 
-                <!-- Card Arte y Escultura (Ahora incluye Técnico) -->
+                <!-- Card Arte y Escolar (Actualizado) -->
                 <div onclick="showSubCategory('arte')" class="product-card group relative h-[450px] cursor-pointer">
                     <img src="https://arcillasygredasdecolombia.wordpress.com/wp-content/uploads/2025/12/arcillas-y-arenas-de-colores-y-plastilinas.jpg" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 opacity-90" alt="Arte">
                     <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
                     <div class="absolute bottom-0 left-0 p-8 w-full text-center">
-                        <h3 class="text-3xl font-serif text-white mb-2">Arte y Escultura</h3>
+                        <h3 class="text-3xl font-serif text-white mb-2">Arte y Escolar</h3>
                         <p class="text-gray-300 text-xs mb-4">Arcillas, Insumos Técnicos y Materiales.</p>
                         <span class="text-brand-gold text-xs uppercase font-bold border-b border-brand-gold pb-1">Ver Todo el Catálogo</span>
                     </div>
@@ -682,11 +682,6 @@
             document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
             const activeBtn = document.getElementById(`btn-${pageId}`);
             if(activeBtn) activeBtn.classList.add('active');
-            
-            // Ocultar submenú si no es detalle
-            if(pageId !== 'detail') {
-               // document.getElementById('dynamic-submenu').classList.add('hidden'); // Removed as element doesn't exist
-            }
         }
 
         const IMG_BASE = "https://arcillasygredasdecolombia.wordpress.com/wp-content/uploads/2025/12/";
@@ -825,10 +820,10 @@
                 ]
             },
             
-            // ARTE Y ESCULTURA (FUSIONADA CON TÉCNICO)
+            // ARTE Y ESCOLAR (FUSIONADA CON TÉCNICO) - NOMBRE ACTUALIZADO
             arte: {
                 mainHeader: {
-                    title: "Arte y Escultura",
+                    title: "Arte y Escolar",
                     subtitle: "Todo para la creación: desde arcillas y esmaltes hasta materiales técnicos.",
                     img: "arcillas-moldeables-o-plastilinas-en-fila-todos-los-colores.jpg"
                 },
@@ -839,11 +834,11 @@
                         title: "Arcilla Moldeable",
                         thumb: "arcillas-moldeables-o-plastilinas-6-colores-forman-media-luna.jpg",
                         spec: {
-                            description: "Nuestra arcilla cerámica es una materia prima natural, plástica y modelable que, al mezclarse con agua, forma una masa fácil de moldear, de facil secado al aire, sin agrietarse y endurecerse permanentemente al cocerse a altas temperaturas, resultando en cerámica, material rígido, duradero y usado en objetos artísticos, utilitarios y de construcción.",
-                            colors: "Amarillo, Azul, Rojo, Verde, Beige (blanco hueso), Uva.",
+                            description: "Nuestra arcilla cerámica es una materia prima natural, plástica y modelable que, al mezclarse con agua, forma una masa fácil de moldear, de fácil secado al aire, sin agrietarse y endureciéndose permanentemente al hornearse a altas temperaturas, resultando en cerámica, material rígido, duradero y usado en objetos artísticos, utilitarios y de construcción.",
+                            colors: "Amarillo, Azul, Rojo, Verde, Beige(blanco hueso), Uva.",
                             presentation: `
                                 <div class="space-y-4 mt-2">
-                                    <p class="text-sm"><strong>Presentación:</strong> 1kg (Paquete x 10) | 5 lb (Paquete x 20)</p>
+                                    <p class="text-sm"><strong>Presentación:</strong> 1kg (Paquete x 10) <br> 1 lb (Paquete x 20)</p>
                                     
                                     <div>
                                         <p class="font-bold text-brand-clay text-xs uppercase mb-1">Características principales:</p>
@@ -852,6 +847,7 @@
                                             <li><strong>Plasticidad:</strong> Su estructura laminar permite que las partículas se deslicen con agua, facilitando el modelado.</li>
                                             <li><strong>Textura:</strong> Suave y fina al tacto, sin olor.</li>
                                             <li><strong>Proceso:</strong> Amasar antes de usar; se seca sin grietas; se hornea para volverse cerámica.</li>
+                                            <li><strong>Secado:</strong> Seca al aire libre.</li>
                                             <li><strong>Variedades:</strong> Baja temperatura (900-1050°C) y alta temperatura (>1200°C).</li>
                                         </ul>
                                     </div>
@@ -869,12 +865,13 @@
                         title: "Arcilla en Polvo Artística",
                         thumb: "arcilla-polvo-arte-1libra.jpg",
                         spec: {
-                            description: "Nuestra arcilla en polvo para arte y manualidades es un material natural fino, como talco, que se mezcla con agua para obtener una pasta moldeable, ideal para modelar, esculpir y crear figuras; es versátil (seca al aire o se cuece en horno), no tóxica (ideal para niños), y permite desde trabajos escolares hasta piezas de cerámica, ofreciendo buena plasticidad y durabilidad tras su endurecimiento, adecuado para proyectos creativos y didácticos.",
+                            description: "Nuestra arcilla en polvo para arte y manualidades es un material natural fino, como talco, que se mezcla con agua para obtener una pasta moldeable, ideal para modelar, esculpir y crear figuras; es versátil (seca al aire y posteriormente se puede hornear), no tóxica (ideal para niños), y permite desde trabajos escolares hasta piezas de cerámica, ofreciendo buena plasticidad y durabilidad tras su endurecimiento, adecuado para proyectos creativos y didácticos.",
                             colors: "Amarilla, azul, roja, beige, verde y uva.",
                             presentation: "1 libra."
                         },
                         gallery: [
-                            { src: "arcilla-polvo-arte-1libra.jpg", desc: "Bolsa 1 Libra" }
+                            { src: "arcilla-polvo-arte-1libra.jpg", desc: "Bolsa 1 Libra" },
+                            { src: "arcillas-de-colores-montones-regada.jpg", desc: "Textura y Colores" }
                         ]
                     },
                     {
