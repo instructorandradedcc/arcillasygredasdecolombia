@@ -282,39 +282,89 @@
             text-align: center;
         }
 
-        /* Estilo para el Grid del Menú de Categoría */
+        /* Estilo para el Grid del Menú de Categoría - REDISEÑADO PARA ELEGANCIA Y CENTRADO */
         .category-menu-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-            gap: 1.5rem;
-            margin-top: 2rem;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 3rem; /* Espacio amplio entre cartas */
+            margin-top: 3rem;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+            padding-bottom: 3rem;
         }
         .menu-card {
             position: relative;
-            border-radius: 12px;
+            border-radius: 4px; /* Bordes sutiles */
             overflow: hidden;
             cursor: pointer;
-            aspect-ratio: 4/3;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-            transition: all 0.3s ease;
+            width: 100%;
+            max-width: 380px; /* Ancho fijo elegante */
+            height: 550px; /* Formato vertical (Portrait) */
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            transition: all 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+            background-color: #000;
         }
         .menu-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 15px rgba(0,0,0,0.2);
+            transform: translateY(-10px);
+            box-shadow: 0 25px 50px rgba(0,0,0,0.25);
         }
         .menu-card img {
             width: 100%;
             height: 100%;
             object-fit: cover;
+            transition: transform 0.8s ease, opacity 0.5s ease;
+            opacity: 0.85; /* Un poco oscuro para resaltar texto */
+        }
+        .menu-card:hover img {
+            transform: scale(1.05);
+            opacity: 0.6; /* Más oscuro al hover */
         }
         .menu-card-overlay {
             position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
-            padding: 1.5rem;
-            color: white;
+            inset: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center; /* Centrado vertical */
+            align-items: center; /* Centrado horizontal */
+            padding: 2rem;
+            z-index: 10;
+            background: linear-gradient(to top, rgba(0,0,0,0.6), rgba(0,0,0,0.2));
+        }
+        .menu-card h3 {
+            color: #fff;
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem; /* Título grande */
+            font-style: italic;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 1.5rem;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+            transform: translateY(0);
+            transition: transform 0.5s ease;
+        }
+        .menu-card-btn {
+            color: #F9F9F9;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.7rem;
+            font-weight: 600;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            padding: 1rem 2rem;
+            border: 1px solid rgba(255,255,255,0.3);
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(4px);
+            transition: all 0.3s ease;
+            opacity: 0; /* Oculto inicialmente */
+            transform: translateY(20px);
+        }
+        .menu-card:hover .menu-card-btn {
+            opacity: 1;
+            transform: translateY(0);
+            background: #B8860B; /* Dorado al hover */
+            border-color: #B8860B;
+            color: #fff;
         }
 
         .card-info-table {
@@ -1534,15 +1584,16 @@
                 </div>
             `;
 
-            // Render Grid Menu
+            // Render Grid Menu - Updated with new classes for elegance
             html += `<div class="category-menu-grid">`;
             catData.products.forEach((prod, index) => {
                 html += `
                     <div class="menu-card animate-fade-in" onclick="showProductDetail('${category}', ${index})" style="animation-delay: ${index*0.1}s">
                         <img src="${buildImgUrl(prod.thumb)}" alt="${prod.title}" onerror="handleImageError(this)">
                         <div class="menu-card-overlay">
-                            <h3 class="text-xl font-serif font-bold">${prod.title}</h3>
-                            <span class="text-xs uppercase tracking-widest text-brand-gold">Ver Ficha Técnica &rarr;</span>
+                            <h3>${prod.title}</h3>
+                            <div class="w-12 h-px bg-brand-gold mb-6"></div>
+                            <span class="menu-card-btn">Explorar</span>
                         </div>
                     </div>
                 `;
