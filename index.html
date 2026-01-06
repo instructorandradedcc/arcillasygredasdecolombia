@@ -905,16 +905,232 @@
                             colors: "Amarilla, Azul, Blanca, Roja, Verde, Uva.",
                             presentation: "130g."
                         },
-                        // Usamos complexGallery para items tipo 'item-lista' (flor + producto)
-                        complexGallery: [
-                            { title: "Amarilla", skin: "Piel Cansada", benefit: "Luminosidad", img1: "archilla-piel-lista-con-flores-amarillo.png", img2: "arcilla-lista-piel-amarilla.jpg" },
-                            { title: "Azul", skin: "Grasa", benefit: "Relax", img1: "archilla-piel-lista-con-flores-azul.jpg", img2: "arcilla-piel-lista-azul.jpg" },
-                            { title: "Blanca", skin: "Sensible", benefit: "Tensor", img1: "archilla-piel-lista-con-flores-blancas.png", img2: "arcilla-piel-lista-blanca.jpg" },
-                            { title: "Roja", skin: "Madura", benefit: "Vitalidad", img1: "archilla-piel-lista-con-flores-roja.jpg", img2: "arcilla-piel-lista-roja.jpg" },
-                            { title: "Verde", skin: "Mixta", benefit: "Limpieza", img1: "archilla-piel-lista-con-flores-verde.jpg", img2: "arcilla-piel-lista-verde.jpg" },
-                            { title: "Uva", skin: "Joven", benefit: "Antioxidante", img1: "archilla-piel-lista-con-flores-uva-.jpg", img2: "arcilla-piel-lista-uva.jpg" }
-                        ],
-                        showTable: true
+                        // Se actualiza a customHtml para el nuevo diseño elegante
+                        customHtml: `
+                            <div class="mt-12 mb-16 animate-fade-in space-y-16">
+                                
+                                <!-- Sección: Características y Beneficios -->
+                                <div>
+                                    <div class="text-center mb-10">
+                                        <h3 class="font-serif text-3xl text-brand-dark italic mb-2">Características y Beneficios</h3>
+                                        <div class="w-12 h-px bg-brand-gold mx-auto"></div>
+                                    </div>
+                                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-center">
+                                        <div class="p-6 bg-white border border-gray-100 shadow-sm hover:shadow-md transition-shadow rounded-lg">
+                                            <div class="text-brand-clay mb-2"><i data-lucide="sparkles" class="w-6 h-6 mx-auto"></i></div>
+                                            <h4 class="font-serif font-bold text-brand-dark mb-1">Purificación Profunda</h4>
+                                            <p class="text-xs text-gray-500">Actúa como un imán, extrayendo sebo, suciedad y toxinas de los poros.</p>
+                                        </div>
+                                        <div class="p-6 bg-white border border-gray-100 shadow-sm hover:shadow-md transition-shadow rounded-lg">
+                                            <div class="text-brand-clay mb-2"><i data-lucide="shield" class="w-6 h-6 mx-auto"></i></div>
+                                            <h4 class="font-serif font-bold text-brand-dark mb-1">Control de Grasa</h4>
+                                            <p class="text-xs text-gray-500">Ideal para pieles grasas y con tendencia al acné, reduciendo el brillo.</p>
+                                        </div>
+                                        <div class="p-6 bg-white border border-gray-100 shadow-sm hover:shadow-md transition-shadow rounded-lg">
+                                            <div class="text-brand-clay mb-2"><i data-lucide="sprout" class="w-6 h-6 mx-auto"></i></div>
+                                            <h4 class="font-serif font-bold text-brand-dark mb-1">Regeneración Celular</h4>
+                                            <p class="text-xs text-gray-500">Promueve la renovación de la piel y la producción de colágeno y elastina.</p>
+                                        </div>
+                                        <div class="p-6 bg-white border border-gray-100 shadow-sm hover:shadow-md transition-shadow rounded-lg md:col-span-1 md:col-start-1">
+                                            <div class="text-brand-clay mb-2"><i data-lucide="feather" class="w-6 h-6 mx-auto"></i></div>
+                                            <h4 class="font-serif font-bold text-brand-dark mb-1">Calma y Suaviza</h4>
+                                            <p class="text-xs text-gray-500">Deja una sensación de frescura y tersura, aliviando irritaciones.</p>
+                                        </div>
+                                        <div class="p-6 bg-white border border-gray-100 shadow-sm hover:shadow-md transition-shadow rounded-lg md:col-span-2">
+                                            <div class="flex items-center justify-center gap-4 h-full">
+                                                <div class="text-brand-clay"><i data-lucide="gem" class="w-6 h-6"></i></div>
+                                                <div class="text-left">
+                                                    <h4 class="font-serif font-bold text-brand-dark mb-1">Rica en Minerales</h4>
+                                                    <p class="text-xs text-gray-500">Aporta oligoelementos esenciales (hierro, magnesio, zinc) que nutren la piel.</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Sección: Modo de uso general -->
+                                <div>
+                                    <h3 class="font-serif text-2xl text-brand-dark italic mb-8 text-center">Modo de Uso General</h3>
+                                    <div class="grid grid-cols-1 md:grid-cols-4 gap-4 relative">
+                                        <!-- Línea conectora (Desktop) -->
+                                        <div class="hidden md:block absolute top-4 left-0 w-full h-px bg-gray-200 z-0"></div>
+
+                                        <!-- Step 1 -->
+                                        <div class="bg-white p-6 relative z-10 text-center group">
+                                            <div class="w-8 h-8 mx-auto bg-brand-dark text-white rounded-full flex items-center justify-center font-serif font-bold mb-3 group-hover:bg-brand-clay transition-colors">1</div>
+                                            <h5 class="font-bold text-sm text-brand-dark uppercase tracking-widest mb-2">Limpiar la piel</h5>
+                                            <p class="text-xs text-gray-500">Asegúrate de que el rostro esté libre de maquillaje y suciedad.</p>
+                                        </div>
+                                        <!-- Step 2 -->
+                                        <div class="bg-white p-6 relative z-10 text-center group">
+                                            <div class="w-8 h-8 mx-auto bg-brand-dark text-white rounded-full flex items-center justify-center font-serif font-bold mb-3 group-hover:bg-brand-clay transition-colors">2</div>
+                                            <h5 class="font-bold text-sm text-brand-dark uppercase tracking-widest mb-2">Aplicar</h5>
+                                            <p class="text-xs text-gray-500">Extiende una capa uniforme con brocha o dedos.</p>
+                                        </div>
+                                        <!-- Step 3 -->
+                                        <div class="bg-white p-6 relative z-10 text-center group">
+                                            <div class="w-8 h-8 mx-auto bg-brand-dark text-white rounded-full flex items-center justify-center font-serif font-bold mb-3 group-hover:bg-brand-clay transition-colors">3</div>
+                                            <h5 class="font-bold text-sm text-brand-dark uppercase tracking-widest mb-2">Tiempo de acción</h5>
+                                            <p class="text-xs text-gray-500">Deja actuar de 10 a 20 minutos, hasta que se seque ligeramente (no completamente para evitar resecar).</p>
+                                        </div>
+                                        <!-- Step 4 -->
+                                        <div class="bg-white p-6 relative z-10 text-center group">
+                                            <div class="w-8 h-8 mx-auto bg-brand-dark text-white rounded-full flex items-center justify-center font-serif font-bold mb-3 group-hover:bg-brand-clay transition-colors">4</div>
+                                            <h5 class="font-bold text-sm text-brand-dark uppercase tracking-widest mb-2">Retirar</h5>
+                                            <p class="text-xs text-gray-500">Enjuaga con agua tibia y seca suavemente.</p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- SEPARADOR ELEGANTE -->
+                                <div class="w-full h-px bg-gray-200 my-16"></div>
+
+                                <!-- Sección: Tipos de Arcilla (NUEVAS TARJETAS) -->
+                                <div>
+                                    <div class="text-center mb-16">
+                                        <span class="text-brand-clay uppercase tracking-[0.3em] text-xs font-bold block mb-2">Nuestras Variedades</span>
+                                        <h3 class="font-serif text-4xl text-brand-dark italic">Tipos de Arcilla y Usos</h3>
+                                    </div>
+                                    
+                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+                                        
+                                        <!-- Card: Arcilla Blanca -->
+                                        <div class="group bg-white rounded-xl overflow-hidden shadow-lg border border-gray-100 hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2">
+                                            <div class="h-64 flex relative">
+                                                <div class="w-1/2 h-full overflow-hidden">
+                                                    <img src="${buildImgUrl('archilla-piel-lista-con-flores-blancas.png')}" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" onerror="handleImageError(this)">
+                                                </div>
+                                                <div class="w-1/2 h-full overflow-hidden">
+                                                    <img src="${buildImgUrl('arcilla-piel-lista-blanca.jpg')}" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" onerror="handleImageError(this)">
+                                                </div>
+                                                <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6 justify-center">
+                                                    <span class="text-white font-serif text-lg italic">Suavidad y Calma</span>
+                                                </div>
+                                            </div>
+                                            <div class="p-8 text-center relative">
+                                                <h4 class="font-serif text-2xl font-bold text-brand-dark mb-2">Arcilla Blanca (Caolín)</h4>
+                                                <div class="w-8 h-px bg-brand-gold mx-auto mb-4"></div>
+                                                <p class="text-sm text-gray-600 leading-relaxed font-light">
+                                                    Muy suave, para todo tipo de piel, sensible y apagada. Descongestiona y calma.
+                                                </p>
+                                            </div>
+                                        </div>
+
+                                        <!-- Card: Arcilla Verde -->
+                                        <div class="group bg-white rounded-xl overflow-hidden shadow-lg border border-gray-100 hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2">
+                                            <div class="h-64 flex relative">
+                                                <div class="w-1/2 h-full overflow-hidden">
+                                                    <img src="${buildImgUrl('archilla-piel-lista-con-flores-verde.jpg')}" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" onerror="handleImageError(this)">
+                                                </div>
+                                                <div class="w-1/2 h-full overflow-hidden">
+                                                    <img src="${buildImgUrl('arcilla-piel-lista-verde.jpg')}" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" onerror="handleImageError(this)">
+                                                </div>
+                                                <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6 justify-center">
+                                                    <span class="text-white font-serif text-lg italic">Purificación Total</span>
+                                                </div>
+                                            </div>
+                                            <div class="p-8 text-center relative">
+                                                <h4 class="font-serif text-2xl font-bold text-brand-dark mb-2">Arcilla Verde</h4>
+                                                <div class="w-8 h-px bg-brand-gold mx-auto mb-4"></div>
+                                                <p class="text-sm text-gray-600 leading-relaxed font-light">
+                                                    Potente seborreguladora, purificante y anti-acné. Ideal para pieles grasas y con puntos negros.
+                                                </p>
+                                            </div>
+                                        </div>
+
+                                        <!-- Card: Arcilla Roja -->
+                                        <div class="group bg-white rounded-xl overflow-hidden shadow-lg border border-gray-100 hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2">
+                                            <div class="h-64 flex relative">
+                                                <div class="w-1/2 h-full overflow-hidden">
+                                                    <img src="${buildImgUrl('archilla-piel-lista-con-flores-roja.jpg')}" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" onerror="handleImageError(this)">
+                                                </div>
+                                                <div class="w-1/2 h-full overflow-hidden">
+                                                    <img src="${buildImgUrl('arcilla-piel-lista-roja.jpg')}" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" onerror="handleImageError(this)">
+                                                </div>
+                                                <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6 justify-center">
+                                                    <span class="text-white font-serif text-lg italic">Vitalidad</span>
+                                                </div>
+                                            </div>
+                                            <div class="p-8 text-center relative">
+                                                <h4 class="font-serif text-2xl font-bold text-brand-dark mb-2">Arcilla Roja</h4>
+                                                <div class="w-8 h-px bg-brand-gold mx-auto mb-4"></div>
+                                                <p class="text-sm text-gray-600 leading-relaxed font-light">
+                                                    Estimula la circulación, tonifica, y es buena para pieles maduras, cansadas o con celulitis.
+                                                </p>
+                                            </div>
+                                        </div>
+
+                                        <!-- Card: Arcilla Amarilla -->
+                                        <div class="group bg-white rounded-xl overflow-hidden shadow-lg border border-gray-100 hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2">
+                                            <div class="h-64 flex relative">
+                                                <div class="w-1/2 h-full overflow-hidden">
+                                                    <img src="${buildImgUrl('archilla-piel-lista-con-flores-amarillo.png')}" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" onerror="handleImageError(this)">
+                                                </div>
+                                                <div class="w-1/2 h-full overflow-hidden">
+                                                    <img src="${buildImgUrl('arcilla-lista-piel-amarilla.jpg')}" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" onerror="handleImageError(this)">
+                                                </div>
+                                                <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6 justify-center">
+                                                    <span class="text-white font-serif text-lg italic">Luminosidad</span>
+                                                </div>
+                                            </div>
+                                            <div class="p-8 text-center relative">
+                                                <h4 class="font-serif text-2xl font-bold text-brand-dark mb-2">Arcilla Amarilla</h4>
+                                                <div class="w-8 h-px bg-brand-gold mx-auto mb-4"></div>
+                                                <p class="text-sm text-gray-600 leading-relaxed font-light">
+                                                    Revitalizante, mejora la elasticidad y es apta para pieles sensibles.
+                                                </p>
+                                            </div>
+                                        </div>
+
+                                        <!-- Card: Arcilla Uva -->
+                                        <div class="group bg-white rounded-xl overflow-hidden shadow-lg border border-gray-100 hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2">
+                                            <div class="h-64 flex relative">
+                                                <div class="w-1/2 h-full overflow-hidden">
+                                                    <img src="${buildImgUrl('archilla-piel-lista-con-flores-uva-.jpg')}" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" onerror="handleImageError(this)">
+                                                </div>
+                                                <div class="w-1/2 h-full overflow-hidden">
+                                                    <img src="${buildImgUrl('arcilla-piel-lista-uva.jpg')}" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" onerror="handleImageError(this)">
+                                                </div>
+                                                <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6 justify-center">
+                                                    <span class="text-white font-serif text-lg italic">Anti-Edad</span>
+                                                </div>
+                                            </div>
+                                            <div class="p-8 text-center relative">
+                                                <h4 class="font-serif text-2xl font-bold text-brand-dark mb-2">Arcilla Uva</h4>
+                                                <div class="w-8 h-px bg-brand-gold mx-auto mb-4"></div>
+                                                <p class="text-sm text-gray-600 leading-relaxed font-light">
+                                                    Regenera la elastina, antioxidante, exfolia e ilumina.
+                                                </p>
+                                            </div>
+                                        </div>
+
+                                        <!-- Card: Arcilla Azul -->
+                                        <div class="group bg-white rounded-xl overflow-hidden shadow-lg border border-gray-100 hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2">
+                                            <div class="h-64 flex relative">
+                                                <div class="w-1/2 h-full overflow-hidden">
+                                                    <img src="${buildImgUrl('archilla-piel-lista-con-flores-azul.jpg')}" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" onerror="handleImageError(this)">
+                                                </div>
+                                                <div class="w-1/2 h-full overflow-hidden">
+                                                    <img src="${buildImgUrl('arcilla-piel-lista-azul.jpg')}" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" onerror="handleImageError(this)">
+                                                </div>
+                                                <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6 justify-center">
+                                                    <span class="text-white font-serif text-lg italic">Equilibrio</span>
+                                                </div>
+                                            </div>
+                                            <div class="p-8 text-center relative">
+                                                <h4 class="font-serif text-2xl font-bold text-brand-dark mb-2">Arcilla Azul</h4>
+                                                <div class="w-8 h-px bg-brand-gold mx-auto mb-4"></div>
+                                                <p class="text-sm text-gray-600 leading-relaxed font-light">
+                                                    Reduce la seborrea.
+                                                </p>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                            </div>
+                        `
                     },
                     {
                         id: "polvo",
