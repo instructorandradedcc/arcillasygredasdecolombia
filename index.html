@@ -876,19 +876,8 @@
                                     <strong class="text-brand-clay font-serif text-lg">Pureza Mineral.</strong> 
                                     Nuestra arcilla en polvo natural para belleza y salud es un mineral 100% puro, libre de impurezas y extraído responsablemente de la tierra. Se presenta como un polvo fino y sedoso, diseñado para los rituales de cuidado más exigentes.
                                 </p>
-                                
-                                <div class="bg-brand-light p-4 rounded-lg border border-brand-sage/20 mb-4">
-                                    <p class="font-serif text-brand-dark italic mb-3">Versatilidad y Beneficios:</p>
-                                    <ul class="list-disc pl-4 space-y-2 text-sm text-gray-600">
-                                        <li><strong>Cosmética Natural:</strong> Ideal para mascarillas faciales, corporales y tratamientos capilares detox.</li>
-                                        <li><strong>Materia Prima Premium:</strong> Base perfecta para formular rubores, jabones artesanales, cremas y shampoos.</li>
-                                        <li><strong>Salud y Bienestar:</strong> Efectiva en cataplasmas para aliviar dolores musculares y golpes.</li>
-                                        <li><strong>Grado Alimenticio:</strong> Gracias a su alta pureza, es apta para consumo (según indicaciones profesionales).</li>
-                                    </ul>
-                                </div>
-                                
-                                <p class="text-xs text-gray-400 italic mt-2">
-                                    Descubre las propiedades específicas de cada color en nuestra guía o Instagram.
+                                <p class="text-sm text-gray-600 italic">
+                                    Materia prima versátil para mascarillas, cataplasmas y formulaciones cosméticas de alta gama.
                                 </p>
                             `,
                             colors: "Amarilla, Azul, Blanca, Roja, Verde, Uva.",
@@ -902,7 +891,232 @@
                             { src: "arcilla-piel-frascos-3-prestaciones-verde.jpg", desc: "Verde" },
                             { src: "arcilla-piel-frascos-3-prestaciones-uva.jpg", desc: "Uva" }
                         ],
-                        showTable: true
+                        // Eliminamos showTable: true y agregamos customHtml
+                        customHtml: `
+                            <div class="mt-12 mb-16 animate-fade-in space-y-16">
+                                
+                                <!-- Sección: Beneficios Clave -->
+                                <div>
+                                    <div class="text-center mb-10">
+                                        <h3 class="font-serif text-3xl text-brand-dark italic mb-2">Beneficios Clave</h3>
+                                        <div class="w-12 h-px bg-brand-gold mx-auto"></div>
+                                    </div>
+                                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-center">
+                                        <div class="p-6 bg-white border border-gray-100 shadow-sm hover:shadow-md transition-shadow rounded-lg">
+                                            <div class="text-brand-clay mb-2"><i data-lucide="sparkles" class="w-6 h-6 mx-auto"></i></div>
+                                            <h4 class="font-serif font-bold text-brand-dark mb-1">Purificación y Detox</h4>
+                                            <p class="text-xs text-gray-500">Absorbe toxinas, grasa y células muertas.</p>
+                                        </div>
+                                        <div class="p-6 bg-white border border-gray-100 shadow-sm hover:shadow-md transition-shadow rounded-lg">
+                                            <div class="text-brand-clay mb-2"><i data-lucide="droplet" class="w-6 h-6 mx-auto"></i></div>
+                                            <h4 class="font-serif font-bold text-brand-dark mb-1">Seborreguladora</h4>
+                                            <p class="text-xs text-gray-500">Ideal para controlar el brillo y el acné.</p>
+                                        </div>
+                                        <div class="p-6 bg-white border border-gray-100 shadow-sm hover:shadow-md transition-shadow rounded-lg">
+                                            <div class="text-brand-clay mb-2"><i data-lucide="feather" class="w-6 h-6 mx-auto"></i></div>
+                                            <h4 class="font-serif font-bold text-brand-dark mb-1">Calmante</h4>
+                                            <p class="text-xs text-gray-500">Reduce irritaciones y rojeces de la piel.</p>
+                                        </div>
+                                        <div class="p-6 bg-white border border-gray-100 shadow-sm hover:shadow-md transition-shadow rounded-lg md:col-span-1 md:col-start-1">
+                                            <div class="text-brand-clay mb-2"><i data-lucide="sun" class="w-6 h-6 mx-auto"></i></div>
+                                            <h4 class="font-serif font-bold text-brand-dark mb-1">Revitalizante</h4>
+                                            <p class="text-xs text-gray-500">Aporta luminosidad, silicio, zinc y calcio.</p>
+                                        </div>
+                                        <div class="p-6 bg-white border border-gray-100 shadow-sm hover:shadow-md transition-shadow rounded-lg md:col-span-2">
+                                            <div class="flex items-center justify-center gap-4 h-full">
+                                                <div class="text-brand-clay"><i data-lucide="refresh-cw" class="w-6 h-6"></i></div>
+                                                <div class="text-left">
+                                                    <h4 class="font-serif font-bold text-brand-dark mb-1">Exfoliante Suave</h4>
+                                                    <p class="text-xs text-gray-500">Renueva la piel delicadamente sin dañarla.</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Sección: Colección de Tierras (Tipos) -->
+                                <div class="bg-brand-light/30 p-8 rounded-2xl border border-gray-100">
+                                    <h3 class="font-serif text-2xl text-brand-dark italic mb-8 border-l-4 border-brand-clay pl-4">Nuestra Colección de Tierras</h3>
+                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-8">
+                                        <!-- Item -->
+                                        <div class="flex gap-4 group">
+                                            <div class="w-2 h-2 mt-2 rounded-full bg-gray-200 group-hover:bg-brand-gold transition-colors flex-shrink-0"></div>
+                                            <div>
+                                                <h5 class="font-bold text-brand-dark text-sm uppercase tracking-wider group-hover:text-brand-clay transition-colors">Arcilla Blanca (Caolín)</h5>
+                                                <p class="text-xs text-gray-600 mt-1 leading-relaxed">Muy suave, para todo tipo de piel, sensible y apagada. Descongestiona y calma.</p>
+                                            </div>
+                                        </div>
+                                        <!-- Item -->
+                                        <div class="flex gap-4 group">
+                                            <div class="w-2 h-2 mt-2 rounded-full bg-green-700/50 group-hover:bg-brand-gold transition-colors flex-shrink-0"></div>
+                                            <div>
+                                                <h5 class="font-bold text-brand-dark text-sm uppercase tracking-wider group-hover:text-brand-clay transition-colors">Arcilla Verde</h5>
+                                                <p class="text-xs text-gray-600 mt-1 leading-relaxed">Potente seborreguladora, purificante y anti-acné. Ideal para pieles grasas y puntos negros.</p>
+                                            </div>
+                                        </div>
+                                        <!-- Item -->
+                                        <div class="flex gap-4 group">
+                                            <div class="w-2 h-2 mt-2 rounded-full bg-red-700/50 group-hover:bg-brand-gold transition-colors flex-shrink-0"></div>
+                                            <div>
+                                                <h5 class="font-bold text-brand-dark text-sm uppercase tracking-wider group-hover:text-brand-clay transition-colors">Arcilla Roja</h5>
+                                                <p class="text-xs text-gray-600 mt-1 leading-relaxed">Estimula la circulación, tonifica. Perfecta para pieles maduras, cansadas o con celulitis.</p>
+                                            </div>
+                                        </div>
+                                        <!-- Item -->
+                                        <div class="flex gap-4 group">
+                                            <div class="w-2 h-2 mt-2 rounded-full bg-yellow-500/50 group-hover:bg-brand-gold transition-colors flex-shrink-0"></div>
+                                            <div>
+                                                <h5 class="font-bold text-brand-dark text-sm uppercase tracking-wider group-hover:text-brand-clay transition-colors">Arcilla Amarilla</h5>
+                                                <p class="text-xs text-gray-600 mt-1 leading-relaxed">Revitalizante, mejora la elasticidad y es apta para pieles sensibles.</p>
+                                            </div>
+                                        </div>
+                                        <!-- Item -->
+                                        <div class="flex gap-4 group">
+                                            <div class="w-2 h-2 mt-2 rounded-full bg-purple-700/50 group-hover:bg-brand-gold transition-colors flex-shrink-0"></div>
+                                            <div>
+                                                <h5 class="font-bold text-brand-dark text-sm uppercase tracking-wider group-hover:text-brand-clay transition-colors">Arcilla Uva</h5>
+                                                <p class="text-xs text-gray-600 mt-1 leading-relaxed">Regenera elastina, antioxidante potente, exfolia e ilumina el rostro.</p>
+                                            </div>
+                                        </div>
+                                        <!-- Item -->
+                                        <div class="flex gap-4 group">
+                                            <div class="w-2 h-2 mt-2 rounded-full bg-blue-700/50 group-hover:bg-brand-gold transition-colors flex-shrink-0"></div>
+                                            <div>
+                                                <h5 class="font-bold text-brand-dark text-sm uppercase tracking-wider group-hover:text-brand-clay transition-colors">Arcilla Azul</h5>
+                                                <p class="text-xs text-gray-600 mt-1 leading-relaxed">Específica para reducir la seborrea y controlar el exceso de grasa.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Sección: Ritual de Uso -->
+                                <div>
+                                    <h3 class="font-serif text-2xl text-brand-dark italic mb-8 text-center">Ritual de Uso</h3>
+                                    <div class="grid grid-cols-1 md:grid-cols-4 gap-4 relative">
+                                        <!-- Línea conectora (Desktop) -->
+                                        <div class="hidden md:block absolute top-4 left-0 w-full h-px bg-gray-200 z-0"></div>
+
+                                        <!-- Step 1 -->
+                                        <div class="bg-white p-6 relative z-10 text-center group">
+                                            <div class="w-8 h-8 mx-auto bg-brand-dark text-white rounded-full flex items-center justify-center font-serif font-bold mb-3 group-hover:bg-brand-clay transition-colors">1</div>
+                                            <h5 class="font-bold text-sm text-brand-dark uppercase tracking-widest mb-2">Mezcla</h5>
+                                            <p class="text-xs text-gray-500">Combina la arcilla con agua mineral (no del grifo) hasta lograr una pasta homogénea.</p>
+                                        </div>
+                                        <!-- Step 2 -->
+                                        <div class="bg-white p-6 relative z-10 text-center group">
+                                            <div class="w-8 h-8 mx-auto bg-brand-dark text-white rounded-full flex items-center justify-center font-serif font-bold mb-3 group-hover:bg-brand-clay transition-colors">2</div>
+                                            <h5 class="font-bold text-sm text-brand-dark uppercase tracking-widest mb-2">Aplicación</h5>
+                                            <p class="text-xs text-gray-500">Extiende suavemente la pasta sobre la piel limpia del rostro o cuerpo.</p>
+                                        </div>
+                                        <!-- Step 3 -->
+                                        <div class="bg-white p-6 relative z-10 text-center group">
+                                            <div class="w-8 h-8 mx-auto bg-brand-dark text-white rounded-full flex items-center justify-center font-serif font-bold mb-3 group-hover:bg-brand-clay transition-colors">3</div>
+                                            <h5 class="font-bold text-sm text-brand-dark uppercase tracking-widest mb-2">Espera</h5>
+                                            <p class="text-xs text-gray-500">Deja actuar unos minutos. En pieles secas, retira antes de que seque por completo.</p>
+                                        </div>
+                                        <!-- Step 4 -->
+                                        <div class="bg-white p-6 relative z-10 text-center group">
+                                            <div class="w-8 h-8 mx-auto bg-brand-dark text-white rounded-full flex items-center justify-center font-serif font-bold mb-3 group-hover:bg-brand-clay transition-colors">4</div>
+                                            <h5 class="font-bold text-sm text-brand-dark uppercase tracking-widest mb-2">Retira</h5>
+                                            <p class="text-xs text-gray-500">Enjuaga delicadamente con abundante agua fresca.</p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Consejos -->
+                                <div class="bg-brand-dark text-white p-6 rounded-lg shadow-lg text-center">
+                                    <p class="font-serif italic text-lg mb-2 text-brand-gold">Consejo de Experto</p>
+                                    <p class="text-sm font-light text-gray-200">
+                                        Para una experiencia de spa superior, enriquece tu mezcla con unas gotas de aceites esenciales naturales para potenciar sus efectos terapéuticos.
+                                    </p>
+                                </div>
+                                
+                                <!-- SEPARADOR ELEGANTE -->
+                                <div class="w-full h-px bg-gray-200 my-16"></div>
+
+                                <!-- SECCIÓN: SALUD -->
+                                <div>
+                                    <div class="text-center mb-10">
+                                        <h3 class="font-serif text-3xl text-brand-dark italic mb-2">Salud y Bienestar</h3>
+                                        <div class="w-12 h-px bg-brand-gold mx-auto mb-4"></div>
+                                        <p class="text-gray-500 text-sm max-w-xl mx-auto">El poder terapéutico de la tierra al servicio de tu cuerpo.</p>
+                                    </div>
+
+                                    <!-- Propiedades Clave Grid -->
+                                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 text-center mb-12">
+                                        <div class="p-6 bg-white border border-gray-100 shadow-sm hover:shadow-md transition-shadow rounded-lg group">
+                                            <div class="text-brand-clay mb-3 group-hover:scale-110 transition-transform"><i data-lucide="shield" class="w-8 h-8 mx-auto"></i></div>
+                                            <h4 class="font-serif font-bold text-brand-dark mb-2">Absorbente</h4>
+                                            <p class="text-xs text-gray-500 leading-relaxed">Elimina eficazmente toxinas e impurezas del organismo.</p>
+                                        </div>
+                                        <div class="p-6 bg-white border border-gray-100 shadow-sm hover:shadow-md transition-shadow rounded-lg group">
+                                            <div class="text-brand-clay mb-3 group-hover:scale-110 transition-transform"><i data-lucide="heart-pulse" class="w-8 h-8 mx-auto"></i></div>
+                                            <h4 class="font-serif font-bold text-brand-dark mb-2">Antiinflamatoria</h4>
+                                            <p class="text-xs text-gray-500 leading-relaxed">Calma procesos inflamatorios y alivia el dolor local (Analgésica).</p>
+                                        </div>
+                                        <div class="p-6 bg-white border border-gray-100 shadow-sm hover:shadow-md transition-shadow rounded-lg group">
+                                            <div class="text-brand-clay mb-3 group-hover:scale-110 transition-transform"><i data-lucide="sprout" class="w-8 h-8 mx-auto"></i></div>
+                                            <h4 class="font-serif font-bold text-brand-dark mb-2">Regeneradora</h4>
+                                            <p class="text-xs text-gray-500 leading-relaxed">Promueve la cicatrización natural y la renovación celular.</p>
+                                        </div>
+                                        <div class="p-6 bg-white border border-gray-100 shadow-sm hover:shadow-md transition-shadow rounded-lg group">
+                                            <div class="text-brand-clay mb-3 group-hover:scale-110 transition-transform"><i data-lucide="gem" class="w-8 h-8 mx-auto"></i></div>
+                                            <h4 class="font-serif font-bold text-brand-dark mb-2">Remineralizante</h4>
+                                            <p class="text-xs text-gray-500 leading-relaxed">Aporta oligoelementos esenciales para el equilibrio corporal.</p>
+                                        </div>
+                                    </div>
+
+                                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                                        <!-- Preparación Cataplasmas -->
+                                        <div class="bg-brand-light/40 p-8 rounded-2xl border border-brand-sage/20 relative overflow-hidden">
+                                            <div class="absolute top-0 right-0 p-4 opacity-5"><i data-lucide="layers" class="w-24 h-24 text-brand-dark"></i></div>
+                                            <h3 class="font-serif text-xl text-brand-dark font-bold mb-4 flex items-center gap-2">
+                                                <i data-lucide="flask-conical" class="w-5 h-5 text-brand-clay"></i> Preparación de Cataplasmas
+                                            </h3>
+                                            <p class="text-sm text-gray-600 leading-relaxed text-justify">
+                                                Para preparar una cataplasma terapéutica, mezcla <strong class="text-brand-clay">Arcilla Roja</strong> (ideal para golpes) o <strong class="text-brand-clay">Verde</strong> (antiinflamatoria) con agua hasta obtener una pasta suave y consistente.
+                                            </p>
+                                            <ul class="mt-4 space-y-3 text-sm text-gray-600">
+                                                <li class="flex items-start gap-3">
+                                                    <span class="w-5 h-5 rounded-full bg-brand-clay text-white flex items-center justify-center text-xs font-bold flex-shrink-0">1</span>
+                                                    <span>Aplica una capa de aproximadamente <strong>0.5 cm</strong> sobre la zona afectada.</span>
+                                                </li>
+                                                <li class="flex items-start gap-3">
+                                                    <span class="w-5 h-5 rounded-full bg-brand-clay text-white flex items-center justify-center text-xs font-bold flex-shrink-0">2</span>
+                                                    <span>Cubre con gasa o vinipel para mantener la humedad y potenciar la absorción.</span>
+                                                </li>
+                                                <li class="flex items-start gap-3">
+                                                    <span class="w-5 h-5 rounded-full bg-brand-clay text-white flex items-center justify-center text-xs font-bold flex-shrink-0">3</span>
+                                                    <span>Deja actuar hasta que se seque y retira suavemente con agua tibia.</span>
+                                                </li>
+                                            </ul>
+                                        </div>
+
+                                        <!-- Consideraciones Importantes -->
+                                        <div class="bg-red-50/50 p-8 rounded-2xl border border-red-100 flex flex-col justify-center">
+                                            <h3 class="font-serif text-xl text-red-800 font-bold mb-4 flex items-center gap-2">
+                                                <i data-lucide="alert-triangle" class="w-5 h-5 text-red-600"></i> Consideraciones Importantes
+                                            </h3>
+                                            <div class="space-y-4">
+                                                <div class="bg-white p-4 rounded-lg border-l-4 border-red-400 shadow-sm">
+                                                    <h5 class="font-bold text-gray-800 text-xs uppercase tracking-wider mb-1">Uso Interno</h5>
+                                                    <p class="text-sm text-gray-600">
+                                                        La ingesta debe ser siempre <strong>consultada con un profesional</strong> de la salud.
+                                                    </p>
+                                                </div>
+                                                <div class="bg-white p-4 rounded-lg border-l-4 border-red-400 shadow-sm">
+                                                    <h5 class="font-bold text-gray-800 text-xs uppercase tracking-wider mb-1">Contraindicaciones</h5>
+                                                    <p class="text-sm text-gray-600">
+                                                        No se recomienda su uso interno para personas con estreñimiento crónico, obstrucciones o hernias intestinales.
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        `
                     }
                 ]
             },
@@ -1297,7 +1511,9 @@
             let extrasHtml = '';
 
             // Tabla de Beneficios (Para Belleza)
-            if(product.showTable) {
+            if(product.customHtml) {
+                extrasHtml += product.customHtml;
+            } else if(product.showTable) {
                 extrasHtml += `
                     <div class="mt-8 mb-12 animate-fade-in">
                         <h3 class="text-xl font-serif text-brand-dark mb-4">Tabla de Beneficios</h3>
