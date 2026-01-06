@@ -1946,7 +1946,7 @@
             // Galería Simple - AÑADIDO MARCO DE GALERÍA (gallery-gold-frame)
             if(product.gallery && product.gallery.length > 0) {
                 const images = product.gallery.map(img => `
-                    <div class="gallery-gold-frame group relative aspect-square rounded-lg shadow-sm hover:shadow-md transition-shadow cursor-pointer">
+                    <div class="gallery-gold-frame group relative w-[45%] md:w-[22%] aspect-square rounded-lg shadow-sm hover:shadow-md transition-shadow cursor-pointer">
                         <div class="w-full h-full overflow-hidden relative">
                             <img src="${buildImgUrl(img.src)}" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" onerror="handleImageError(this)">
                             ${img.desc ? `
@@ -1960,7 +1960,7 @@
                 extrasHtml += `
                     <div class="mt-12 animate-fade-in">
                         <h3 class="text-center font-serif text-2xl text-brand-dark mb-8">Galería</h3>
-                        <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+                        <div class="flex flex-wrap justify-center gap-4 md:gap-6">
                             ${images}
                         </div>
                     </div>
@@ -2076,3 +2076,4 @@
     </script>
 </body>
 </html>
+
